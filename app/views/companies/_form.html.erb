@@ -1,5 +1,4 @@
 <%= form_for(@company, html: { class: 'form-signin' }) do |f| %>
-  <h2 class="form-signin-heading">Company Registration</h2>
   <%= f.text_field :name, class: 'form-control mt-neg1 border_bottom', :placeholder => "Name" %>
   <%= f.text_field :subdomain, class: 'form-control border_top', :placeholder => "Subdomain" %><br/>
   <%= f.submit 'Register', :class => 'btn btn-lg btn-primary btn-block' %>

@@ -10,31 +10,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
  */
-.intro-header{
-  background: url("intro-bg.jpg");
-  color: #f8f8f8;
-  padding-bottom: 50px;
-  /*padding-top: 50px;*/
-  text-align: center;
-}
-.intro-message {
-  padding-bottom: 20%;
-  padding-top: 20%;
-  position: relative;
-}
-.intro-divider {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  border-top: 1px solid #f8f8f8;
-  width: 400px;
-}
-footer {
+.footer {
   padding: 20px 0px;  
 }
 .fixed-body {
-  height: 750px;
+  height: 690px;
 }
 .bg-color{
   background-color: #eee;

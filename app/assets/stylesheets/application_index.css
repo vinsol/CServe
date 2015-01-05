@@ -1,0 +1,13 @@
+.intro-header{
+  background: url("intro-bg.jpg");
+  color: #f8f8f8;
+  padding-bottom: 50px;
+  text-align: center;
+}
+.intro-message {
+  padding-bottom: 20%;
+  padding-top: 20%;
+}
+.intro-divider {
+  width: 360px;
+}
