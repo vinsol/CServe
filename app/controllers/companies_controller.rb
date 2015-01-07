@@ -1,4 +1,7 @@
 class CompaniesController < ApplicationController
+
+  before_action :redirect_to_dashboard, :if => :admin_signed_in?, :only => :new
+
   def new
     @company = Company.new
   end
@@ -6,7 +9,8 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
     if @company.save
-      redirect_to root_url, notice: 'You have been successfully registered.'
+      session[:company_id] = @company.id
+      redirect_to new_admin_registration_path, notice: 'You have been successfully registered.'
     else
       flash.now[:alert] = @company.errors.full_messages.to_a.to_sentence
       render :new
@@ -16,6 +20,10 @@ class CompaniesController < ApplicationController
   private
   def company_params
     params[:company].permit(:name, :subdomain)
+  end
+
+  def redirect_to_dashboard
+    redirect_to admins_path, alert: 'Already registered'
   end
 
 end

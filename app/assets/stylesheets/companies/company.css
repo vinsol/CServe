@@ -4,6 +4,7 @@
 .form {
   margin: 0 auto;
   max-width: 330px;
+  padding-top: 70px;
 }
 .form-control{
   height: 45px;
@@ -26,18 +27,6 @@
 }
 .alert {
   margin: 0 auto;
-  width: 370px;
-}
-.pt-70{
-  padding-top: 70px;
-}
-.checkbox{
-  font-size: 17px;
-  font-weight: normal;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  display: inline-block;
-}
-.mt-5{
-  margin-top: 5px;
+  width: 400px;
+  text-align: center;
 }

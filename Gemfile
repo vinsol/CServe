@@ -46,3 +46,8 @@ group :production do
   gem 'rails_12factor'
   gem 'thin'
 end
+
+#Use devise
+gem 'devise'
+
+gem 'byebug', group: [:development, :test]
