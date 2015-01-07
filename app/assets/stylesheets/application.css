@@ -17,10 +17,12 @@
 }
 .fixed-body {
   height: 690px;
-}
-.bg-color{
   background-color: #eee;
 }
 .navbar {
   margin-bottom: 0px;
+}
+.heading {
+  margin: 0 auto;
+  width: 450px;
 }

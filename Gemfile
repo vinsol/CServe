@@ -41,3 +41,8 @@ gem 'spring',        group: :development
 
 # Use bootstrap
 gem 'twitter-bootstrap-rails'
+
+#Use devise
+gem 'devise'
+
+gem 'byebug', group: [:development, :test]

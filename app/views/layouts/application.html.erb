@@ -60,9 +60,11 @@
         </div>
       </div>
     </nav>
-    <div class='fixed-body bg-color'>
-      <%= bootstrap_flash %>
-      <%= yield %>
+    <div class='fixed-body'>
+      <div class='container col-md-12'>
+        <%= bootstrap_flash %>
+        <%= yield %>
+      </div>
     </div>
     <footer class='footer'>
       <div class="container">
