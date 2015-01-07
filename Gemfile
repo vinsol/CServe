@@ -43,7 +43,6 @@ gem 'spring',        group: :development
 gem 'twitter-bootstrap-rails'
 
 group :production do
-  gem 'rails_12factor'
   gem 'thin'
 end
 
