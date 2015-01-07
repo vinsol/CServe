@@ -42,4 +42,7 @@ gem 'spring',        group: :development
 # Use bootstrap
 gem 'twitter-bootstrap-rails'
 
-gem 'thin', group: :production
+group :production do
+  gem 'rails_12factor'
+  gem 'thin'
+end
