@@ -78,7 +78,7 @@ Rails.application.configure do
 
   config.secret_key_base = ENV["SECRET_KEY_BASE"]
 
-  config.action_mailer.default_url_options = { host: 'CServe.com' }
+  config.action_mailer.default_url_options = { host: 'c-serve.herokuapp.com' }
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
