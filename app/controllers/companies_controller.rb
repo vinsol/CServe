@@ -12,7 +12,7 @@ class CompaniesController < ApplicationController
       session[:company_id] = @company.id
       redirect_to new_admin_registration_path, notice: 'You have been successfully registered.'
     else
-      flash.now[:alert] = @company.errors.full_messages.to_a.to_sentence
+      flash.now[:alert] = @company.errors.full_messages.to_sentence
       render :new
     end
   end
