@@ -77,4 +77,15 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.secret_key_base = ENV["SECRET_KEY_BASE"]
+
+  config.action_mailer.default_url_options = { host: 'CServe.com' }
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "gmail.com",
+    authentication: "plain",
+    user_name: ENV["gmail_user_name"],
+    password: ENV["gmail_password"],
+    enable_starttls_auto: true
+  }
 end
