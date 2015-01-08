@@ -3,13 +3,7 @@
 <% end %>
 <div class='form'>
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'form-signin' }) do |f| %>
-
-    <% if resource.errors.any? %>
-      <div class='alert fade in alert-danger'>
-        <button class="close" data-dismiss="alert">×</button>
-        <%= resource.errors.full_messages.join(' and ') %>
-      </div>
-    <% end %>
+    <%= render partial: "error_alert", locals: { resource: resource } %>
     <div class='pt-70'
       <h2>Resend confirmation instructions</h2>
       <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Email" %><br/>
