@@ -6,6 +6,6 @@ class Admin < ActiveRecord::Base
   belongs_to :company
 
   def subdomain
-    Company.where(id: self.company_id).first.subdomain
+    company.subdomain
   end
 end
