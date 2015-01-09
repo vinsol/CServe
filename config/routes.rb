@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
   devise_for :admins, :controllers => {
-    :registrations => 'admins/registrations'
+    :registrations => 'admins/registrations',
+    :sessions => 'admins/sessions'
   }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
   resources :companies, only: [:new, :create]
-  root 'application#index'
   resources :admins, only: [:index]
+  devise_scope :admin do
+    match '/admins/sign_in' => 'admins/sessions#new', :constraints => { :subdomain => /.+/ }, via: :all
+  end
+  root 'application#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
