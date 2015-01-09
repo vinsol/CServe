@@ -3,7 +3,8 @@ module SubdomainHelper
   def with_subdomain(subdomain)
     subdomain = (subdomain || "")
     subdomain += "." unless subdomain.empty?
-    host = Rails.application.config.action_mailer.default_url_options[:host][subdomain, host].join
+    host = Rails.application.config.action_mailer.default_url_options[:host]
+    [subdomain, host].join
   end
   
   def url_for(options = nil)
