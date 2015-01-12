@@ -88,4 +88,5 @@ Rails.application.configure do
     password: ENV["gmail_password"],
     enable_starttls_auto: true
   }
+  config.action_dispatch.tld_length = 2
 end
