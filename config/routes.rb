@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :admins, :controllers => {
     :registrations => 'admins/registrations',
-    :sessions => 'admins/sessions'
+    :sessions => 'admins/sessions',
+    :passwords => 'admins/passwords'
   }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -9,6 +10,9 @@ Rails.application.routes.draw do
   resources :admins, only: [:index]
   devise_scope :admin do
     match '/' => 'admins/sessions#new', :constraints => { :subdomain => /.+/ }, via: :all
+    get "/sign_in", to: "admins/sessions#new"
+    get "/sign_up", to: "admins/registrations#new"
+    delete '/sign_out', to: 'admins/sessions#destroy'
   end
   root 'application#index'
   # Example of regular route:

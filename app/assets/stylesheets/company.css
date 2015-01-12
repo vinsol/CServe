@@ -3,7 +3,10 @@
 }
 .form {
   margin: 150px auto;
-  max-width: 330px;
+  max-width: 350px;
+}
+.sign-up-form {
+  max-width: 500px;
 }
 .form-control{
   height: 45px;
@@ -33,4 +36,11 @@
 }
 .password-container {
   position: relative;
+}
+.form-horizontal .control-label {
+  text-align: left;
+}
+label {
+  font-weight: normal;
+  font-size: 17px; 
 }

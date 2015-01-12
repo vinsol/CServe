@@ -26,7 +26,7 @@
                     <p>Welcome <%= @resource.name %>(<%= @resource.company.name %>)</p>
                     <p>You can confirm your account email through the link below:</p>
                     <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token, host: host_with(@resource.subdomain)) %></p>
-                    <p>Link for further refrence: <%= new_admin_session_url(host: host_with(@resource.subdomain)) %> </p><br />
+                    <p>Link for further refrence: <%= sign_in_url(host: host_with(@resource.subdomain)) %> </p><br />
                     <div><p>Regards
                     <p>CServe</p></div>
                   </td>
