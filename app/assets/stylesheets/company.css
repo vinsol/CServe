@@ -2,42 +2,35 @@
   background-color: #eee;
 }
 .form {
-  margin: 0 auto;
+  margin: 150px auto;
   max-width: 330px;
 }
 .form-control{
   height: 45px;
   font-size: 16px;
 }
-.form .form-control:focus {
-  position: relative;
-  z-index: 2;
-}
-.mt-neg1{
-  margin-bottom: -1px;
-}
-.border_bottom{
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.border_top{
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-}
 .alert {
   margin: 0 auto;
-  width: 370px;
+  text-align: center;
 }
-.pt-70{
-  padding-top: 70px;
-}
-.checkbox{
+.checkbox {
   font-size: 17px;
   font-weight: normal;
   margin-top: 15px;
   margin-bottom: 5px;
   display: inline-block;
 }
-.mt-5{
+.mt-5 {
   margin-top: 5px;
+}
+.instructions {
+  position: absolute;
+  width: 100px;
+  top: 0;
+  left: 100%;
+  margin-left: 20px;
+  font-size: 0.95em;
+}
+.password-container {
+  position: relative;
 }

@@ -1,0 +1,21 @@
+<% content_for :stylesheet do %>
+  <%= stylesheet_link_tag 'application_index', 'data-turbolinks-track' => true %>
+<% end %>
+<div class="intro-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="intro-message">
+          <h1>CServe</h1>
+          <h4>Building Better Customer Relationships</h3>
+          <hr class="intro-divider">
+          <ul class="list-inline intro-social-buttons">
+            <li>
+              <%= link_to "Get Registered", new_company_path, class: 'btn btn-lg btn-success btn-block'%>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

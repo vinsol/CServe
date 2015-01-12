@@ -4,8 +4,11 @@ class Admins::SessionsController < Devise::SessionsController
   protected
 
   def check_subdomain?
-    if request.subdomain.blank? || Company.find_by(subdomain: request.subdomain).nil?
-      redirect_to new_company_path, alert: 'Get Registered First'
+    subdomain = request.subdomain
+    if subdomain == 'www'
+      redirect_to root_url
+    elsif subdomain.blank? || Company.find_by(subdomain: subdomain).nil?
+      redirect_to new_admin_registration_url(host: Rails.application.config.action_mailer.default_url_options[:host]), alert: 'Get Registered First'
     end
   end
 

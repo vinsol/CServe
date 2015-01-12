@@ -12,20 +12,4 @@
  *= require twitter-bootstrap-static/bootstrap
  *= require_self
  */
-.footer {
-  padding: 20px 0px;  
-}
-.fixed-body {
-  height: 690px;
-  background-color: #eee;
-}
-.navbar {
-  margin-bottom: 0px;
-}
-.heading {
-  margin: 0 auto;
-  width: 450px;
-}
-.alert{
-  margin-bottom: 0px;
-}
+

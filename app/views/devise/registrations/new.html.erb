@@ -1,20 +1,27 @@
 <% content_for :stylesheet do %>
   <%= stylesheet_link_tag 'company', 'data-turbolinks-track' => true %>
 <% end %>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-signin form' }) do |f| %>
-  <%= render partial: "error_alert", locals: { resource: resource } %>
-  <h2>Sign up</h2>
-    <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Email"  %><br />
-
-    <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: "Password (8 chars min)"  %><br />
-
-    <%= f.password_field :password_confirmation, autocomplete: "off",class: 'form-control ', placeholder: "Password confirmation"  %>
-
-  <div style="display:none">
-    <%= f.hidden_field :role, value: 'super_admin' %>
-    <%= f.hidden_field :company_id, value: session[:company_id] %>
-  </div><br />
+<div class='container'>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-signin form' }) do |f| %>
+      <h2>Company Sign up</h2><br />
+      <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Admin Email"  %><br />
+      <%= f.text_field :name, class: 'form-control', :placeholder => "Admin Name" %><br />
+      
+      <div class='password-container'>
+        <%= f.password_field :password, autocomplete: "off",class: 'form-control ', placeholder: "Password"  %>
+          <div class='instructions'>
+            <span>Password minimum 8 characters: Letters, numbers or symbols</span>
+          </div>
+      </div><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: "Password  confirmation"  %>
+    <div style="display:none">
+      <%= f.hidden_field :role, value: 'super_admin' %>
+    </div><br />
+    <%= f.fields_for @company do |company_form| %>
+      <%= company_form.text_field :name, class: 'form-control', :placeholder => "Company Name" %><br />
+      <%= company_form.text_field :subdomain, class: 'form-control', :placeholder => "Company subdomain" %>
+    <% end %><br />
 
     <%= f.submit "Sign up", class: "btn btn-primary form-control" %>
-<% end %>
+  <% end %>
+</div>
