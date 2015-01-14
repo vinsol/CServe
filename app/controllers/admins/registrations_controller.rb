@@ -3,6 +3,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_sign_up_params, only: [:create]
 
   def new
+    #FIXME_AB: When I am submitting empty form url becoms /admins. Its a company registration page so should be either signup or company/signup. But for sure not /admins
     @company = Company.new
     super
   end
@@ -10,6 +11,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
   def create
     @company = Company.new(company_params)
     @admin = build_resource(sign_up_params)
+    #FIXME_AB: Why are we not using accept_nested_attributes_for with company so that we can just have @company.save here
     if @admin.valid? && @company.valid?
       @company.save
       params[:admin][:company_id] = @company.id

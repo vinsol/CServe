@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
+// FIXME_AB: Don't use requrire tree. I will include all js files. cherry pick files you wish to include
 //= require_tree .

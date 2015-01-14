@@ -1,5 +1,5 @@
 class Admins::PasswordsController < Devise::PasswordsController
-
+#FIXME_AB: Forgot password functionality is not working
   def edit
     self.resource = resource_class.reset_password_by_token(params)
     if resource.errors.empty?

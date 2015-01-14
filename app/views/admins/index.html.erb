@@ -8,6 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
       </button>
+      <% #FIXME_AB: Use helper for displaying name. also delegate name on company so that admin.company_name work -%>
       <%= link_to @admin.company.name.capitalize, admins_path, class: 'navbar-brand topnav' %>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->

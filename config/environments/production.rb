@@ -78,7 +78,9 @@ Rails.application.configure do
 
   config.secret_key_base = ENV["SECRET_KEY_BASE"]
 
+#FIXME_AB: I would prefer if you create a new env. staging for deploy and test on heroku. And keep production env intact
   config.action_mailer.default_url_options = { host: 'cserve.domain4now.com' }
+  #FIXME_AB: Use mailtrap for development and staging env for not sending emails in actual.
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
