@@ -1,5 +1,52 @@
-<%= form_for(@company, html: { class: 'form-signin' }) do |f| %>
-  <%= f.text_field :name, class: 'form-control mt-neg1 border_bottom', :placeholder => "Name" %>
-  <%= f.text_field :subdomain, class: 'form-control border_top', :placeholder => "Subdomain" %><br/>
-  <%= f.submit 'Register', :class => 'btn btn-lg btn-primary btn-block' %>
-<% end %>
+<div class='container'>
+  <%= form_for(@company, html: { class: 'form-horizontal sign-up-form'}) do |company_form| %>
+    <h2>Company Sign up</h2><br />
+    <%= company_form.fields_for @admin do |f| %>
+      <div class='form-group'>
+        <%= f.label :email, 'Admin Email*', class:'col-sm-4 control-label' %>
+        <div class='col-sm-8'>
+          <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Admin Email"  %>
+        </div>
+      </div>
+      <div class='form-group'>
+        <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
+        <div class='col-sm-8'>
+          <%= f.text_field :name, class: 'form-control', :placeholder => "Admin Name" %>
+        </div>
+      </div>
+      <div class='password-container'>
+        <div class='form-group'>
+          <%= f.label :password, 'Password*', class:'col-sm-4 control-label' %>
+          <div class='col-sm-8'>
+            <%= f.password_field :password, autocomplete: "off",class: 'form-control ', placeholder: "Password"  %>
+          </div>
+          <div class='instructions'>
+            <span>Password minimum 8 characters: Letters, numbers or symbols</span>
+          </div>
+        </div>
+      </div>
+      <div class='form-group'>
+        <%= f.label :password_confirmation, 'Confirm password*', class:'col-sm-4 control-label' %>
+        <div class='col-sm-8'>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: "Confirm Password"  %>
+        </div>
+      </div>
+      <div style="display:none">
+        <%= f.hidden_field :role, value: 'super_admin' %>
+      </div>
+    <% end %>
+    <div class='form-group'>
+      <%= company_form.label :name, 'Company Name*', class:'col-sm-4 control-label' %>
+      <div class='col-sm-8'>
+        <%= company_form.text_field :name, class: 'form-control', :placeholder => "Company Name" %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= company_form.label :subdomain, 'Company Subdomain*', class:'col-sm-4 control-label' %>
+      <div class='col-sm-8'>
+        <%= company_form.text_field :subdomain, class: 'form-control', :placeholder => "Company Subdomain" %>
+      </div>
+    </div>
+    <%= company_form.submit "Sign up", class: "btn btn-primary form-control" %>
+  <% end %>
+</div>

@@ -1,0 +1,19 @@
+<%= form_for(@admin, url: add_admin_path(@admin), html: { class: 'form-horizontal sign-up-form'}) do |f| %>
+  <h2>Add Admin</h2><br />
+  <div class='form-group'>
+    <%= f.label :email, 'Admin Email*', class:'col-sm-4 control-label' %>
+    <div class='col-sm-8'>
+      <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Admin Email"  %>
+    </div>
+  </div>
+  <div class='form-group'>
+    <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
+    <div class='col-sm-8'>
+      <%= f.text_field :name, class: 'form-control', :placeholder => "Admin Name" %>
+    </div>
+  </div>
+  <div style="display:none">
+    <%= f.hidden_field :role, value: 'super_admin' %>
+  </div>
+  <%= f.submit "Create Admin", class: "btn btn-primary form-control" %>
+<% end %>

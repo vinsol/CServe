@@ -1,6 +1,7 @@
 <% content_for :stylesheet do %>
   <%= stylesheet_link_tag 'company', 'data-turbolinks-track' => true %>
 <% end %>
+<%= render partial: "error_alert", locals: { resource: @admin } %>
 <div>
   <%= render 'form' %>
 </div>
