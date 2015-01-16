@@ -1,8 +1,9 @@
 class Admin < ActiveRecord::Base
-  validates :name, presence: true
+  validates :name, :password_confirmation, presence: true
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :company
+  paginates_per 20
 
   def subdomain
     company.subdomain

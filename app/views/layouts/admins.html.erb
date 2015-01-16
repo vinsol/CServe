@@ -54,7 +54,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to('Add Admin', add_admin_path) %></li>
-            <li><%= link_to('Edit', edit_path) %></li>
+            <li><%= link_to('Edit', edit_path(current_admin)) %></li>
             <li><%= link_to('Logout', destroy_admin_session_path, :method => :delete) %></li>
           </ul>
         </div>

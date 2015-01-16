@@ -1,7 +1,6 @@
 class AdminMailer < ActionMailer::Base
   helper :subdomain
-  default template_path: 'devise/mailer'
-  default from: 'CServe'
+  default from: 'CServe <akshay.chhikara@vinsol.com>'
 
   def set_password_instructions(admin, token)
     @admin = admin

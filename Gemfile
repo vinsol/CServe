@@ -49,4 +49,10 @@ end
 #Use devise
 gem 'devise'
 
-gem 'byebug', group: [:development, :test]
+group :development, :test do
+  gem 'byebug'
+  gem 'quiet_assets'
+end
+
+#for pagination
+gem 'kaminari'

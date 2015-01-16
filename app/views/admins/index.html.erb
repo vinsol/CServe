@@ -1,1 +1,45 @@
 <h2 class='heading'>Welcome to admin dashboard</h2>
+<% if @admins.present? %>
+  <div class='container'>
+    <div>
+      <div class='pagination'>
+        <%= paginate @admins %>
+      </div>
+      <div class='pagination-info'>
+        <p><%= pagination_info @admins %></p>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @admins.each do |admin| %>
+          <tr>
+            <td><%= admin.name %></td>
+            <td><%= admin.email %></td>
+            <td>
+              <% if admin.active %>
+                Enabled
+              <% else %>
+                Disabled
+              <% end %>
+            </td>
+            <td>
+              <%= link_to('Edit', edit_path(admin)) %>/
+              <%= link_to_toggle_status(admin) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class='pagination'>
+      <%= paginate @admins %>
+    </div>
+  </div>
+<% end %>

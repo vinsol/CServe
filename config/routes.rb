@@ -4,14 +4,14 @@ Rails.application.routes.draw do
     :sessions => 'admins/sessions',
     :passwords => 'admins/passwords'
   }
-  resources :companies, only: [ :new, :create ]
-  resources :admins, only: [ :index ]
+  resources :companies, only: [:new, :create]
+  resources :admins, only: [:index]
   get '/sign_up', to: 'companies#new'
   get '/add_admin', to: 'admins#new'
   post '/add_admin', to: 'admins#create'
-  post '/change_state', to: 'admins#change_state'
-  get '/edit', to: 'admins#edit'
-  patch '/edit', to: 'admins#update'
+  post '/change_state/:id', to: 'admins#change_state', as: 'change_state'
+  get '/edit/:id', to: 'admins#edit', as: 'edit'
+  patch '/edit/:id', to: 'admins#update'
   devise_scope :admin do
     match '/' => 'admins/sessions#new', :constraints => { :subdomain => /.+/ }, via: :all
     get "/sign_in", to: "admins/sessions#new"

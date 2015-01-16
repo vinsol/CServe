@@ -7,10 +7,8 @@
     <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
       <%= f.text_field :name, class: 'form-control', :placeholder => "Admin Name" %>
+      <%= display(@admin.errors[:name]) %>
     </div>
-  </div>
-  <div style="display:none">
-    <%= f.hidden_field :role, value: 'super_admin' %>
   </div>
   <%= f.submit "Edit", class: "btn btn-primary form-control" %>
 <% end %>

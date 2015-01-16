@@ -1,40 +1,31 @@
 class AdminsController < ApplicationController
 
-  before_filter :authenticate_admin!, only: [:index]
+  before_action :authenticate_admin!, only: [:index]
+  before_action :load_admin, only: [:change_state, :edit, :update]
+  before_action :set_admin, only: [:create, :new]
 
   def index
-  end
-
-  def new
-    @admin = Admin.new
+    @admins = Admin.where.not(id: current_admin.id).where(company_id: current_admin.company_id).order(:name).page(params[:page])
   end
 
   def create
-    @company = Company.where(id: current_admin.company.id).first
-    @admin = @company.admins.build(admin_params)
+    @admin.company_id = current_admin.company_id
     if @admin.save_without_confirmation
-      redirect_to admins_path, notice: 'New agent added'
+      redirect_to admins_path, notice: 'New Admin added'
     else
       render :new
     end
   end
 
-  def edit
-    @admin = current_admin
-  end
-
   def update
-    @admin = current_admin
-    @admin.name = name_param[:name]
-    if @admin.save
-      redirect_to admins_path, notice: 'Profile Edited'
+    if @admin.update(admin_params)
+      redirect_to admins_path, notice: 'Updated Successfully'
     else
       render :edit
     end
   end
 
   def change_state
-    @admin = Admin.where(id: params[:id].to_i).first
     @admin.toggle!(:active)
     redirect_to admins_path, notice: 'Admin Updated'
   end
@@ -42,11 +33,15 @@ class AdminsController < ApplicationController
   private
 
   def admin_params
-    params[:admin].permit(:name, :email)
+    params[:admin] ? params.require(:admin).permit(:name, :email) : {}
   end
 
-  def name_param
-    params[:admin].permit(:name)
+  def load_admin
+    @admin = Admin.where(id: params[:id]).first
+  end
+
+  def set_admin
+    @admin = Admin.new(admin_params)
   end
 
 end
