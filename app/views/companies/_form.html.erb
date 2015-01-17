@@ -1,5 +1,5 @@
 <div class='container'>
-  <%= form_for(@company, html: { class: 'form-horizontal sign-up-form'}) do |company_form| %>
+  <%= form_for(@company, url: sign_up_path, html: { class: 'form-horizontal sign-up-form'}) do |company_form| %>
     <h2>Company Sign up</h2><br />
     <%= company_form.fields_for :admins do |f| %>
       <div class='form-group'>
