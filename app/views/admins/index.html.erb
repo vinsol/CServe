@@ -1,4 +1,4 @@
-<h2 class='heading'>Welcome to admin dashboard</h2>
+<h2 class='heading'>Admin List</h2>
 <% if @admins.present? %>
   <div class='container'>
     <div>
@@ -31,7 +31,7 @@
               <% end %>
             </td>
             <td>
-              <%= link_to('Edit', edit_path(admin)) %>/
+              <%= link_to('Edit', edit_path(admin)) %> | 
               <%= link_to_toggle_status(admin) %>
             </td>
           </tr>

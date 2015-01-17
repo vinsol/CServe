@@ -52,3 +52,7 @@ label {
 .field_with_errors input{
   border-color: red;
 }
+.btn-len {
+  width: 45%;
+  padding: 10px;
+}

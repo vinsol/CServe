@@ -5,10 +5,7 @@ class Admin < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :company
   paginates_per 20
-
-  def subdomain
-    company.subdomain
-  end
+  delegate :subdomain, to: :company
 
   def save_without_confirmation
     self.password = DEFAULT_ADMIN_PASSWORD
@@ -20,6 +17,21 @@ class Admin < ActiveRecord::Base
       AdminMailer.set_password_instructions(self, token).deliver
     end
     saved
+  end
+
+  def update_with_password(params, *options)
+    current_password = params.delete(:current_password)
+    result = if valid_password?(current_password)
+      update_attributes(params, *options)
+    else
+      self.assign_attributes(params, *options)
+      self.valid?
+      self.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+      false
+    end
+
+    clean_up_passwords
+    result
   end
 
 end

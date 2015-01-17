@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
 
-  before_action :authenticate_admin!, only: [:index]
+  before_action :authenticate_admin!, only: [:index, :edit, :new]
   before_action :load_admin, only: [:change_state, :edit, :update]
   before_action :set_admin, only: [:create, :new]
 
