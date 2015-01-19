@@ -2,6 +2,7 @@
   <%= form_for(@company, url: sign_up_path, html: { class: 'form-horizontal sign-up-form'}) do |company_form| %>
     <h2>Company Sign up</h2><br />
     <%= company_form.fields_for :admins do |f| %>
+      <%= f.hidden_field :role, value: 'company_admin' %>
       <div class='form-group'>
         <%= f.label :email, 'Admin Email*', class:'col-sm-4 control-label' %>
         <div class='col-sm-8'>
@@ -49,7 +50,6 @@
         <%= company_form.text_field :subdomain, class: 'form-control', :placeholder => "Company Subdomain" %>
         <%= display(@company.errors[:subdomain]) %>
       </div>
-      <%= f.hidden_field :role, value: 'company_admin' %>
     </div>
     <%= company_form.submit "Sign up", class: "btn btn-primary form-control" %>
   <% end %>
