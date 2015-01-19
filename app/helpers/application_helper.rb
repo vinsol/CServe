@@ -6,6 +6,6 @@ module ApplicationHelper
   end
 
   def display(error)
-    content_tag(:span, error.first, class: 'errors') if error.present?
+    content_tag(:span, error.join(','), class: 'errors') if error.present?
   end
 end

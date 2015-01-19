@@ -1,7 +1,6 @@
 class AdminMailer < ActionMailer::Base
   helper :subdomain
-  default from: 'CServe <akshay.chhikara@vinsol.com>'
-
+  default from: MAIL_ID
   def set_password_instructions(admin, token)
     @admin = admin
     @token = token

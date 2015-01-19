@@ -1,6 +1,6 @@
 class Admin < ActiveRecord::Base
   validates :name, presence: true
-  validates :password_confirmation, presence: true, if: 'password'
+  validates :password_confirmation, presence: true, if: :password
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :company

@@ -15,11 +15,13 @@ class Admins::SessionsController < Devise::SessionsController
   end
 
   def check_admin_company_and_status
-    admin = Admin.where(email: params[:admin][:email]).first
-    if admin.nil? || admin.company.subdomain != request.subdomain
-      return redirect_to sign_in_path, alert: 'You are not authorized'
+    if params[:admin][:email].present?
+      admin = Admin.where(email: params[:admin][:email]).first
+      if admin.nil? || admin.subdomain != request.subdomain
+        return redirect_to sign_in_path, alert: 'You are not authorized'
+      end
+      redirect_to sign_in_path, alert: 'Your account has been disabled.Contact your company Admin' unless admin.active
     end
-    redirect_to sign_in_path, alert: 'Your account has been disabled.Contact your company Admin' if !admin.active
   end
 
 end

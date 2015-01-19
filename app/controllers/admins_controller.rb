@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
 
   before_action :authenticate_admin!, only: [:index, :edit, :new]
-  before_action :load_admin, only: [:change_state, :edit, :update]
+  before_action :load_admin_or_redirect, only: [:change_state, :edit, :update]
   before_action :set_admin, only: [:create, :new]
 
   def index
@@ -33,11 +33,12 @@ class AdminsController < ApplicationController
   private
 
   def admin_params
-    params[:admin] ? params.require(:admin).permit(:name, :email) : {}
+    params.fetch(:admins, {}).permit(:name, :email)
   end
 
-  def load_admin
+  def load_admin_or_redirect
     @admin = Admin.where(id: params[:id]).first
+    redirect_to admins_path if @admin.nil? || @admin.subdomain != request.subdomain
   end
 
   def set_admin

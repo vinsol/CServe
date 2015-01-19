@@ -1,5 +1,5 @@
-<h2 class='heading'>Admin List</h2>
 <% if @admins.present? %>
+  <h2 class='heading'>Admin List</h2>
   <div class='container'>
     <div>
       <div class='pagination'>
@@ -31,8 +31,10 @@
               <% end %>
             </td>
             <td>
-              <%= link_to('Edit', edit_path(admin)) %> | 
-              <%= link_to_toggle_status(admin) %>
+              <% if admin.role != 'company_admin' %>
+                <%= link_to('Edit', edit_path(admin)) %> | 
+                <%= link_to_toggle_status(admin) %>
+              <% end %>
             </td>
           </tr>
         <% end %>

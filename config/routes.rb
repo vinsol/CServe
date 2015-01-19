@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   controller :admins do
     get 'add_admin' => :new
     post 'add_admin' => :create
+    post 'change_state/:id' => :change_state, as: 'change_state'
+    get 'edit/:id' => :edit, as: 'edit'
+    patch 'edit/:id' => :update
   end
-  post '/change_state/:id', to: 'admins#change_state', as: 'change_state'
-  get '/edit/:id', to: 'admins#edit', as: 'edit'
-  patch '/edit/:id', to: 'admins#update'
   devise_scope :admin do
     match '/' => 'admins/sessions#new', :constraints => { :subdomain => /.+/ }, via: :all
     get "/sign_in", to: "admins/sessions#new"
