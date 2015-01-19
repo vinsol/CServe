@@ -33,7 +33,7 @@ class AdminsController < ApplicationController
   private
 
   def admin_params
-    params.fetch(:admins, {}).permit(:name, :email)
+    params.fetch(:admin, {}).permit(:name, :email)
   end
 
   def load_admin_or_redirect
