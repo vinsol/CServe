@@ -58,3 +58,6 @@ end
 
 #for pagination
 gem 'kaminari'
+
+gem 'paperclip', '~> 4.2'
+

@@ -13,4 +13,14 @@ class ApplicationController < ActionController::Base
     sign_in_path
   end
 
+  def check_subdomain?
+    subdomain = request.subdomain
+    if subdomain == 'www'
+      redirect_to root_url(host: Rails.application.config.action_mailer.default_url_options[:host])
+    elsif subdomain.blank? || Company.find_by(subdomain: subdomain).nil?
+      flash[:alert] = 'Get Registered First'
+      redirect_to root_url(host: Rails.application.config.action_mailer.default_url_options[:host])
+    end
+  end
+
 end

@@ -8,4 +8,8 @@ module ApplicationHelper
   def display(error)
     content_tag(:span, error.join(','), class: 'errors') if error.present?
   end
+
+  def company_name
+  	Company.where(subdomain: request.subdomain).first.name.capitalize
+  end
 end

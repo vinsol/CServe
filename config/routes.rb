@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   controller :companies do
     get 'sign_up' => :new
     post 'sign_up' => :create
+    get 'feedback' => :feedback
   end
+  resources :tickets, only: [:create]
   controller :admins do
     get 'add_admin' => :new
     post 'add_admin' => :create
@@ -17,9 +19,9 @@ Rails.application.routes.draw do
     patch 'edit/:id' => :update
   end
   devise_scope :admin do
-    match '/' => 'admins/sessions#new', :constraints => { :subdomain => /.+/ }, via: :all
     get "/sign_in", to: "admins/sessions#new"
     delete '/sign_out', to: 'admins/sessions#destroy'
   end
+  match '/' => 'companies#feedback', :constraints => { :subdomain => /.+/ }, via: :all
   root 'application#index'
 end
