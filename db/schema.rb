@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20150120043106) do
     t.string   "email"
     t.string   "subject"
     t.text     "description"
+    t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
