@@ -1,5 +1,5 @@
 class Admins::RegistrationsController < Devise::RegistrationsController
-  layout 'admins', only: [:edit]
+  layout 'admins', only: [:edit, :update]
   before_action :configure_sign_up_params, only: [:create]
   skip_before_filter :require_no_authentication, only: [:create]
   protected

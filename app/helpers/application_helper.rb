@@ -8,4 +8,5 @@ module ApplicationHelper
   def display(error)
     content_tag(:span, error.join(','), class: 'errors') if error.present?
   end
+
 end

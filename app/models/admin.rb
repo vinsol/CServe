@@ -6,6 +6,7 @@ class Admin < ActiveRecord::Base
   belongs_to :company
   paginates_per 20
   delegate :subdomain, to: :company
+  delegate :name, to: :company, prefix: true
 
   def save_without_confirmation
     self.password = DEFAULT_ADMIN_PASSWORD

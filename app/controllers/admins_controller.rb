@@ -3,6 +3,7 @@ class AdminsController < ApplicationController
   before_action :authenticate_admin!, only: [:index, :edit, :new]
   before_action :load_admin_or_redirect, only: [:change_state, :edit, :update]
   before_action :set_admin, only: [:create, :new]
+  before_action :redirect_if_company_admin, only: [:edit]
 
   def index
     @admins = Admin.where.not(id: current_admin.id).where(company_id: current_admin.company_id).order(:name).page(params[:page])
@@ -33,7 +34,7 @@ class AdminsController < ApplicationController
   private
 
   def admin_params
-    params.fetch(:admins, {}).permit(:name, :email)
+    params.fetch(:admin, {}).permit(:name, :email)
   end
 
   def load_admin_or_redirect
@@ -43,6 +44,13 @@ class AdminsController < ApplicationController
 
   def set_admin
     @admin = Admin.new(admin_params)
+  end
+
+  def redirect_if_company_admin
+    @admin = Admin.find_by(id: params[:id])
+    if @admin.role == 'company_admin' && current_admin.role != 'company_admin'
+      redirect_to admins_path, alert: 'Cannot Edit Company Admin'
+    end
   end
 
 end
