@@ -34,9 +34,8 @@
   left: 100%;
   margin-left: 20px;
   font-size: 0.95em;
-  color: red;
 }
-.password-container , .file-upload-container{
+.password-container, .instruction-container{
   position: relative;
 }
 .form-horizontal .control-label {
