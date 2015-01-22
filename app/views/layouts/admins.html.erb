@@ -49,31 +49,44 @@
               <span class="icon-bar"></span>
           </button>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <%= link_to current_admin.company.name.capitalize, admins_path, class: 'navbar-brand topnav' %>
-        <div class="navbar-collapse collapse" >
-          <ul class='nav navbar-nav navbar-left'>
-            <li>
-              <%= link_to 'Admins', admins_path %>
-            </li>
-            <li>
-              <%= link_to 'Tickets', tickets_path %>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a class="dropdown-toggle" data-toggle="dropdown"><%= current_admin.name.capitalize %>
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to('Add Admin', add_admin_path) %></li>
-                <li><%= link_to('Edit Profile', edit_path(current_admin)) %></li>
-                <li><%= link_to('Edit Password', edit_admin_registration_path) %></li>         
-              </ul>
-            </li>
-            <li><%= link_to('Logout', destroy_admin_session_path, :method => :delete) %></li>
-          </ul>
-        </div>
+        <% if admin_signed_in? %>
+          <%= link_to current_admin.company.name.capitalize, admins_path, class: 'navbar-brand topnav text-size' %>
+          <div class="navbar-collapse collapse" >
+            <ul class='nav navbar-nav navbar-left'>
+              <li>
+                <%= link_to 'Admins', admins_path %>
+              </li>
+              <li>
+                <%= link_to 'Tickets', tickets_path %>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a class="dropdown-toggle" data-toggle="dropdown"><%= current_admin.name.capitalize %>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to('Add Admin', add_admin_path) %></li>
+                  <li><%= link_to('Edit Profile', edit_path(current_admin)) %></li>
+                  <li><%= link_to('Edit Password', edit_admin_registration_path) %></li>         
+                </ul>
+              </li>
+              <li><%= link_to('Logout', destroy_admin_session_path, :method => :delete) %></li>
+            </ul>
+          </div>
+        <% else %>
+          <%= link_to company_name, feedback_path, class: 'navbar-brand topnav text-size' %>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <% if controller_name != 'sessions' %>
+                  <%= link_to "Sign in", sign_in_path %>
+                <% end %>
+              </li> 
+            </ul>
+          </div>
+        <% end %>
+      </div>
       </div>
     </nav>
     <div>

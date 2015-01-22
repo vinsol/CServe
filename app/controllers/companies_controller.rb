@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  layout 'company', only: [:feedback]
+  layout 'admins', only: [:feedback]
   before_action :check_subdomain?, only: [:feedback]
 
   def new

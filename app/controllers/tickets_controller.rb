@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
-  layout 'company', only: [:create]
-  layout 'admins', only: [:index]
+  layout 'admins', only: [:index, :show]
+  before_action :authenticate_admin!, only: [:index]
 
   def index
     @tickets = Ticket.where(company_id: current_admin.company_id).order(:updated_at).page(params[:page])
@@ -15,6 +15,12 @@ class TicketsController < ApplicationController
       @ticket.attachments.build
       render 'companies/feedback'
     end
+  end
+
+  def show
+    @ticket =  Ticket.find_by(id: params[:id])
+    @comments = @ticket.comments
+    @comment = Comment.new
   end
 
   private

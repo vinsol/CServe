@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     post 'sign_up' => :create
     get 'feedback' => :feedback
   end
-  resources :tickets, only: [:create, :index]
+  resources :tickets, only: [:create, :index, :show] do
+    resources :comments, only: [:create]
+  end
   controller :admins do
     get 'add_admin' => :new
     post 'add_admin' => :create

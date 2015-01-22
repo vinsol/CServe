@@ -1,7 +1,8 @@
 <p>Hi</p>
 
 <p>Your request (#<%= @ticket.id %>) has been received and is being reviewed by our support staff.</p>   
-<p>To add additional comments, please follow the given link.</p><br />
+<p>To add additional comments, please follow the given link.</p>
+<p><%= ticket_url(@ticket, host: host_with(@ticket.company_subdomain)) %></p><br />
 
 <p>Thanks
 <p><%= @ticket.company_name %><br />
