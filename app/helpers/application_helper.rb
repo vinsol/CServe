@@ -10,6 +10,6 @@ module ApplicationHelper
   end
 
   def company_name
-  	Company.where(subdomain: request.subdomain).first.name.capitalize
+  	Company.find_by(subdomain: request.subdomain).name.capitalize
   end
 end

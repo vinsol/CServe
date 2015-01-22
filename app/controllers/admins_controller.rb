@@ -37,7 +37,7 @@ class AdminsController < ApplicationController
   end
 
   def load_admin_or_redirect
-    @admin = Admin.where(id: params[:id]).first
+    @admin = Admin.find_by(id: params[:id])
     redirect_to admins_path if @admin.nil? || @admin.subdomain != request.subdomain
   end
 

@@ -5,7 +5,7 @@ class Company < ActiveRecord::Base
     exclusion: { in: %w(www ssh ftp ), message: "%{value} is reserved." },
     format: { with: REGEX[:subdomain] }, if: "subdomain.present?"
   has_many :admins
-  has_many :tickets
+  has_many :tickets, dependent: :destroy
   accepts_nested_attributes_for :admins
 
 end

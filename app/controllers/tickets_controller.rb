@@ -7,7 +7,7 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @company = Company.where(name: request.subdomain).first
+    @company = Company.find_by(name: request.subdomain)
     @ticket = @company.tickets.build(ticket_params)
     if @ticket.save
       redirect_to feedback_path, notice: 'Feedback Successfully Submitted'
