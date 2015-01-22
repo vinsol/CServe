@@ -1,4 +1,4 @@
-<%= form_for(@admin, url: add_admin_path(@admin), html: { class: 'form-horizontal sign-up-form'}) do |f| %>
+<%= form_for(@admin, html: { class: 'form-horizontal sign-up-form'}) do |f| %>
   <h2>Add Admin</h2><br />
   <div class='form-group'>
     <%= f.label :email, 'Admin Email*', class:'col-sm-4 control-label' %>
@@ -14,6 +14,6 @@
       <%= display(@admin.errors[:name]) %>
     </div>
   </div>
-  <%= f.submit "Create Admin", class: "btn btn-primary btn-len" %>
+  <%= f.submit 'Create Admin', class: "btn btn-primary btn-len" %>
   <%= link_to 'Cancel', admins_path, class: "btn btn-danger btn-len pull-right" %>
 <% end %>

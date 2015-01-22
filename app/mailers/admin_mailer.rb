@@ -1,4 +1,4 @@
-class AdminMailer < ActionMailer::Base
+class AdminMailer < ApplicationMailer
   helper :subdomain
   default from: MAIL_ID
   def set_password_instructions(admin, token)

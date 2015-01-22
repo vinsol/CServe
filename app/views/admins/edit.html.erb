@@ -1,7 +1,7 @@
 <% content_for :stylesheet do %>
   <%= stylesheet_link_tag 'company', 'data-turbolinks-track' => true %>
 <% end %>
-<%= form_for(@admin, url: edit_path, html: { class: 'form-horizontal sign-up-form'}) do |f| %>
+<%= form_for(@admin, html: { class: 'form-horizontal sign-up-form'}) do |f| %>
   <h2>Edit</h2><br />
   <div class='form-group'>
     <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
