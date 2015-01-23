@@ -60,4 +60,4 @@ end
 gem 'kaminari'
 
 gem 'paperclip', '~> 4.2'
-
+gem 'letter_opener', :group => :development

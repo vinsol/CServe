@@ -11,7 +11,7 @@
     <h3><%= @ticket.subject %></h4>
     <div class='description'>
       <p><span class='text-size'><b>Description: </b></span><%= @ticket.description %></p>
-      <p class='pull-right'><b><i><%= @ticket.email %> <%= @ticket.created_at.strftime('%d-%a-%Y, %T') %></i></b></p>
+      <p class='pull-right'><b><i><%= @ticket.email %> <%= @ticket.created_at.strftime('%d-%b-%Y, %T') %></i></b></p>
     </div>
     <% if admin_signed_in? %>
       <div class='mt-30'>
@@ -36,7 +36,7 @@
               <td>
                 <p><%= comment.text %></p>
                 <p class='pull-right align'>
-                  <i><%= comment.created_at.strftime('%d-%a-%Y, %T') %></i><br />
+                  <i><%= comment.created_at.strftime('%d-%b-%Y, %T') %></i><br />
                   <span class='text-right'><b><%= comment.commenter_email %></b></span>
                 </p>
               </td>
