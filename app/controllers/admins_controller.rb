@@ -1,16 +1,20 @@
 class AdminsController < ApplicationController
 
-  before_action :authenticate_admin!, only: [:index, :edit, :new]
-  before_action :load_admin_or_redirect, only: [:change_state, :edit, :update]
-  before_action :set_admin, only: [:create, :new]
+  before_action :authenticate_admin!
+
+  before_action :load_admin, only: [:change_state, :edit, :update]
 
   def index
     @admins = Admin.where.not(id: current_admin.id).where(company_id: current_admin.company_id).order(:name).page(params[:page])
   end
 
+  def new
+    @admin = Admin.new
+  end
+
   def create
-    @admin.company_id = current_admin.company_id
-    if @admin.save_without_confirmation
+    @admin = current_admin.company.admins.build(admin_params)
+    if @admin.save
       redirect_to admins_path, notice: 'New Admin added'
     else
       render :new
@@ -19,7 +23,7 @@ class AdminsController < ApplicationController
 
   def update
     if @admin.update(admin_params)
-      redirect_to admins_path, notice: 'Updated Successfully'
+      redirect_to admins_path, notice: ' Admin Updated Successfully'
     else
       render :edit
     end
@@ -33,16 +37,12 @@ class AdminsController < ApplicationController
   private
 
   def admin_params
-    params.fetch(:admins, {}).permit(:name, :email)
+    params.require(:admin).permit(:name, :email)
   end
 
-  def load_admin_or_redirect
+  def load_admin
     @admin = Admin.where(id: params[:id]).first
     redirect_to admins_path if @admin.nil? || @admin.subdomain != request.subdomain
-  end
-
-  def set_admin
-    @admin = Admin.new(admin_params)
   end
 
 end

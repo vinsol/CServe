@@ -1,7 +1,9 @@
 class Admins::RegistrationsController < Devise::RegistrationsController
+
   layout 'admins', only: [:edit]
-  before_action :configure_sign_up_params, only: [:create]
+
   skip_before_filter :require_no_authentication, only: [:create]
+
   protected
   # You can put the params you want to permit in the empty array.
   def configure_sign_up_params

@@ -1,4 +1,5 @@
 module ApplicationHelper
+
   def pagination_info(object)
     if (object && object.length > 0)
      "Showing #{ object.offset_value + 1 } - #{ object.offset_value + object.length } of #{ object.total_count }"
@@ -8,4 +9,5 @@ module ApplicationHelper
   def display(error)
     content_tag(:span, error.join(','), class: 'errors') if error.present?
   end
+
 end

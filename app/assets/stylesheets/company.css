@@ -27,17 +27,6 @@
 .mt-5 {
   margin-top: 5px;
 }
-.instructions {
-  position: absolute;
-  width: 100px;
-  top: 0;
-  left: 100%;
-  margin-left: 20px;
-  font-size: 0.95em;
-}
-.password-container {
-  position: relative;
-}
 .form-horizontal .control-label {
   text-align: left;
 }
@@ -55,4 +44,7 @@ label {
 .btn-len {
   width: 45%;
   padding: 10px;
+}
+.ml-200 {
+  margin-left: 200px;
 }
