@@ -1,8 +1,9 @@
 class AdminsController < ApplicationController
 
   before_action :authenticate_admin!
-
   before_action :load_admin, only: [:change_state, :edit, :update]
+  before_action :redirect_if_company_admin, only: [:edit]
+
 
   def index
     @admins = Admin.where.not(id: current_admin.id).where(company_id: current_admin.company_id).order(:name).page(params[:page])
@@ -41,8 +42,14 @@ class AdminsController < ApplicationController
   end
 
   def load_admin
-    @admin = Admin.where(id: params[:id]).first
+    @admin = Admin.find_by(id: params[:id])
     redirect_to admins_path if @admin.nil? || @admin.subdomain != request.subdomain
+  end
+
+  def redirect_if_company_admin
+    if @admin.role == 'company_admin' && current_admin.role != 'company_admin'
+      redirect_to admins_path, alert: 'Cannot Edit Company Admin'
+    end
   end
 
 end
