@@ -1,19 +1,19 @@
-<%= form_for(@admin, url: add_admin_path(@admin), html: { class: 'form-horizontal sign-up-form'}) do |f| %>
+<%= form_for(@admin, html: { class: 'form-horizontal sign-up-form'}) do |f| %>
   <h2>Add Admin</h2><br />
   <div class='form-group'>
     <%= f.label :email, 'Admin Email*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
-      <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Admin Email"  %>
+      <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Admin Email'  %>
       <%= display(@admin.errors[:email]) %>
     </div>
   </div>
   <div class='form-group'>
     <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
-      <%= f.text_field :name, class: 'form-control', :placeholder => "Admin Name" %>
+      <%= f.text_field :name, class: 'form-control', :placeholder => 'Admin Name' %>
       <%= display(@admin.errors[:name]) %>
     </div>
   </div>
-  <%= f.submit "Create Admin", class: "btn btn-primary btn-len" %>
-  <%= link_to 'Cancel', admins_path, class: "btn btn-danger btn-len pull-right" %>
+  <%= f.submit 'Create Admin', class: 'btn btn-primary btn-len' %>
+  <%= link_to 'Cancel', admins_path, class: 'btn btn-danger btn-len pull-right' %>
 <% end %>

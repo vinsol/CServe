@@ -58,8 +58,7 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to('Add Admin', add_admin_path) %></li>
-                <li><%= link_to('Edit Profile', edit_path(current_admin)) %></li>
+                <li><%= link_to('Edit Profile', edit_admin_path(current_admin)) %></li>
                 <li><%= link_to('Edit Password', edit_admin_registration_path) %></li>         
               </ul>
             </li>
