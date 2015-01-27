@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get 'feedback' => :feedback
   end
 
-  resources :tickets, only: [:create]
+  resources :tickets, only: [:create, :index]
 
   devise_scope :admin do
     get "/sign_in", to: "admins/sessions#new"

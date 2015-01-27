@@ -45,7 +45,6 @@ label {
   width: 45%;
   padding: 10px;
 }
-<<<<<<< HEAD
 .field_with_errors textarea {
   border-color: red;
 }
@@ -54,8 +53,7 @@ label {
 }
 .navbar{
   margin-bottom: 0px;
-=======
+}
 .ml-200 {
   margin-left: 200px;
->>>>>>> CS-7
 }
