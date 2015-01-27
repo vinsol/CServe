@@ -27,17 +27,6 @@
 .mt-5 {
   margin-top: 5px;
 }
-.instructions {
-  position: absolute;
-  width: 100px;
-  top: 0;
-  left: 100%;
-  margin-left: 20px;
-  font-size: 0.95em;
-}
-.password-container, .instruction-container{
-  position: relative;
-}
 .form-horizontal .control-label {
   text-align: left;
 }
@@ -56,6 +45,7 @@ label {
   width: 45%;
   padding: 10px;
 }
+<<<<<<< HEAD
 .field_with_errors textarea {
   border-color: red;
 }
@@ -64,4 +54,8 @@ label {
 }
 .navbar{
   margin-bottom: 0px;
+=======
+.ml-200 {
+  margin-left: 200px;
+>>>>>>> CS-7
 }

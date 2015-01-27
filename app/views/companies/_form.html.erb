@@ -17,17 +17,13 @@
           <%= display(@company.errors['admins.name']) %>
         </div>
       </div>
-      <div class='password-container'>
-        <div class='form-group'>
-          <%= f.label :password, 'Password*', class:'col-sm-4 control-label' %>
-          <div class='col-sm-8'>
-            <%= f.password_field :password, autocomplete: "off",class: 'form-control ', placeholder: "Password"  %>
-            <%= display(@company.errors['admins.password']) %>
-          </div>
-          <div class='instructions'>
-            <span>Password minimum 8 characters: Letters, numbers or symbols</span>
-          </div>
+      <div class='form-group'>
+        <%= f.label :password, 'Password*', class:'col-sm-4 control-label' %>
+        <div class='col-sm-8'>
+          <%= f.password_field :password, autocomplete: "off",class: 'form-control ', placeholder: "Password"  %>
+          <%= display(@company.errors['admins.password']) %>
         </div>
+        <span class='ml-200'>(minimum 8 characters)</span>
       </div>
       <div class='form-group'>
         <%= f.label :password_confirmation, 'Confirm password*', class:'col-sm-4 control-label' %>

@@ -24,7 +24,7 @@ class CompaniesController < ApplicationController
   protected
 
   def company_params
-    params[:company].permit(:name, :subdomain, admins_attributes: [:name, :email, :password, :password_confirmation, :role])
+    params[:company].permit(:name, :subdomain, admins_attributes: [:name, :email, :password, :password_confirmation, :role, :company_id])
   end
 
 end
