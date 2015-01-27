@@ -1,21 +1,17 @@
 <% content_for :stylesheet do %>
   <%= stylesheet_link_tag 'company', 'data-turbolinks-track' => true %>
 <% end %>
-<%= render partial: "error_alert", locals: { resource: resource } %>
+<%= render partial: 'error_alert', locals: { resource: resource } %>
 <div class='form'>
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'form-signin' }) do |f| %>
     <div class='pt-70'>
       <h2>Change your password</h2>
-        <%= f.hidden_field :reset_password_token %><br />
-      <div class='password-container'>
-        <%= f.password_field :password, autofocus: true, autocomplete: "off", class: 'form-control', placeholder: "New Password" %>
-        <div class='instructions'>
-          <span>Password minimum 8 characters: Letters, numbers or symbols</span>
-        </div>
-      </div><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: "Confirm Password" %><br />
+      <%= f.hidden_field :reset_password_token %><br />
+      <%= f.password_field :password, autofocus: true, autocomplete: 'off', class: 'form-control', placeholder: 'New Password' %>
+      <span class='ml-200'>(minimum 8 characters)</span><br />
+      <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: 'Confirm Password' %><br />
 
-      <%= f.submit "Change my password", class: 'btn btn-primary form-control' %>
+      <%= f.submit 'Change my password', class: 'btn btn-primary form-control' %>
     </div>
   <% end %>
 </div>

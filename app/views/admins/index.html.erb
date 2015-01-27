@@ -1,1 +1,45 @@
-<h2 class='heading'>Welcome to admin dashboard</h2>
+<div class='container'>
+  <%= link_to('Create Admin', new_admin_path, class: ' btn btn-primary pull-right pt-30') %>
+  <% if @admins.present? %>
+    <h2 class='heading'>Admin List</h2>
+    <div>
+      <div class='pagination-info'>
+        <p><%= pagination_info @admins %></p>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @admins.each do |admin| %>
+          <tr>
+            <td><%= admin.name %></td>
+            <td><%= admin.email %></td>
+            <td>
+              <% if admin.active %>
+                Enabled
+              <% else %>
+                Disabled
+              <% end %>
+            </td>
+            <td>
+              <% if admin.role != 'company_admin' %>
+                <%= link_to('Edit', edit_admin_path(admin)) %> | 
+                <%= link_to_toggle_status(admin) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class='pagination'>
+      <%= paginate @admins %>
+    </div>
+  <% end %>
+</div>
