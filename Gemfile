@@ -18,5 +18,7 @@ group :development, :test do
   gem 'byebug',                     '~> 3.5.1'
   gem 'quiet_assets',               '~> 1.1.0'
 end
+gem 'paperclip',                    '~> 4.2'
 gem 'kaminari',                     '~> 0.16.1'
-gem 'delayed_job_active_record'
+gem 'delayed_job_active_record',     '~> 4.0.3'
+

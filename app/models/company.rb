@@ -6,6 +6,7 @@ class Company < ActiveRecord::Base
     format: { with: REGEX[:subdomain] }, if: -> { subdomain.present? }
 
   has_many :admins, dependent: :destroy
+  has_many :tickets, dependent: :destroy
 
   accepts_nested_attributes_for :admins
 

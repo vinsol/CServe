@@ -45,6 +45,15 @@ label {
   width: 45%;
   padding: 10px;
 }
+.field_with_errors textarea {
+  border-color: red;
+}
+.text-size {
+  font-size: 35px;
+}
+.navbar{
+  margin-bottom: 0px;
+}
 .ml-200 {
   margin-left: 200px;
 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122205958) do
+ActiveRecord::Schema.define(version: 20150120043106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,11 +43,11 @@ ActiveRecord::Schema.define(version: 20150122205958) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
-  create_table "attachments", force: :cascade do |t|
-    t.integer  "ticket_id",                         null: false
-    t.string   "type",                  limit: 255
-    t.string   "document_file_name",    limit: 255
-    t.string   "document_content_type", limit: 255
+  create_table "attachments", force: true do |t|
+    t.integer  "ticket_id",             null: false
+    t.string   "type"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
     t.datetime "created_at"
@@ -88,6 +88,15 @@ ActiveRecord::Schema.define(version: 20150122205958) do
   create_table "tickets", force: :cascade do |t|
     t.string   "email",       limit: 255
     t.string   "subject",     limit: 255
+    t.text     "description"
+    t.integer  "company_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tickets", force: true do |t|
+    t.string   "email"
+    t.string   "subject"
     t.text     "description"
     t.integer  "company_id"
     t.datetime "created_at"
