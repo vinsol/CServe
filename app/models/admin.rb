@@ -14,8 +14,9 @@ class Admin < ActiveRecord::Base
 
   delegate :subdomain, to: :company
 
+  before_validation :set_admin_password_attributes, on: :create
+
   with_options if: -> { company.admins.count > 1 } do |options|
-    options.before_validation :set_admin_password_attributes, on: :create
     options.before_create :skip_confirmation!
     options.after_create :send_password_instructions
   end
@@ -44,8 +45,8 @@ class Admin < ActiveRecord::Base
 
     def set_admin_password_attributes
       random_password            = SecureRandom.hex
-      self.password              = random_password
-      self.password_confirmation = random_password
+      self.password              ||= random_password
+      self.password_confirmation ||= random_password
     end
 
 end
