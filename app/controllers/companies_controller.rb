@@ -1,6 +1,4 @@
 class CompaniesController < ApplicationController
-  layout 'company', only: [:feedback]
-  before_action :check_subdomain?, only: [:feedback]
 
   def new
     @company = Company.new
@@ -14,11 +12,6 @@ class CompaniesController < ApplicationController
     else
       render :new
     end
-  end
-
-  def feedback
-    @ticket = Ticket.new
-    @ticket.attachments.build
   end
 
   protected

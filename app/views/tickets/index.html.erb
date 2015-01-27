@@ -22,7 +22,7 @@
           <tr>
             <td><%= ticket.subject %></td>
             <td><%= ticket.updated_at %></td>
-            <td>View</td>
+            <td><%= link_to 'View', ticket_path(ticket) %></td>
           </tr>
         <% end %>
       </tbody>
