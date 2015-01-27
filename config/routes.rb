@@ -8,9 +8,8 @@ Rails.application.routes.draw do
   controller :companies do
     get 'sign_up' => :new
     post 'sign_up' => :create
-    get 'feedback' => :feedback
   end
-  resources :tickets, only: [:create, :index, :show] do
+  resources :tickets, only: [:create, :index, :show, :new] do
     resources :comments, only: [:create]
   end
   controller :admins do
@@ -24,6 +23,6 @@ Rails.application.routes.draw do
     get "/sign_in", to: "admins/sessions#new"
     delete '/sign_out', to: 'admins/sessions#destroy'
   end
-  match '/' => 'companies#feedback', :constraints => { :subdomain => /.+/ }, via: :all
+  match '/' => 'tickets#new', :constraints => { :subdomain => /.+/ }, via: :all
   root 'application#index'
 end

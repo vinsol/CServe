@@ -1,19 +1,27 @@
 class TicketsController < ApplicationController
-  layout 'admins', only: [:index, :show]
+
+  layout 'admins', only: [:index, :show, :new]
+
   before_action :authenticate_admin!, only: [:index]
+  before_action :check_subdomain?, only: [:new]
 
   def index
     @tickets = Ticket.where(company_id: current_admin.company_id).order(:updated_at).page(params[:page])
+  end
+
+  def new
+    @ticket = Ticket.new
+    @ticket.attachments.build
   end
 
   def create
     @company = Company.where(name: request.subdomain).first
     @ticket = @company.tickets.build(ticket_params)
     if @ticket.save
-      redirect_to feedback_path, notice: 'Feedback Successfully Submitted'
+      redirect_to new_ticket_path, notice: 'Feedback Successfully Submitted'
     else
       @ticket.attachments.build
-      render 'companies/feedback'
+      render :new
     end
   end
 

@@ -2,7 +2,6 @@
 
 <p>Your request (#<%= @ticket.id %>) has got a new comment.</p>
 <h4>Comment :</h4>
-<% debugger %>
 <p><%= @comment.text %></p>
 <p>To add additional comments, please follow the given link.</p>
 <p><%= ticket_url(@ticket, host: host_with(@ticket.company_subdomain)) %></p><br />
