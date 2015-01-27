@@ -4,7 +4,8 @@ class Ticket < ActiveRecord::Base
   belongs_to :company
   accepts_nested_attributes_for :attachments
   after_create :send_feedback_mail
-  delegate :name, to: :company, prefix: true
+  delegate :name, :subdomain, to: :company, prefix: true
+  has_many :comments, dependent: :destroy
 
   private
     def send_feedback_mail

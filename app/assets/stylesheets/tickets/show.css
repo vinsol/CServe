@@ -1,0 +1,21 @@
+.description span {
+  font-size: 20px;
+}
+.description {
+  font-size: 16px;
+}
+#comment_text {
+  width: 60%;
+}
+.mt-30 {
+  margin-top: 30px;
+}
+.text-color {
+  color: red;
+}
+.align {
+  text-align: right;
+}
+.alert {
+  text-align: center;
+}
