@@ -13,18 +13,14 @@
       <%= display(resource.errors['current_password']) %>
     </div>
   </div>
-  <div class='password-container'>
     <div class='form-group'>
       <%= f.label :password, 'New Password*', class:'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= f.password_field :password, autocomplete: "off",class: 'form-control ', placeholder: " New Password"  %>
         <%= display(resource.errors[:password]) %>
       </div>
-      <div class='instructions'>
-        <span>Password minimum 8 characters: Letters, numbers or symbols</span>
-      </div>
+      <span class='ml-200'>(minimum 8 characters)</span>
     </div>
-  </div>
   <div class='form-group'>
     <%= f.label :password_confirmation, 'Confirm password*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>

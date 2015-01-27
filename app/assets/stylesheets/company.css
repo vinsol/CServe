@@ -27,21 +27,6 @@
 .mt-5 {
   margin-top: 5px;
 }
-.mt-10{
-  margin-top: 10px;
-}
-.instructions {
-  position: absolute;
-  width: 100px;
-  top: 0;
-  left: 100%;
-  margin-left: 20px;
-  font-size: 0.95em;
-  color: red;
-}
-.password-container , .file-upload-container{
-  position: relative;
-}
 .form-horizontal .control-label {
   text-align: left;
 }
@@ -70,3 +55,6 @@ label {
   margin-bottom: 0px;
 }
 
+.ml-200 {
+  margin-left: 200px;
+}

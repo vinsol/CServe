@@ -9,9 +9,9 @@ class Admins::SessionsController < Devise::SessionsController
     if params[:admin][:email].present?
       admin = Admin.where(email: params[:admin][:email]).first
       if admin.nil? || admin.subdomain != request.subdomain
-        return redirect_to sign_in_path, alert: 'You are not authorized'
+        redirect_to sign_in_path, alert: 'You are not authorized' and return
       end
-      redirect_to sign_in_path, alert: 'Your account has been disabled.Contact your company Admin' unless admin.active
+      redirect_to sign_in_path, alert: 'Your account has been disabled.Contact your company Admin' unless admin.active?
     end
   end
 
