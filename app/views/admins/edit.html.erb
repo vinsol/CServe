@@ -1,0 +1,15 @@
+<% content_for :stylesheet do %>
+  <%= stylesheet_link_tag 'company', 'data-turbolinks-track' => true %>
+<% end %>
+<%= form_for(@admin, html: { class: 'form-horizontal sign-up-form'}) do |f| %>
+  <h2>Edit</h2><br />
+  <div class='form-group'>
+    <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
+    <div class='col-sm-8'>
+      <%= f.text_field :name, class: 'form-control', :placeholder => 'Admin Name' %>
+      <%= display(@admin.errors[:name]) %>
+    </div>
+  </div>
+  <%= f.submit 'Update', class: 'btn btn-primary btn-len' %>
+  <%= link_to 'Cancel', admins_path, class: 'btn btn-danger btn-len pull-right' %>
+<% end %>
