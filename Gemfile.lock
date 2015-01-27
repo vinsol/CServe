@@ -179,7 +179,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug (~> 3.5.1)
-  delayed_job_active_record
+  delayed_job_active_record (~> 4.0.3)
   devise (~> 3.4.1)
   jquery-rails (~> 3.1.2)
   kaminari (~> 0.16.1)

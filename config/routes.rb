@@ -23,5 +23,8 @@ Rails.application.routes.draw do
     delete '/sign_out', to: 'admins/sessions#destroy'
   end
 
+  match '/' => 'companies#feedback', :constraints => { :subdomain => /.+/ }, via: :all
+
   root 'application#index'
+
 end
