@@ -12,6 +12,7 @@
     <table class='table table-striped'>
       <thead>
         <tr>
+          <th>#ID</th>
           <th>Subject</th>
           <th>Updated At</th>
           <th>Actions</th>
@@ -20,6 +21,7 @@
       <tbody>
         <% @tickets.each do |ticket| %>
           <tr>
+            <td><%= ticket.id %></td>
             <td><%= ticket.subject %></td>
             <td><%= ticket.updated_at %></td>
             <td><%= link_to 'View', ticket_path(ticket) %></td>
