@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
     end
 
     def load_company
-      @company = Company.find_by(name: request.subdomain)
+      @company = Company.find_by(subdomain: request.subdomain)
       redirect_to root_path, alert: 'Company not found.' unless @company
     end
 
