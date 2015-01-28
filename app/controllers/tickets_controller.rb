@@ -10,7 +10,8 @@ class TicketsController < ApplicationController
     @company = Company.find_by(name: request.subdomain)
     @ticket = @company.tickets.build(ticket_params)
     if @ticket.save
-      redirect_to feedback_path, notice: 'Feedback Successfully Submitted'
+      redirect_to feedback_path,
+      notice: 'Your request has been successfully submitted. You will recieve a confirmation mail shortly.'
     else
       @ticket.attachments.build
       render 'companies/feedback'

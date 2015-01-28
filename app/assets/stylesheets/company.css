@@ -27,17 +27,6 @@
 .mt-5 {
   margin-top: 5px;
 }
-.instructions {
-  position: absolute;
-  width: 100px;
-  top: 0;
-  left: 100%;
-  margin-left: 20px;
-  font-size: 0.95em;
-}
-.password-container, .instruction-container{
-  position: relative;
-}
 .form-horizontal .control-label {
   text-align: left;
 }
@@ -64,4 +53,22 @@ label {
 }
 .navbar{
   margin-bottom: 0px;
+}
+.ml-200 {
+  margin-left: 200px;
+}
+.ml-180 {
+  margin-left: 180px;
+}
+.attachments {
+  margin: 5px 0;
+}
+.remove {
+  margin-top: -30px;
+}
+.attachment{
+  float: right !important;
+}
+#add{
+  clear: right;
 }
