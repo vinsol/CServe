@@ -34,10 +34,9 @@
           <% @comments.each do |comment| %>
             <tr>
               <td>
-                <span><i><%= comment.commenter_email %></i></span>
+                <span> <i><%= comment.commenter_email %></i>, <i><%= comment.created_at.strftime('%d-%b-%Y, %T') %></i></span>
                 <pre><%= comment.text %></pre>
                 <p class='pull-right align'>
-                  <i><%= comment.created_at.strftime('%d-%b-%Y, %T') %></i><br />
                 </p>
               </td>
             </tr>
