@@ -18,7 +18,7 @@ class TicketsController < ApplicationController
   def create
     @ticket = @company.tickets.build(ticket_params)
     if @ticket.save
-      redirect_to new_ticket_path, notice: 'Feedback Successfully Submitted'
+      redirect_to new_ticket_path, notice: 'Your request has been successfully submitted. You will recieve a confirmation mail shortly.'
     else
       @ticket.attachments.build
       render :new

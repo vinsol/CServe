@@ -7,7 +7,7 @@ class Admins::SessionsController < Devise::SessionsController
 
   def check_admin_company_and_status
     if params[:admin][:email].present?
-      admin = Admin.where(email: params[:admin][:email]).first
+      admin = Admin.find_by(email: params[:admin][:email])
       if admin.nil? || admin.subdomain != request.subdomain
         redirect_to sign_in_path, alert: 'You are not authorized' and return
       end

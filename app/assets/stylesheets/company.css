@@ -54,7 +54,21 @@ label {
 .navbar{
   margin-bottom: 0px;
 }
-
 .ml-200 {
   margin-left: 200px;
+}
+.ml-180 {
+  margin-left: 180px;
+}
+.attachments {
+  margin: 5px 0;
+}
+.remove {
+  margin-top: -30px;
+}
+.attachment{
+  float: right !important;
+}
+#add{
+  clear: right;
 }
