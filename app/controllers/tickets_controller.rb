@@ -7,7 +7,7 @@ class TicketsController < ApplicationController
   before_action :load_company, only: :create
 
   def index
-    @tickets = Ticket.where(company_id: current_admin.company_id).order(:updated_at).page(params[:page])
+    @tickets = Ticket.where(company_id: current_admin.company_id).order('updated_at DESC').page(params[:page])
   end
 
   def new
@@ -27,8 +27,8 @@ class TicketsController < ApplicationController
 
   def show
     @ticket =  Ticket.find_by(id: params[:id])
-    @comments = @ticket.comments
-    @comment = @ticket.comments.new
+    @comments = Comment.where(ticket_id: @ticket)
+    @comment = @ticket.comments.build
   end
 
   private

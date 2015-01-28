@@ -41,7 +41,7 @@ class Admin < ActiveRecord::Base
 
     def send_password_instructions
       token = set_reset_password_token
-      AdminMailer.set_password_instructions(self, token).deliver_later
+      AdminMailer.set_password_instructions(self, token).deliver
     end
 
     def set_admin_password_attributes
