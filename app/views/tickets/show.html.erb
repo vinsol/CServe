@@ -21,9 +21,9 @@
       <h3 class='heading'>Issue Detail</h2>
     <% end %>
     <h3><%= @ticket.subject %></h4>
+      <i><%= @ticket.email %> <%= @ticket.created_at.strftime('%d-%b-%Y, %T') %></i>
     <div class='description'>
       <p><span class='text-size'><b>Description: </b></span><%= @ticket.description %></p>
-      <p class='pull-right'><b><i><%= @ticket.email %> <%= @ticket.created_at.strftime('%d-%b-%Y, %T') %></i></b></p>
     </div>
   </div>
   <div class="panel panel-default">
@@ -34,10 +34,10 @@
           <% @comments.each do |comment| %>
             <tr>
               <td>
+                <span><i><%= comment.commenter_email %></i></span>
                 <pre><%= comment.text %></pre>
                 <p class='pull-right align'>
                   <i><%= comment.created_at.strftime('%d-%b-%Y, %T') %></i><br />
-                  <span class='text-right'><b><%= comment.commenter_email %></b></span>
                 </p>
               </td>
             </tr>
