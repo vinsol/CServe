@@ -1,38 +1,41 @@
-<% if @tickets.present? %>
-  <h2 class='heading'>Tickets List</h2>
-  <div class='container'>
-    <div>
+<div class='container'>
+  <%= link_to 'All', tickets_path %> | 
+  <%= link_to 'New', tickets_path(status: :unassigned) %>
+
+  <% if @tickets.present? %>
+    <h2 class='heading'>Tickets List</h2>
+      <div>
+        <div class='pagination'>
+          <%= paginate @tickets %>
+        </div>
+        <div class='pagination-info'>
+          <p><%= pagination_info @tickets %></p>
+        </div>
+      </div>
+      <table class='table table-striped'>
+        <thead>
+          <tr>
+            <th>#ID</th>
+            <th>Subject</th>
+            <th>Updated At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tickets.each do |ticket| %>
+            <tr>
+              <td><%= ticket.id %></td>
+              <td><%= ticket.subject %></td>
+              <td><%= ticket.updated_at %></td>
+              <td><%= link_to 'View', ticket_path(ticket) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
       <div class='pagination'>
         <%= paginate @tickets %>
       </div>
-      <div class='pagination-info'>
-        <p><%= pagination_info @tickets %></p>
-      </div>
-    </div>
-    <table class='table table-striped'>
-      <thead>
-        <tr>
-          <th>#ID</th>
-          <th>Subject</th>
-          <th>Updated At</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @tickets.each do |ticket| %>
-          <tr>
-            <td><%= ticket.id %></td>
-            <td><%= ticket.subject %></td>
-            <td><%= ticket.updated_at %></td>
-            <td><%= link_to 'View', ticket_path(ticket) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div class='pagination'>
-      <%= paginate @tickets %>
-    </div>
-  </div>
-<% else %>
-  <h3 class='heading'>Currently there are no tickets</h3>
-<% end %>
+  <% else %>
+    <h3 class='heading'>Currently there are no tickets</h3>
+  <% end %>
+</div>
