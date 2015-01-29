@@ -7,7 +7,15 @@ class TicketsController < ApplicationController
   before_action :load_company, only: :create
 
   def index
-    @tickets = Ticket.where(company_id: current_admin.company_id).order('updated_at DESC').page(params[:page])
+    if params[:status]
+      @tickets = Ticket.unassigned(current_admin.company_id)
+                       .order('updated_at DESC')
+                       .page(params[:page])
+    else
+      @tickets = current_admin.tickets
+                              .order('updated_at DESC')
+                              .page(params[:page])
+    end
   end
 
   def new

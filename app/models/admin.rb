@@ -8,6 +8,8 @@ class Admin < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :tickets
+
   belongs_to :company
 
   paginates_per 20
