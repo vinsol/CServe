@@ -6,7 +6,7 @@ class AdminsController < ApplicationController
 
 
   def index
-    @admins = Admin.where.not(id: current_admin.id).where(company_id: current_admin.company_id).order(:name).page(params[:page])
+    @admins = Admin.where(company_id: current_admin.company_id).order(:name).page(params[:page])
   end
 
   def new

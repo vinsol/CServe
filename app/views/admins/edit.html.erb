@@ -4,9 +4,9 @@
 <%= form_for(@admin, html: { class: 'form-horizontal sign-up-form'}) do |f| %>
   <h2>Edit</h2><br />
   <div class='form-group'>
-    <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
+    <%= f.label :name, 'Name*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
-      <%= f.text_field :name, class: 'form-control', :placeholder => 'Admin Name' %>
+      <%= f.text_field :name, class: 'form-control', :placeholder => 'Name' %>
       <%= display(@admin.errors[:name]) %>
     </div>
   </div>

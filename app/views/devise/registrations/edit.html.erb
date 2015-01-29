@@ -9,14 +9,14 @@
   <div class='form-group'>
     <%= f.label :current_password, 'Current password*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
-      <%= f.password_field :current_password, autocomplete: "off", class: 'form-control', placeholder: "Current Password"  %>
+      <%= f.password_field :current_password, autocomplete: 'off', class: 'form-control', placeholder: 'Current Password'  %>
       <%= display(resource.errors['current_password']) %>
     </div>
   </div>
     <div class='form-group'>
       <%= f.label :password, 'New Password*', class:'col-sm-4 control-label' %>
       <div class='col-sm-8'>
-        <%= f.password_field :password, autocomplete: "off",class: 'form-control ', placeholder: " New Password"  %>
+        <%= f.password_field :password, autocomplete: 'off',class: 'form-control ', placeholder: ' New Password'  %>
         <%= display(resource.errors[:password]) %>
       </div>
       <span class='ml-200'>(minimum 8 characters)</span>
@@ -24,10 +24,10 @@
   <div class='form-group'>
     <%= f.label :password_confirmation, 'Confirm password*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
-      <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: "Confirm Password"  %>
+      <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: 'Confirm Password'  %>
       <%= display(resource.errors[:password_confirmation]) %>
     </div>
   </div>
-  <%= f.submit 'Update', class: "btn btn-primary btn-len" %>
-  <%= link_to 'Cancel', admins_path, class: "btn btn-danger btn-len pull-right" %>
+  <%= f.submit 'Update', class: 'btn btn-primary btn-len' %>
+  <%= link_to 'Cancel', admins_path, class: 'btn btn-danger btn-len pull-right' %>
 <% end %>

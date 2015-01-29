@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
 
-  layout 'admins', only: [:index, :show, :new]
+  layout 'admins', only: [:index, :show, :new, :create]
 
   before_action :authenticate_admin!, only: :index
   before_action :check_subdomain?, only: :new
@@ -20,7 +20,7 @@ class TicketsController < ApplicationController
     if @ticket.save
       redirect_to new_ticket_path, notice: 'Your request has been successfully submitted. You will recieve a confirmation mail shortly.'
     else
-      @ticket.attachments.build
+      @ticket.attachments.build if @ticket.attachments.empty?
       render :new
     end
   end

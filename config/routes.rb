@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   match '/' => 'tickets#new', constraints: { subdomain: /.+/ }, via: :all
 
   root 'application#index'
+
 end

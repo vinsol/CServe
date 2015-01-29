@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def company_name
-  	Company.find_by(subdomain: request.subdomain).name.capitalize
+    Company.find_by(subdomain: request.subdomain).name.capitalize
   end
 
 end

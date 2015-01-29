@@ -5,8 +5,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :ticket
 
   validates_attachment :document,
-    content_type: { content_type: %w(image/jpeg image/jpg image/png application/pdf
-      application/vnd.openxmlformats-officedocument.wordprocessingml.document application/mspowerpoint
-      application/vnd.ms-powerpoint application/vnd.openxmlformats-officedocument.presentationml.presentation) },
+    content_type: { content_type: %w(image/jpeg image/jpg image/png
+      application/vnd.openxmlformats-officedocument.wordprocessingml.document) },
     size: { less_than: 2.megabyte }
 end

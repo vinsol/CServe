@@ -13,11 +13,10 @@ class Admin < ActiveRecord::Base
   paginates_per 20
 
   delegate :subdomain, to: :company
-  delegate :name, to: :company, prefix: true
 
   before_validation :set_admin_password_attributes, on: :create
 
-  with_options if: -> { company.admins.count > 1 } do |options|
+  with_options if: -> { company.admins.count > 0 } do |options|
     options.before_create :skip_confirmation!
     options.after_create :send_password_instructions
   end

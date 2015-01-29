@@ -27,21 +27,21 @@
         <%= display(@ticket.errors[:description]) %>
       </div>
     </div>
+    <%= label_tag :document, 'Attachment', class: 'col-sm-4 control-label' %>
     <%= f.fields_for :attachments do |attachment_field| %>
       <div class='form-group'>
-        <%= attachment_field.label :document, 'Attachment', class: 'col-sm-4 control-label' %>
         <div id='attachment-container'>
-          <div class='col-sm-8 attachment'>
-            <%= attachment_field.file_field :document, name: 'ticket[attachments_attributes][][document]', class: 'attachments' %>
-            <button class='close remove' data-dismiss='alert'>×</button>
+          <div>
+            <div class='col-sm-8 attachment'>
+              <%= attachment_field.file_field :document, name: 'ticket[attachments_attributes][][document]', class: 'attachments' %>
+              <%= display(@ticket.errors['attachments.document']) %>
+            </div>
           </div>
         </div>
-          <input id='add' type='button' value='Add More' class='btn btn-primary pull-right'/>
-        <div>
-        </div>
-        <span class='ml-180'>.jpeg,.png,.jpg,.doc,.docx,.xls,.xlsx only</span>
       </div>
     <% end %>
-    <%= f.submit "Submit", class: "btn btn-primary form-control" %>
+    <input id='add' type='button' value='Add More' class='btn btn-primary pull-right'/>
+    <span class='ml-180'>.jpeg,.png,.jpg,.doc,.docx,.xls,.xlsx only</span>
+    <%= f.submit 'Submit', class: 'btn btn-primary form-control' %>
   <% end %>
 </div>

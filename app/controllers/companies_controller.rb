@@ -1,5 +1,7 @@
 class CompaniesController < ApplicationController
 
+  layout 'company', only: [:new, :create]
+
   def new
     @company = Company.new
     @admins = @company.admins.build

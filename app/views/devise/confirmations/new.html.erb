@@ -1,17 +1,17 @@
 <% content_for :stylesheet do %>
   <%= stylesheet_link_tag 'company', 'data-turbolinks-track' => true %>
 <% end %>
-<%= render partial: "error_alert", locals: { resource: resource } %>
+<%= render partial: 'error_alert', locals: { resource: resource } %>
 <div class='form'>
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'form-signin' }) do |f| %>
     <div class='pt-70'>
       <h2>Resend confirmation instructions</h2>
-      <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Email" %><br/>
-      <%= f.submit "Resend confirmation instructions", class: "btn btn-primary form-control" %>
+      <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email' %><br/>
+      <%= f.submit 'Resend confirmation instructions', class: 'btn btn-primary form-control' %>
     </div>
   <% end %>
   <div class='mt-5'>
-    <%= link_to "Log in", new_session_path(resource_name), class: 'pull-left' %>
-    <%= link_to "Forgot your password?", new_password_path(resource_name), class: 'pull-right' %>
+    <%= link_to 'Log in', new_session_path(resource_name), class: 'pull-left' %>
+    <%= link_to 'Forgot your password?', new_password_path(resource_name), class: 'pull-right' %>
   </div>
 </div>
