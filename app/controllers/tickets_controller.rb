@@ -6,6 +6,8 @@ class TicketsController < ApplicationController
   before_action :check_subdomain?, only: :new
   before_action :load_company, only: :create
 
+  after_action :assign_admin, only: :show
+
   def index
     if params[:status]
       @tickets = Ticket.unassigned(current_admin.company_id)
@@ -48,6 +50,11 @@ class TicketsController < ApplicationController
     def load_company
       @company = Company.find_by(subdomain: request.subdomain)
       redirect_to root_path, alert: 'Company not found.' unless @company
+    end
+
+    def assign_admin
+      @ticket.assign!
+      @ticket.update_column(:admin_id, current_admin.id)
     end
 
 end
