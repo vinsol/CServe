@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.0.8)
     actionmailer (4.2.0)
       actionpack (= 4.2.0)
       actionview (= 4.2.0)
@@ -186,6 +187,7 @@ PLATFORMS
   unknown
 
 DEPENDENCIES
+  aasm (~> 4.0.8)
   byebug (~> 3.5.1)
   delayed_job_active_record (~> 4.0.3)
   devise (~> 3.4.1)
