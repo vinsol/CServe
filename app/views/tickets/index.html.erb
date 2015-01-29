@@ -27,7 +27,13 @@
               <td><%= ticket.id %></td>
               <td><%= ticket.subject %></td>
               <td><%= ticket.updated_at %></td>
-              <td><%= link_to 'View', ticket_path(ticket) %></td>
+              <td>
+                <% if ticket.admin_id.nil? %>
+                  <%= link_to 'View', ticket_path(ticket), data: { confirm: 'This will assign you the ticket, press ok to continue.' } %>
+                <% else %>
+                  <%= link_to 'View', ticket_path(ticket) %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>

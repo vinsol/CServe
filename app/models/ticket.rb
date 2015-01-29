@@ -23,9 +23,7 @@ class Ticket < ActiveRecord::Base
     state :assigned
 
     event :assign do
-      after do
-        send_update_mail
-      end
+      after do send_update_mail end
       transitions from: :new, to: :assigned
     end
   end
@@ -37,7 +35,7 @@ class Ticket < ActiveRecord::Base
     end
 
     def send_update_mail
-      NotifierMailer.notify_update(ticket).deliver
+      NotifierMailer.notify_update(self).deliver
     end
 
 end

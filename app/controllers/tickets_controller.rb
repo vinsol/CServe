@@ -5,8 +5,8 @@ class TicketsController < ApplicationController
   before_action :authenticate_admin!, only: :index
   before_action :check_subdomain?, only: :new
   before_action :load_company, only: :create
-
-  after_action :assign_admin, only: :show
+  before_action :load_ticket, only: :show
+  before_action :assign_admin, only: :show
 
   def index
     if params[:status]
@@ -36,7 +36,6 @@ class TicketsController < ApplicationController
   end
 
   def show
-    @ticket =  Ticket.find_by(id: params[:id])
     @comments = Comment.where(ticket_id: @ticket)
     @comment = @ticket.comments.build
   end
@@ -52,9 +51,15 @@ class TicketsController < ApplicationController
       redirect_to root_path, alert: 'Company not found.' unless @company
     end
 
+    def load_ticket
+      @ticket =  Ticket.find_by(id: params[:id])
+    end
+
     def assign_admin
-      @ticket.assign!
-      @ticket.update_column(:admin_id, current_admin.id)
+      if @ticket.admin_id.nil?
+        @ticket.assign!
+        @ticket.update_column(:admin_id, current_admin.id)
+      end
     end
 
 end
