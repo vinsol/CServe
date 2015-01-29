@@ -1,14 +1,17 @@
 class Admins::SessionsController < Devise::SessionsController
- before_filter :check_subdomain?, only: [:new]
+  layout 'admins', only: [:new]
+  before_action :check_subdomain?, only: [:new]
+  before_action :check_admin_company_and_status, only: [:create]
 
   protected
 
-  def check_subdomain?
-    subdomain = request.subdomain
-    if subdomain == 'www'
-      redirect_to root_url
-    elsif subdomain.blank? || Company.find_by(subdomain: subdomain).nil?
-      redirect_to new_admin_registration_url(host: Rails.application.config.action_mailer.default_url_options[:host]), alert: 'Get Registered First'
+  def check_admin_company_and_status
+    if params[:admin][:email].present?
+      admin = Admin.find_by(email: params[:admin][:email])
+      if admin.nil? || admin.subdomain != request.subdomain
+        redirect_to sign_in_path, alert: 'You are not authorized' and return
+      end
+      redirect_to sign_in_path, alert: 'Your account has been disabled.Contact your company Admin' unless admin.active?
     end
   end
 

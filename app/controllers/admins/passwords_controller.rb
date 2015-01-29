@@ -1,6 +1,6 @@
 class Admins::PasswordsController < Devise::PasswordsController
 
-  before_filter :check_validity_of_token?, only: [:edit]
+  before_action :check_validity_of_token?, only: :edit
 
   private
   def check_validity_of_token?

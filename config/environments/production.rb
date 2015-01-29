@@ -89,4 +89,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   config.action_dispatch.tld_length = 2
+  config.assets.debug = true
+  config.log_level = :debug
+  config.logger = Logger.new(STDOUT)
 end
