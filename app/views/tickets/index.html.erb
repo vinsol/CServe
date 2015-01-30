@@ -5,9 +5,6 @@
   <% if @tickets.present? %>
     <h2 class='heading'>Tickets List</h2>
       <div>
-        <div class='pagination'>
-          <%= paginate @tickets %>
-        </div>
         <div class='pagination-info'>
           <p><%= pagination_info @tickets %></p>
         </div>

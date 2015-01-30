@@ -10,4 +10,19 @@ class NotifierMailer < ApplicationMailer
     mail(to: @ticket.email, subject: "(##{ @ticket.id }) @ticket.subject")
   end
 
+  def notify_result(ticket)
+    @ticket = ticket
+    mail(to: @ticket.email, subject: "(##{ @ticket.id }) @ticket.subject")
+  end
+
+  def notify_closing_status(ticket)
+    @ticket = ticket
+    mail(to: @ticket.email, subject: "(##{ @ticket.id }) @ticket.subject")
+  end
+
+  def notify_reopening_status(ticket)
+    @ticket = ticket
+    mail(to: @ticket.email, subject: "(##{ @ticket.id }) @ticket.subject")
+  end
+
 end

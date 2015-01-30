@@ -5,7 +5,7 @@ class TicketsController < ApplicationController
   before_action :authenticate_admin!, only: :index
   before_action :check_subdomain?, only: :new
   before_action :load_company, only: :create
-  before_action :load_ticket, only: :show
+  before_action :load_ticket, only: [:resolve, :show, :reopen, :close]
   before_action :assign_admin, only: :show
 
   def index
@@ -40,6 +40,21 @@ class TicketsController < ApplicationController
     @comment = @ticket.comments.build
   end
 
+  def resolve
+    @ticket.resolve! if @ticket.may_resolve?
+    redirect_to ticket_path(@ticket)
+  end
+
+  def close
+    @ticket.close! if @ticket.may_close?
+    redirect_to ticket_path(@ticket)
+  end
+
+  def reopen
+    @ticket.reopen! if @ticket.may_reopen?
+    redirect_to ticket_path(@ticket)
+  end
+
   private
 
     def ticket_params
@@ -53,6 +68,7 @@ class TicketsController < ApplicationController
 
     def load_ticket
       @ticket =  Ticket.find_by(id: params[:id])
+      redirect_to tickets_path, alert: 'Ticket not found.' unless @ticket
     end
 
     def assign_admin

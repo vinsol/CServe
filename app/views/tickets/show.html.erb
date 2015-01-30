@@ -15,6 +15,16 @@
             <%= label_tag :status, 'Status : '  %>
             <%= select_tag(:status, options_for_select(['Open', 'Closed'])) %>
           </div>
+          <% if @ticket.may_resolve? %>
+            <div>
+              <%= link_to 'Resolve', resolve_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Resolve the ticket?.' }, method: :patch %>
+              <%= link_to 'Close', close_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
+            </div>
+          <% elsif @ticket.may_reopen? %>
+            <%= link_to 'Reopen', reopen_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Reopen the ticket?.' }, method: :patch %>
+          <% else %>
+            <%= link_to 'Close', close_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
+          <% end %>
         </div>
       <% end %>
     <% else %>
@@ -43,9 +53,17 @@
           <% end %>
         </table>
       <% end %>
-    <%= form_for(@comment, url: ticket_comments_path(@ticket)) do |f| %>
-      <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
-      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    </div>
+    <% if @ticket.may_resolve? %>
+      <%= form_for(@comment, url: ticket_comments_path(@ticket)) do |f| %>
+        <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
+        <%= f.submit 'Submit', class: 'btn btn-primary' %>
+      <% end %>
+    <% elsif admin_signed_in? %>
+      <p>Status of the ticket is resolved, so you are not allowed to make any further comment. To make a comment, please change the status of the ticket to Assigned</p>
+    <% else %>
+      <p>Your ticket's status is resolved. So you are not allowed to make any further comment. If you are having any other query, please create a new ticket.</p>
+      <%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>
