@@ -5,7 +5,7 @@ class TicketsController < ApplicationController
   before_action :authenticate_admin!, only: :index
   before_action :check_subdomain?, only: :new
   before_action :load_company, only: :create
-  before_action :load_ticket, only: [:resolve, :show, :reopen, :close]
+  before_action :load_ticket, only: [:resolve, :show, :reopen, :close, :assign]
   before_action :assign_admin, only: :show
 
   def index
@@ -36,23 +36,32 @@ class TicketsController < ApplicationController
   end
 
   def show
-    @comments = Comment.where(ticket_id: @ticket)
+    if current_admin
+      @comments = Comment.where(ticket_id: @ticket)
+    else
+      @comments = Comment.where(ticket_id: @ticket).for_user
+    end
     @comment = @ticket.comments.build
   end
 
   def resolve
     @ticket.resolve! if @ticket.may_resolve?
-    redirect_to ticket_path(@ticket)
+    redirect_to ticket_path(@ticket), notice: 'Ticket Resolved'
   end
 
   def close
     @ticket.close! if @ticket.may_close?
-    redirect_to ticket_path(@ticket)
+    redirect_to ticket_path(@ticket), notice: 'Ticket Closed'
   end
 
   def reopen
     @ticket.reopen! if @ticket.may_reopen?
-    redirect_to ticket_path(@ticket)
+    redirect_to ticket_path(@ticket), notice: 'Ticket Reopened'
+  end
+
+  def assign
+    @ticket.update_attribute(:admin_id, ticket_assign_params[:admin_id])
+    redirect_to tickets_path, notice: 'Ticket Assigned'
   end
 
   private
@@ -76,6 +85,10 @@ class TicketsController < ApplicationController
         @ticket.assign!
         @ticket.update_column(:admin_id, current_admin.id)
       end
+    end
+
+    def ticket_assign_params
+      params.require(:ticket).permit(:admin_id)
     end
 
 end

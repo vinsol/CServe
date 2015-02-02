@@ -25,4 +25,9 @@ class NotifierMailer < ApplicationMailer
     mail(to: @ticket.email, subject: "(##{ @ticket.id }) @ticket.subject")
   end
 
+  def assignment_notification(ticket)
+    @ticket = ticket
+    mail(to: @ticket.email, subject: "(##{ @ticket.id }) @ticket.subject")
+  end
+
 end
