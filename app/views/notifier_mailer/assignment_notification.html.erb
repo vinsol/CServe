@@ -1,6 +1,6 @@
-<p>Hi</p>
+<p>Hi <%= @ticket.admin_name %></p>
 
-<p>Your have been Assigned with a new ticket (#<%= @ticket.id %>).</p>
+<p>Your have been Assigned with a new ticket #<%= link_to "#{ @ticket.id }", ticket_url(@ticket, host: host_with(@ticket.company_subdomain)) %>.</p>
 
 <p>Thanks</p>
 <p><%= @ticket.company_name %></p>

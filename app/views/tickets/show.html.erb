@@ -35,9 +35,9 @@
       <p><span class='text-size'><b>Description: </b></span><%= @ticket.description %></p>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3>Comments :</h3></div>
-    <div class="panel-body">
+  <div class='panel panel-default'>
+    <div class='panel-heading'><h3>Comments :</h3></div>
+    <div class='panel-body'>
       <% if @comments.any? %>
         <table class='table table-striped'>
           <% @comments.each do |comment| %>
@@ -57,12 +57,12 @@
       <%= form_for(@comment, url: ticket_comments_path(@ticket)) do |f| %>
         <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
         <% if admin_signed_in? %>
-          <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary">
-              <%= f.radio_button(:type, 'internal') %><span>Internal</span>
+          <div class='btn-group' data-toggle='buttons'>
+            <label class='btn btn-primary'>
+              <%= f.radio_button(:kind, 'internal') %><span>Internal</span>
             </label>
-            <label class="btn btn-primary active">
-              <%= f.radio_button(:type, 'public', checked: true) %><span>Public</span>
+            <label class='btn btn-primary active'>
+              <%= f.radio_button(:kind, 'public', checked: true) %><span>Public</span>
             </label>
           </div>
         <% end %>

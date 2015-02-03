@@ -4,9 +4,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :ticket
 
-  after_create :notify_user, if: -> { type == 'public' }
-
-  self.inheritance_column = nil
+  after_create :notify_user, if: -> { kind == 'public' }
 
   scope 'for_user', -> { where(type: 'public') }
 
