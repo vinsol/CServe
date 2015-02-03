@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-      params.require(:comment).permit(:text, :type)
+      params.require(:comment).permit(:text, :kind)
     end
 
     def load_ticket

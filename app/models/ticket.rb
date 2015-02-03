@@ -13,7 +13,6 @@ class Ticket < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
 
   after_create :send_feedback_mail
-  # after_update :send_assignment_mail, unless: -> { state_changed? }  #check this
 
   delegate :name, :subdomain, to: :company, prefix: true
   delegate :email, :name, to: :admin, prefix: true

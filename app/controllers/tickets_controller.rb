@@ -37,11 +37,8 @@ class TicketsController < ApplicationController
   end
 
   def show
-    if current_admin
-      @comments = Comment.where(ticket_id: @ticket)
-    else
-      @comments = Comment.where(ticket_id: @ticket).for_user
-    end
+    @comments = Comment.where(ticket_id: @ticket)
+    @comments = @comments.for_user unless current_admin
     @comment = @ticket.comments.build
   end
 

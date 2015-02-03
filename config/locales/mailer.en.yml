@@ -1,0 +1,12 @@
+en:
+  notifier:
+    assignment_notification: '[%{company}] (#%{ticket}) %{subject}'
+    notify_update_status: '[%{company}] (#%{ticket}) %{subject}'
+    notify_resolving_status: '[%{company}] (#%{ticket}) %{subject}'
+    notify_closing_status: '[%{company}] (#%{ticket}) %{subject}'
+    notify_reopening_status: '[%{company}] (#%{ticket}) %{subject}'
+    notify_comment: '[%{company}] (#%{ticket}) %{subject}'
+  admin:
+    set_password_instructions: 'Set Password for your account'
+  user:
+    feedback_instructions: '[%{company}] (#%{ticket}) %{subject}'
