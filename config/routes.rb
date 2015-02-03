@@ -16,6 +16,12 @@ Rails.application.routes.draw do
   end
 
   resources :tickets, only: [:create, :index, :show, :new] do
+    member do
+      patch :resolve
+      patch :close
+      patch :reopen
+      patch :assign
+    end
     resources :comments, only: [:create]
   end
 

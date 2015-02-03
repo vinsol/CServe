@@ -4,7 +4,9 @@ class Comment < ActiveRecord::Base
 
   belongs_to :ticket
 
-  after_create :notify_user
+  after_create :notify_user, if: -> { kind == 'public' }
+
+  scope 'for_user', -> { where(kind: 'public') }
 
   def set_commenter_email(admin, ticket)
     self.commenter_email = admin ? admin.email : ticket.email

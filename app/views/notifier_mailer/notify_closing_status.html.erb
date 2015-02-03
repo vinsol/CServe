@@ -1,0 +1,6 @@
+<p>Hi</p>
+
+<p>Your request #<%= link_to "#{ @ticket.id }", ticket_url(@ticket, host: host_with(@ticket.company_subdomain)) %> has been closed.</p>
+
+<p>Thanks</p>
+<p><%= @ticket.company_name %></p>

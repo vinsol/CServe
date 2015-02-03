@@ -5,7 +5,8 @@ class TicketsController < ApplicationController
   before_action :authenticate_admin!, only: :index
   before_action :check_subdomain?, only: :new
   before_action :load_company, only: :create
-  before_action :load_ticket, only: :show
+  before_action :load_ticket, only: [:resolve, :show, :reopen, :close, :assign]
+  before_action :redirect_if_invalid_transition, only: [:resolve, :reopen, :close]
   before_action :assign_admin, only: :show
 
   def index
@@ -37,7 +38,21 @@ class TicketsController < ApplicationController
 
   def show
     @comments = Comment.where(ticket_id: @ticket)
+    @comments = @comments.for_user unless current_admin
     @comment = @ticket.comments.build
+  end
+
+  %w(reopen resolve close).each do |_method_|
+    define_method _method_ do 
+      @ticket.public_send("#{ _method_ }!")
+      redirect_to ticket_path(@ticket), notice: 'State Successfully Changed'
+    end
+  end
+
+  def assign
+    @ticket.update_attribute(:admin_id, ticket_assign_params[:admin_id])
+    @ticket.reassign!
+    redirect_to tickets_path, notice: 'Ticket Successfully Assigned'
   end
 
   private
@@ -53,12 +68,23 @@ class TicketsController < ApplicationController
 
     def load_ticket
       @ticket =  Ticket.find_by(id: params[:id])
+      redirect_to tickets_path, alert: 'Ticket not found.' unless @ticket
     end
 
     def assign_admin
       if @ticket.admin_id.nil?
-        @ticket.assign!
         @ticket.update_column(:admin_id, current_admin.id)
+        @ticket.assign!
+      end
+    end
+
+    def ticket_assign_params
+      params.require(:ticket).permit(:admin_id)
+    end
+
+    def redirect_if_invalid_transition
+      unless @ticket.public_send("may_#{ params[:action] }?")
+        redirect_to tickets_path, alert: 'Cannot process request'
       end
     end
 

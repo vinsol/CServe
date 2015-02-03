@@ -7,14 +7,23 @@
       <h3 class='heading'>Ticket Detail</h2>
       <% if admin_signed_in? %>
         <div class='mt-neg50 pull-right'>
-          <div class='mt-10'>
-            <%= label_tag :assignee, 'Assignee : '  %>
-            <%= select_tag(:assignee, options_for_select(admins)) %>
-          </div>
-          <div class='mt-10'>
-            <%= label_tag :status, 'Status : '  %>
-            <%= select_tag(:status, options_for_select(['Open', 'Closed'])) %>
-          </div>
+          <% if @ticket.may_resolve? %>
+            <div class='mt-10'>
+              <%= form_for(@ticket, url: assign_ticket_path) do |f| %>
+                <%= f.label :admin_id, 'Assignee : '  %>
+                <%= f.select(:admin_id, options_for_select(admins)) %>
+                <%= f.submit 'Assign', class: 'btn btn-primary' %>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to 'Resolve', resolve_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Resolve the ticket?.' }, method: :patch %>
+              <%= link_to 'Close', close_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
+            </div>
+          <% elsif @ticket.may_reopen? %>
+            <%= link_to 'Reopen', reopen_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Reopen the ticket?.' }, method: :patch %>
+          <% else %>
+            <%= link_to 'Close', close_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
+          <% end %>
         </div>
       <% end %>
     <% else %>
@@ -26,9 +35,9 @@
       <p><span class='text-size'><b>Description: </b></span><%= @ticket.description %></p>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3>Comments :</h3></div>
-    <div class="panel-body">
+  <div class='panel panel-default'>
+    <div class='panel-heading'><h3>Comments :</h3></div>
+    <div class='panel-body'>
       <% if @comments.any? %>
         <table class='table table-striped'>
           <% @comments.each do |comment| %>
@@ -43,9 +52,27 @@
           <% end %>
         </table>
       <% end %>
-    <%= form_for(@comment, url: ticket_comments_path(@ticket)) do |f| %>
-      <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
-      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    </div>
+    <% if @ticket.may_resolve? %>
+      <%= form_for(@comment, url: ticket_comments_path(@ticket)) do |f| %>
+        <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
+        <% if admin_signed_in? %>
+          <div class='btn-group' data-toggle='buttons'>
+            <label class='btn btn-primary'>
+              <%= f.radio_button(:kind, 'internal') %><span>Internal</span>
+            </label>
+            <label class='btn btn-primary active'>
+              <%= f.radio_button(:kind, 'public', checked: true) %><span>Public</span>
+            </label>
+          </div>
+        <% end %>
+        <%= f.submit 'Submit', class: 'btn btn-primary' %>
+      <% end %>
+    <% elsif admin_signed_in? %>
+      <p>Status of the ticket is resolved, so you are not allowed to make any further comment. To make a comment, please change the status of the ticket to Assigned</p>
+    <% else %>
+      <p>Your ticket's status is resolved. So you are not allowed to make any further comment. If you are having any other query, please create a new ticket.</p>
+      <%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>

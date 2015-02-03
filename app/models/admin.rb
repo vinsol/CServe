@@ -15,6 +15,7 @@ class Admin < ActiveRecord::Base
   paginates_per 20
 
   delegate :subdomain, to: :company
+  delegate :name, to: :company, prefix: true
 
   before_validation :set_admin_password_attributes, on: :create
 
