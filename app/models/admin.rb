@@ -19,8 +19,8 @@ class Admin < ActiveRecord::Base
 
   before_validation :set_admin_password_attributes, on: :create
 
-  before_create :skip_confirmation!, if: -> { company.admins.count > 0 }
   after_create :send_password_instructions, if: -> { company.admins.count > 1 }
+  before_create :skip_confirmation!, if: -> { company.admins.count > 0 }
 
   def update_with_password(params, *options)
     current_password = params.delete(:current_password)
