@@ -19,3 +19,6 @@
 .alert {
   text-align: center;
 }
+.jumbotron p {
+  font-size: 16px;
+}

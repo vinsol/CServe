@@ -29,7 +29,7 @@
               <% end %>
             </td>
             <td>
-              <% if admin.role != 'company_admin' %>
+              <% unless admin.role == 'company_admin' || admin == current_admin %>
                 <%= link_to('Edit', edit_admin_path(admin)) %> | 
                 <%= link_to_toggle_status(admin) %>
               <% end %>

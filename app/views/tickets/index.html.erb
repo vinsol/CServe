@@ -14,6 +14,8 @@
           <tr>
             <th>#ID</th>
             <th>Subject</th>
+            <th>Status</th>
+            <th>Assignee</th>
             <th>Updated At</th>
             <th>Actions</th>
           </tr>
@@ -23,6 +25,12 @@
             <tr>
               <td><%= ticket.id %></td>
               <td><%= ticket.subject %></td>
+              <td><%= ticket.state.capitalize %></td>
+              <% if ticket.admin_id %>
+                <td><%= ticket.admin_name.capitalize %></td>
+              <% else %>
+                <td>Unassigned</td>
+              <% end %>
               <td><%= ticket.updated_at %></td>
               <td>
                 <% if ticket.admin_id.nil? %>

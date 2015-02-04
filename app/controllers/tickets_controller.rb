@@ -72,7 +72,7 @@ class TicketsController < ApplicationController
     end
 
     def assign_admin
-      if @ticket.admin_id.nil?
+      if @ticket.admin_id.nil? && admin_signed_in?
         @ticket.update_column(:admin_id, current_admin.id)
         @ticket.assign!
       end
