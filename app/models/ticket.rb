@@ -39,12 +39,12 @@ class Ticket < ActiveRecord::Base
 
     event :close do
       after { send_mail(:notify_closing_status) }
-      transitions from: [:assigned, :resolved], to: :closed
+      transitions from: [:resolved, :assigned], to: :closed
     end
 
     event :reopen do
       after { send_mail(:notify_reopening_status) }
-      transitions from: :closed, to: :assigned
+      transitions from: :resolved, to: :assigned
     end
 
     event :reassign do

@@ -15,9 +15,10 @@ class TicketsController < ApplicationController
                        .order('updated_at DESC')
                        .page(params[:page])
     else
-      @tickets = current_admin.tickets
-                              .order('updated_at DESC')
-                              .page(params[:page])
+      @tickets = current_admin.company.tickets
+                                      .where.not(state: :new)
+                                      .order('updated_at DESC')
+                                      .page(params[:page])
     end
   end
 

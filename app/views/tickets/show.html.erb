@@ -7,8 +7,8 @@
       <h3 class='heading'>Ticket Detail</h2>
       <% if admin_signed_in? %>
         <div class='mt-neg50 pull-right'>
+          <p class='small-size'><b>Status:</b> <%= @ticket.state.capitalize %></p>
           <% if @ticket.may_resolve? %>
-            <p class='small-size'><b>Status:</b> <%= @ticket.state.capitalize %></p>
             <div class='mt-10'>
               <%= form_for(@ticket, url: assign_ticket_path) do |f| %>
                 <%= f.label :admin_id, 'Assignee : '  %>
@@ -22,7 +22,6 @@
             </div>
           <% elsif @ticket.may_reopen? %>
             <%= link_to 'Reopen', reopen_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Reopen the ticket?.' }, method: :patch %>
-          <% else %>
             <%= link_to 'Close', close_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
           <% end %>
         </div>
@@ -70,9 +69,9 @@
         <%= f.submit 'Submit', class: 'btn btn-primary' %>
       <% end %>
     <% elsif admin_signed_in? %>
-      <p>Status of the ticket is resolved, so you are not allowed to make any further comment. To make a comment, please change the status of the ticket to Assigned</p>
+      <p class='color'>Status of the ticket is <%= @ticket.state %>, so you are not allowed to make any further comment.</p>
     <% else %>
-      <p>Your ticket's status is resolved. So you are not allowed to make any further comment. If you are having any other query, please create a new ticket.</p>
+      <p class='color'>Your ticket's status is <%= @ticket.state %>. So you are not allowed to make any further comment. If you are having any other query, please create a new ticket.</p>
       <%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-primary' %>
     <% end %>
   </div>
