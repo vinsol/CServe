@@ -31,7 +31,7 @@
               <% else %>
                 <td>Unassigned</td>
               <% end %>
-              <td><%= ticket.updated_at %></td>
+              <td><%= ticket.updated_at.to_s(:long) %></td>
               <td>
                 <% if ticket.admin_id.nil? %>
                   <%= link_to 'View', ticket_path(ticket), data: { confirm: 'This will assign you the ticket, press ok to continue.' } %>
