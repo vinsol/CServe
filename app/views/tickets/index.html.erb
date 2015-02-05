@@ -1,6 +1,19 @@
 <div class='container'>
   <%= link_to 'All', tickets_path %> | 
   <%= link_to 'New', tickets_path(status: :unassigned) %>
+      <div class='search' %>
+        <%= search_form_for @search do |f| %>
+          <%= f.label :email_eq, 'Search by Email : ' %>
+          <%= f.text_field :email_eq %>
+        <% end %>
+      </div>
+      <div>
+        <%= search_form_for @search do |f| %>
+          <%= f.select :admin_id_eq, company_admins %>
+          <%= f.select(:state_eq, [['Select status', ''] , ['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']]) %>
+          <%= f.submit 'Search', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
 
   <% if @tickets.present? %>
     <h2 class='heading'>Tickets List</h2>
@@ -24,7 +37,7 @@
           <% @tickets.each do |ticket| %>
             <tr>
               <td><%= ticket.id %></td>
-              <td><%= ticket.subject %></td>
+              <td><%= ticket.subject.truncate(30) %></td>
               <td><%= ticket.state.capitalize %></td>
               <% if ticket.admin_id %>
                 <td><%= ticket.admin_name.capitalize %></td>
@@ -47,6 +60,6 @@
         <%= paginate @tickets %>
       </div>
   <% else %>
-    <h3 class='heading'>Currently there are no tickets</h3>
+    <h3 class='heading'>No tickets</h3>
   <% end %>
 </div>
