@@ -11,11 +11,9 @@ class TicketsController < ApplicationController
 
   def index
     if params[:status]
-      @search = Ticket.unassigned(current_admin.company_id)
-                      .search(params[:q])
-      @tickets = @search.result
-                        .order('updated_at DESC')
-                        .page(params[:page])
+      @tickets = Ticket.unassigned(current_admin.company_id)
+                      .order('updated_at DESC')
+                      .page(params[:page])
     else
       @search = current_admin.company
                               .tickets
