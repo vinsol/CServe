@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end
 
+  resources :articles
+
   devise_scope :admin do
     get '/sign_in', to: 'admins/sessions#new'
     delete '/sign_out', to: 'admins/sessions#destroy'

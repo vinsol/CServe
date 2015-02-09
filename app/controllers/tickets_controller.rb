@@ -16,9 +16,9 @@ class TicketsController < ApplicationController
                       .page(params[:page])
     else
       @search = current_admin.company
-                              .tickets
-                              .where.not(state: :new)
-                              .search(params[:q])
+                             .tickets
+                             .where.not(state: :new)
+                             .search(params[:q])
       @tickets = @search.result
                         .order('updated_at DESC')
                         .page(params[:page])

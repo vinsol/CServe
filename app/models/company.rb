@@ -7,6 +7,7 @@ class Company < ActiveRecord::Base
 
   has_many :admins, dependent: :destroy
   has_many :tickets, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
   accepts_nested_attributes_for :admins
 

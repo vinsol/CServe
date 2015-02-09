@@ -9,6 +9,7 @@ class Admin < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :tickets
+  has_many :articles
 
   belongs_to :company
 

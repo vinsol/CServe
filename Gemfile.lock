@@ -173,6 +173,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    tinymce-rails (4.1.6)
+      railties (>= 3.1.1)
     turbolinks (2.5.3)
       coffee-rails
     twitter-bootstrap-rails (3.2.0)
@@ -207,6 +209,7 @@ DEPENDENCIES
   ransack (~> 1.6.3)
   therubyracer (~> 0.12.1)
   thin (~> 1.6.3)
+  tinymce-rails (~> 4.1.6)
   turbolinks (~> 2.5.3)
   twitter-bootstrap-rails (~> 3.2.0)
   uglifier (~> 2.6.1)

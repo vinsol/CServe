@@ -6,13 +6,14 @@
       <%= search_form_for @search do |f| %>
         <%= f.label :email_eq, 'Search by Email : ' %>
         <%= f.text_field :email_eq %>
+        <%=  f.submit 'Search', class: 'btn btn-primary' %>
       <% end %>
-    </div>
+    </div><br />
     <div>
       <%= search_form_for @search do |f| %>
         <%= f.select :admin_id_eq, company_admins %>
         <%= f.select(:state_eq, [['Select status', ''] , ['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']]) %>
-        <%= f.submit 'Search', class: 'btn btn-primary' %>
+        <%= f.submit 'Filter', class: 'btn btn-primary' %>
       <% end %>
     </div>
   <% end %>
