@@ -11,6 +11,7 @@ module ApplicationHelper
   end
 
   def company_name
+    #FIXME_AB: if you have had a method current_company like current_admin. then this method is not required.
     Company.find_by(subdomain: request.subdomain).name.capitalize
   end
 

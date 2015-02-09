@@ -26,6 +26,7 @@
               <td><%= ticket.id %></td>
               <td><%= ticket.subject %></td>
               <td><%= ticket.state.capitalize %></td>
+              <% #FIXME_AB: instead of checking admin_id. You should check for ticket.admin -%>
               <% if ticket.admin_id %>
                 <td><%= ticket.admin_name.capitalize %></td>
               <% else %>

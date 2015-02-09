@@ -32,6 +32,7 @@ Attachment.prototype.addAttachmentField = function (attachment) {
     'class': 'close remove',
     'data-dismiss': 'alert'
   }).html('×');
+  // FIXME_AB: Don't leave console.log statements. They would not work in IE and throw exception
   console.log($removeButton)
 
   $attachmentDiv.append($attachmentField, $removeButton);

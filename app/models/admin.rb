@@ -8,6 +8,8 @@ class Admin < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  #FIXME_AB: what should we do with these tickets if admin is destroyed.
+  #FIXME_AB: Use inverse_of
   has_many :tickets
 
   belongs_to :company

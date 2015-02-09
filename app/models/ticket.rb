@@ -19,6 +19,8 @@ class Ticket < ActiveRecord::Base
 
   paginates_per 20
 
+  #FIXME_AB: I think we should make this scope independent of company_id. Because we should be calling it as current_company.tickets.unassigned.. If we need to call it otherwise we can use it like Ticket.unassigned.where()
+  #FIXME_AB: Also I think it should just check for admin_id not for state. We should have another scope for new. current_company.tickets.new.unassigned
   scope :unassigned, ->(company_id) { where(state: 'new', company_id: company_id, admin_id: nil) }
 
   aasm column: :state, whiny_transitions: false do

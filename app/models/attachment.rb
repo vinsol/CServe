@@ -2,6 +2,7 @@ class Attachment < ActiveRecord::Base
 
   has_attached_file :document
 
+  #FIXME_AB: use require true to add validation
   belongs_to :ticket
 
   validates_attachment :document,

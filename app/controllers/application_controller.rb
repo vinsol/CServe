@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     sign_in_path
   end
 
+  #FIXME_AB: Why this method ending with question mark?. Also this should be named as validate_subdomain
   def check_subdomain?
     subdomain = request.subdomain
     if subdomain == 'www'

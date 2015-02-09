@@ -1,8 +1,10 @@
 class TicketsController < ApplicationController
 
+  #FIXME_AB: We should inherit all admin controllers from a admin base controller and put common code and filters there. like setting layout, authenticate_admin! etc
   layout 'admins', only: [:index, :show, :new, :create]
 
   before_action :authenticate_admin!, only: :index
+  #FIXME_AB: Why this filter needed for new action only?
   before_action :check_subdomain?, only: :new
   before_action :load_company, only: :create
   before_action :load_ticket, only: [:resolve, :show, :reopen, :close, :assign]
@@ -10,6 +12,8 @@ class TicketsController < ApplicationController
   before_action :assign_admin, only: :show
 
   def index
+    #FIXME_AB: 1. Use association. current_company.tickets.unassigned etc.
+    #FIXME_AB: 2. Avoid repetition by using scoped
     if params[:status]
       @tickets = Ticket.unassigned(current_admin.company_id)
                        .order('updated_at DESC')
@@ -23,6 +27,7 @@ class TicketsController < ApplicationController
   end
 
   def new
+    #FIXME_AB: current_company.tickets.build
     @ticket = Ticket.new
     @ticket.attachments.build
   end
@@ -38,6 +43,7 @@ class TicketsController < ApplicationController
   end
 
   def show
+    #FIXME_AB: Really? 
     @comments = Comment.where(ticket_id: @ticket)
     @comments = @comments.for_user unless current_admin
     @comment = @ticket.comments.build
@@ -51,6 +57,7 @@ class TicketsController < ApplicationController
   end
 
   def assign
+    #FIXME_AB: what if admin id is not present?
     @ticket.update_attribute(:admin_id, ticket_assign_params[:admin_id])
     @ticket.reassign!
     redirect_to tickets_path, notice: 'Ticket Successfully Assigned'
@@ -63,6 +70,7 @@ class TicketsController < ApplicationController
     end
 
     def load_company
+      #FIXME_AB: repetition. we should have current_company
       @company = Company.find_by(subdomain: request.subdomain)
       redirect_to root_path, alert: 'Company not found.' unless @company
     end

@@ -18,6 +18,7 @@ group :development, :test do
   gem 'byebug',                     '~> 3.5.1'
   gem 'quiet_assets',               '~> 1.1.0'
   gem 'letter_opener'
+  gem 'faker'
 end
 
 gem 'paperclip',                    '~> 4.2'

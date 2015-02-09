@@ -44,10 +44,10 @@ ActiveRecord::Schema.define(version: 20150202192231) do
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "attachments", force: :cascade do |t|
-    t.integer  "ticket_id",                         null: false
-    t.string   "type",                  limit: 255
-    t.string   "document_file_name",    limit: 255
-    t.string   "document_content_type", limit: 255
+    t.integer  "ticket_id",             null: false
+    t.string   "type"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
     t.datetime "created_at"
@@ -57,10 +57,10 @@ ActiveRecord::Schema.define(version: 20150202192231) do
   create_table "comments", force: :cascade do |t|
     t.text     "text"
     t.integer  "ticket_id"
-    t.string   "commenter_email", limit: 255
+    t.string   "commenter_email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "kind",                        default: "public"
+    t.string   "kind",            default: "public"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -87,14 +87,14 @@ ActiveRecord::Schema.define(version: 20150202192231) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "tickets", force: :cascade do |t|
-    t.string   "email",       limit: 255
-    t.string   "subject",     limit: 255
+    t.string   "email"
+    t.string   "subject"
     t.text     "description"
     t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "admin_id"
-    t.string   "state",                   default: "new"
+    t.string   "state",       default: "new"
   end
 
 end

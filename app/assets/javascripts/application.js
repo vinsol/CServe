@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+// FIXME_AB: Should not use require_tree.
 //= require_tree .

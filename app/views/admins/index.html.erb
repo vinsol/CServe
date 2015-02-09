@@ -22,6 +22,8 @@
             <td><%= admin.name %></td>
             <td><%= admin.email %></td>
             <td>
+              <% #FIXME_AB: Active for enabled? use same naming Either use active or use enabled. DB and views should use same naming.  -%>
+              <% #FIXME_AB: Also it should be admin.active? or admin.enabled? -%>
               <% if admin.active %>
                 Enabled
               <% else %>
@@ -29,6 +31,7 @@
               <% end %>
             </td>
             <td>
+              <% #FIXME_AB: simplify this by moving into a method as said in controller -%>
               <% unless admin.role == 'company_admin' || admin == current_admin %>
                 <%= link_to('Edit', edit_admin_path(admin)) %> | 
                 <%= link_to_toggle_status(admin) %>
