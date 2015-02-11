@@ -32,7 +32,7 @@
     <div class='description'>
       <p><span class='text-size'><b>Subject: </b></span><%= @ticket.subject %></p>
     </div>
-      <i><%= @ticket.email %> <%= @ticket.created_at.strftime('%d-%b-%Y, %T') %></i>
+      <i><%= @ticket.email %>, <%= @ticket.created_at.to_s(:long) %></i>
     <div class='description'>
       <pre><span class='text-size'><b>Description: </b></span><%= @ticket.description %></pre>
     </div>
@@ -45,10 +45,9 @@
           <% @comments.each do |comment| %>
             <tr>
               <td>
-                <span> <i><%= comment.commenter_email %></i>, <i><%= comment.created_at.strftime('%d-%b-%Y, %T') %></i></span>
+                <span> <i><%= comment.commenter_email %></i>,
+                   <i><%= comment.created_at.to_s(:long) %></i></span>
                 <pre><%= comment.text %></pre>
-                <p class='pull-right align'>
-                </p>
               </td>
             </tr>
           <% end %>
@@ -56,15 +55,15 @@
       <% end %>
     </div>
     <% if @ticket.may_resolve? || @ticket.may_assign? %>
-      <%= form_for(@comment, url: ticket_comments_path(@ticket)) do |f| %>
+      <%= form_for(@ticket.comments.build, url: ticket_comments_path(@ticket)) do |f| %>
         <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
         <% if admin_signed_in? %>
           <div class='btn-group' data-toggle='buttons'>
             <label class='btn btn-primary'>
-              <%= f.radio_button(:kind, 'internal') %><span>Internal</span>
+              <%= f.radio_button(:public, 'false') %><span>Internal</span>
             </label>
             <label class='btn btn-primary active'>
-              <%= f.radio_button(:kind, 'public', checked: true) %><span>Public</span>
+              <%= f.radio_button(:public, 'true', checked: true) %><span>Public</span>
             </label>
           </div>
         <% end %>

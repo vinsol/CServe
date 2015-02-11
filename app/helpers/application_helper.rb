@@ -6,12 +6,9 @@ module ApplicationHelper
    end
   end
 
-  def display(error)
+  def inline_error(object, property)
+    error = object.errors[property]
     content_tag(:span, error.join(','), class: 'errors') if error.present?
-  end
-
-  def company_name
-    Company.find_by(subdomain: request.subdomain).name.capitalize
   end
 
 end

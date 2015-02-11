@@ -7,12 +7,24 @@ class Article < ActiveRecord::Base
 
   validates :title, :description, presence: :true
 
+  delegate :name, to: :admin, prefix: true
+
+  paginates_per 20
+
+  scope :published, -> { where(state: :published) }
+
   aasm column: :state, whiny_transitions: false do
     state :draft, initial: true
-  end
+    state :published
+    state :unpublished
 
-  def set_admin(admin)
-    self.admin_id = admin.id
+    event :publish do
+      transitions from: [:draft, :unpublished], to: :published
+    end
+
+    event :unpublish do
+      transitions from: :published, to: :unpublished
+    end
   end
 
 end

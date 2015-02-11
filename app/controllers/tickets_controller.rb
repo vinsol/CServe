@@ -1,38 +1,33 @@
-class TicketsController < ApplicationController
+class TicketsController < BaseController
 
   layout 'admins', only: [:index, :show, :new, :create]
 
-  before_action :authenticate_admin!, only: :index
-  before_action :check_subdomain?, only: :new
-  before_action :load_company, only: :create
+  skip_before_action :authenticate_admin!, except: :index
+  before_action :validate_subdomain, except: :index
   before_action :load_ticket, only: [:resolve, :show, :reopen, :close, :assign]
   before_action :redirect_if_invalid_transition, only: [:resolve, :reopen, :close]
   before_action :assign_admin, only: :show
 
   def index
-    if params[:status]
-      @tickets = Ticket.unassigned(current_admin.company_id)
-                      .order('updated_at DESC')
-                      .page(params[:page])
+    @tickets = current_company.tickets
+    if params[:status] == 'unassigned'
+      @tickets = @tickets.unassigned
     else
-      @search = current_admin.company
-                             .tickets
-                             .where.not(state: :new)
-                             .search(params[:q])
-      @tickets = @search.result
-                        .order('updated_at DESC')
-                        .page(params[:page])
-
+      @search = @tickets.where.not(state: :unassigned)
+                        .search(params[:q])
+      @tickets = @search.result                    
     end
+    @tickets = @tickets.order('updated_at DESC')
+                      .page(params[:page])
   end
 
   def new
-    @ticket = Ticket.new
+    @ticket = current_company.tickets.build
     @ticket.attachments.build
   end
 
   def create
-    @ticket = @company.tickets.build(ticket_params)
+    @ticket = current_company.tickets.build(ticket_params)
     if @ticket.save
       redirect_to new_ticket_path, notice: 'Your request has been successfully submitted. You will recieve a confirmation mail shortly.'
     else
@@ -42,9 +37,8 @@ class TicketsController < ApplicationController
   end
 
   def show
-    @comments = Comment.where(ticket_id: @ticket)
+    @comments = @ticket.comments
     @comments = @comments.for_user unless current_admin
-    @comment = @ticket.comments.build
   end
 
   %w(reopen resolve close).each do |_method_|
@@ -66,18 +60,13 @@ class TicketsController < ApplicationController
       params.require(:ticket).permit(:email, :description, :subject, attachments_attributes: [:document])
     end
 
-    def load_company
-      @company = Company.find_by(subdomain: request.subdomain)
-      redirect_to root_path, alert: 'Company not found.' unless @company
-    end
-
     def load_ticket
-      @ticket =  Ticket.find_by(id: params[:id])
+      @ticket =  current_company.tickets.find_by(id: params[:id])
       redirect_to tickets_path, alert: 'Ticket not found.' unless @ticket
     end
 
     def assign_admin
-      if @ticket.admin_id.nil? && admin_signed_in?
+      if @ticket.admin.nil? && admin_signed_in?
         @ticket.update_column(:admin_id, current_admin.id)
         @ticket.assign!
       end

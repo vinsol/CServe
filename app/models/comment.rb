@@ -1,12 +1,13 @@
 class Comment < ActiveRecord::Base
 
   validates :text, presence: true
+  validates :public, inclusion: { in: [true, false] }
 
-  belongs_to :ticket
+  belongs_to :ticket, required: true
 
-  after_create :notify_user, if: -> { kind == 'public' }
+  after_create :notify_user, if: 'public?'
 
-  scope 'for_user', -> { where(kind: 'public') }
+  scope :for_user, -> { where(public: true) }
 
   def set_commenter_email(admin, ticket)
     self.commenter_email = admin ? admin.email : ticket.email

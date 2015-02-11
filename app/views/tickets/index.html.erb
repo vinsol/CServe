@@ -5,14 +5,16 @@
     <div class='search' %>
       <%= search_form_for @search do |f| %>
         <%= f.label :email_eq, 'Search by Email : ' %>
-        <%= f.text_field :email_eq %>
+        <%= f.email_field :email_eq %>
         <%=  f.submit 'Search', class: 'btn btn-primary' %>
       <% end %>
     </div><br />
     <div>
       <%= search_form_for @search do |f| %>
-        <%= f.select :admin_id_eq, company_admins %>
-        <%= f.select(:state_eq, [['Select status', ''] , ['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']]) %>
+        <%= f.label 'Admin: ' %>
+        <%= f.select :admin_id_eq, options_for_select(company_admins, params['q'].try(:[], :admin_id_eq) || current_admin.id) %>
+        <%= f.label 'Status: ' %>
+        <%= f.select :state_eq, options_for_select([['All', ''], ['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']], params['q'].try(:[], :state_eq) || 'assigned') %>
         <%= f.submit 'Filter', class: 'btn btn-primary' %>
       <% end %>
     </div>
@@ -41,17 +43,17 @@
               <td><%= ticket.id %></td>
               <td><%= ticket.subject.truncate(30) %></td>
               <td><%= ticket.state.capitalize %></td>
-              <% if ticket.admin_id %>
+              <% if ticket.admin %>
                 <td><%= ticket.admin_name.capitalize %></td>
               <% else %>
                 <td>Unassigned</td>
               <% end %>
               <td><%= ticket.updated_at.to_s(:long) %></td>
               <td>
-                <% if ticket.admin_id.nil? %>
-                  <%= link_to 'View', ticket_path(ticket), data: { confirm: 'This will assign you the ticket, press ok to continue.' } %>
-                <% else %>
+                <% if ticket.admin %>
                   <%= link_to 'View', ticket_path(ticket) %>
+                <% else %>
+                  <%= link_to 'View', ticket_path(ticket), data: { confirm: 'This will assign you the ticket, press ok to continue.' } %>
                 <% end %>
               </td>
             </tr>

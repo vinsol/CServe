@@ -2,7 +2,7 @@ class Attachment < ActiveRecord::Base
 
   has_attached_file :document
 
-  belongs_to :ticket
+  belongs_to :ticket, required: true
 
   validates_attachment :document,
     content_type: { content_type: %w(image/jpeg image/jpg image/png

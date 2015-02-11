@@ -1,0 +1,40 @@
+<div class='container'>
+  <%= link_to('Create Article', new_admins_article_path, class: ' btn btn-primary pull-right pt-30') %>
+  <% if @articles.present? %>
+    <h2 class='heading'>Articles List</h2>
+    <div>
+      <div class='pagination-info'>
+        <p><%= pagination_info @articles %></p>
+      </div>
+    </div>
+    <table class='table table-striped'>
+      <thead>
+        <tr>
+          <th>#ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Updated At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @articles.each do |article| %>
+          <tr>
+            <td><%= article.id %></td>
+            <td><%= article.title.truncate(30) %></td>
+            <td><%= sanitize_and_truncate(article.description) %></td>
+            <td><%= article.state.capitalize %></td>
+            <td><%= article.updated_at.to_s(:long) %></td>
+            <td><%= link_to 'View', admins_article_path(article) %> | <%= link_to 'Edit', edit_admins_article_path(article) %> | <%= link_to 'Delete', admins_article_path(article), method: :delete, data: { confirm: 'Are you sure yo want to delete the ticket, press ok to continue.' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class='pagination'>
+      <%= paginate @articles %>
+    </div>
+  <% else %>
+    <h2 class='heading'>Currently no articles</h2>
+  <% end %>
+</div>

@@ -19,17 +19,17 @@ class Ticket < ActiveRecord::Base
 
   paginates_per 20
 
-  scope :unassigned, ->(company_id) { where(state: 'new', company_id: company_id, admin_id: nil) }
+  scope :unassigned, -> { where(state: :unassigned, admin_id: nil) }
 
   aasm column: :state, whiny_transitions: false do
-    state :new
+    state :unassigned
     state :assigned
     state :resolved
     state :closed
 
     event :assign do
       after { send_mail(:notify_update_status) }
-      transitions from: :new, to: :assigned
+      transitions from: :unassigned, to: :assigned
     end
 
     event :resolve do

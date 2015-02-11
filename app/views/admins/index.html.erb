@@ -22,14 +22,14 @@
             <td><%= admin.name %></td>
             <td><%= admin.email %></td>
             <td>
-              <% if admin.active %>
+              <% if admin.enabled? %>
                 Enabled
               <% else %>
                 Disabled
               <% end %>
             </td>
             <td>
-              <% unless admin.role == 'company_admin' || admin == current_admin %>
+              <% unless check_for_company_or_current_admin(admin) %>
                 <%= link_to('Edit', edit_admin_path(admin)) %> | 
                 <%= link_to_toggle_status(admin) %>
               <% end %>

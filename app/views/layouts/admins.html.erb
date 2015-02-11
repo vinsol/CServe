@@ -49,12 +49,12 @@
               <span class='icon-bar'></span>
           </button>
           <% if admin_signed_in? %>
-            <%= link_to company_name, admins_path, class: 'navbar-brand topnav text-size' %>
+            <%= link_to current_company.name, admins_path, class: 'navbar-brand topnav text-size' %>
             <%= link_to 'Admins', admins_path, class: 'navbar-brand topnav' %>
             <%= link_to 'Tickets', tickets_path, class: 'navbar-brand topnav' %>
-            <%= link_to 'Articles', articles_path, class: 'navbar-brand topnav' %>
+            <%= link_to 'Articles', admins_articles_path, class: 'navbar-brand topnav' %>
           <% else %>
-            <%= link_to company_name, new_ticket_path, class: 'navbar-brand topnav text-size' %>
+            <%= link_to current_company.name, new_ticket_path, class: 'navbar-brand topnav text-size' %>
           <% end %>
         </div>
         <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  before_action :load_company
+  before_action :current_company
   before_action :load_ticket
   before_action :ensure_correct_company
 
@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-      params.require(:comment).permit(:text, :kind)
+      params.require(:comment).permit(:text, :public)
     end
 
     def load_ticket
@@ -24,13 +24,8 @@ class CommentsController < ApplicationController
       redirect_to root_path, alert: 'Ticket not found.' unless @ticket
     end
 
-    def load_company
-      @company = Company.find_by(subdomain: request.subdomain)
-      redirect_to root_path, alert: 'Company not found.' unless @company
-    end
-
     def ensure_correct_company
-      redirect_to root_path, alert: 'Incorrect Company' unless @company.id == @ticket.company_id
+      redirect_to root_path, alert: 'Incorrect Company' unless current_company.id == @ticket.company_id
     end
 
 end

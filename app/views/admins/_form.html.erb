@@ -4,14 +4,14 @@
     <%= f.label :email, 'Email*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
       <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email'  %>
-      <%= display(@admin.errors[:email]) %>
+      <%= inline_error(@admin, :email) %>
     </div>
   </div>
   <div class='form-group'>
     <%= f.label :name, 'Name*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
       <%= f.text_field :name, class: 'form-control', :placeholder => 'Name' %>
-      <%= display(@admin.errors[:name]) %>
+      <%= inline_error(@admin, :name) %>
     </div>
   </div>
   <%= f.submit 'Create Admin', class: 'btn btn-primary btn-len' %>

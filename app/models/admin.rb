@@ -1,6 +1,7 @@
 class Admin < ActiveRecord::Base
 
   require 'securerandom'
+  include ActiveModel::Dirty
 
   validates :name, presence: true
   validates :password_confirmation, presence: true, if: :password
@@ -13,15 +14,17 @@ class Admin < ActiveRecord::Base
 
   belongs_to :company
 
-  paginates_per 20
+  paginates_per 2
 
   delegate :subdomain, to: :company
   delegate :name, to: :company, prefix: true
 
   before_validation :set_admin_password_attributes, on: :create
+  before_validation :check_email_change, on: :update
 
   after_create :send_password_instructions, if: -> { company.admins.count > 1 }
   before_create :skip_confirmation!, if: -> { company.admins.count > 0 }
+  before_create :set_company_admin_attribute, if: -> { company.admins.count.equal?(0) }
 
   def update_with_password(params, *options)
     current_password = params.delete(:current_password)
@@ -49,6 +52,14 @@ class Admin < ActiveRecord::Base
       random_password            = SecureRandom.hex
       self.password              ||= random_password
       self.password_confirmation ||= random_password
+    end
+
+    def check_email_change
+      false if email_changed?
+    end
+
+    def set_company_admin_attribute
+      self.company_admin = true
     end
 
 end
