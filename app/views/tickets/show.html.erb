@@ -35,6 +35,24 @@
       <i><%= @ticket.email %>, <%= @ticket.created_at.to_s(:long) %></i>
     <div class='description'>
       <pre><span class='text-size'><b>Description: </b></span><%= @ticket.description %></pre>
+      <div class='attachment'>
+        <% @ticket.attachments.each do |attachment| %>
+          <%= link_to image_tag(attachment.document.url, size: '200x150'),'', { 'data-toggle': :modal, 'data-target': "##{ attachment.id }" } %>
+            <div class="modal fade" id=<%= attachment.id %> tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4><%= attachment.document_file_name %></h4>
+                </div>
+                  <div class="modal-body container-fluid">
+                    <%= image_tag(attachment.document.url, size: '568x300') %>
+                  </div>
+                </div>
+              </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class='panel panel-default'>
@@ -59,10 +77,10 @@
         <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
         <% if admin_signed_in? %>
           <div class='btn-group' data-toggle='buttons'>
-            <label class='btn btn-primary'>
+            <label class='btn btn-success'>
               <%= f.radio_button(:public, 'false') %><span>Internal</span>
             </label>
-            <label class='btn btn-primary active'>
+            <label class='btn btn-success active'>
               <%= f.radio_button(:public, 'true', checked: true) %><span>Public</span>
             </label>
           </div>
@@ -77,3 +95,5 @@
     <% end %>
   </div>
 </div>
+
+

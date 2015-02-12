@@ -2,21 +2,22 @@
   <%= stylesheet_link_tag 'tickets/show' %>
 <% end %>
 <div class='container'>
-    <h2 class='heading'>FAQs</h2>
-  <% if @articles.present? %>
-  <div class='search' %>
+  <div class='search'>
       <%= search_form_for @search do |f| %>
-        <%= f.label :title_or_description_cont, 'Search : ' %>
-        <%= f.text_field :title_or_description_cont %>
+        <%= f.search_field :title_or_description_cont, placeholder: 'Search' %>
         <%= f.submit 'Search', class: 'btn btn-primary' %>
       <% end %>
     </div><br />
+  <h2 class='heading'>FAQ's</h2>
+  <% if @articles.present? %>
     <ul class='media-list'>
       <% @articles.each do |article| %>
           <li>
             <%= link_to article.title.capitalize, admins_article_path(article) %>
           </li>
-      <% end %>
     </ul>
   <% end %>
+      <% else %>
+        <h3>Currently No FAQ's</h3>
+      <% end %>
 </div>

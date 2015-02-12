@@ -14,7 +14,7 @@ class Admin < ActiveRecord::Base
 
   belongs_to :company
 
-  paginates_per 2
+  paginates_per 20
 
   delegate :subdomain, to: :company
   delegate :name, to: :company, prefix: true
