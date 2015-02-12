@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       patch :close
       patch :reopen
       patch :assign
+      patch :reassign
     end
     resources :comments, only: [:create]
   end

@@ -10,6 +10,7 @@ class NotifierMailer < ApplicationMailer
   %w(update resolving closing reopening).each do |_method_|
     define_method("notify_#{ _method_ }_status") do |ticket|
       @ticket = ticket
+      debugger
       mail(to: @ticket.email,
         subject: t("notifier.notify_#{ _method_ }_status",
           ticket: @ticket.id, company: @ticket.company_name, subject: @ticket.subject))

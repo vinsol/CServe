@@ -19,7 +19,11 @@
       <tbody>
         <% @admins.each do |admin| %>
           <tr>
-            <td><%= admin.name %></td>
+            <% if admin.company_admin? %>
+              <td><%= admin.name %> (C)</td>
+            <% else %>
+              <td><%= admin.name %></td>
+            <% end %>
             <td><%= admin.email %></td>
             <td>
               <% if admin.enabled? %>

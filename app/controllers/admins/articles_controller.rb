@@ -43,7 +43,7 @@ class Admins::ArticlesController < BaseController
   %w(publish unpublish).each do |_method_|
     define_method _method_ do
       @article.public_send("#{ _method_ }!")
-      redirect_to admins_article_path(@article), notice: 'State Successfully Changed'
+      redirect_to admins_article_path(@article), notice: "Article #{ _method_ }ed Successfully"
     end
   end
 

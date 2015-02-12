@@ -4,7 +4,7 @@ class TicketsController < BaseController
 
   skip_before_action :authenticate_admin!, except: :index
   before_action :validate_subdomain, except: :index
-  before_action :load_ticket, only: [:resolve, :show, :reopen, :close, :assign]
+  before_action :load_ticket, only: [:resolve, :show, :reopen, :close, :assign, :reassign]
   before_action :redirect_if_invalid_transition, only: [:resolve, :reopen, :close]
 
   def index
@@ -12,7 +12,8 @@ class TicketsController < BaseController
     if params[:status] == 'unassigned'
       @tickets = @tickets.unassigned
     else
-      @search = @tickets.where.not(state: :unassigned)
+      @search = @tickets.where(admin_id: current_admin.id)
+                        .where.not(state: :unassigned)
                         .search(params[:q])
       @tickets = @search.result                    
     end
@@ -41,16 +42,18 @@ class TicketsController < BaseController
   end
 
   %w(reopen resolve close).each do |_method_|
-    define_method _method_ do 
+    define_method _method_ do
       @ticket.public_send("#{ _method_ }!")
       redirect_to ticket_path(@ticket), notice: 'State Successfully Changed'
     end
   end
 
-  def assign
-    @ticket.update_attribute(:admin_id, ticket_assign_params[:admin_id])
-    @ticket.reassign!
-    redirect_to tickets_path, notice: 'Ticket Successfully Assigned'
+  %w(assign reassign).each do |_method_|
+    define_method _method_ do
+      @ticket.update_attribute(:admin_id, ticket_assign_params[:admin_id])
+      @ticket.public_send("#{ _method_ }!")
+      redirect_to tickets_path, notice: 'Ticket Successfully Assigned'
+    end
   end
 
   private

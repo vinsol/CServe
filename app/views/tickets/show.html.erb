@@ -10,7 +10,7 @@
           <p class='small-size'><b>Status:</b> <%= @ticket.state.capitalize %></p>
           <% if @ticket.may_assign? || @ticket.may_resolve? %>
             <div class='mt-10'>
-              <%= form_for(@ticket, url: assign_ticket_path) do |f| %>
+              <%= form_for(@ticket, url: reassign_ticket_path) do |f| %>
                 <%= f.label :admin_id, 'Assignee : '  %>
                 <%= f.select :admin_id, options_for_select(admin_list, @ticket.admin_id), prompt: 'Select Assiginee' %>
                 <%= f.submit 'Assign', class: 'btn btn-primary' %>
