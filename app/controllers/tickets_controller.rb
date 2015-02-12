@@ -6,7 +6,6 @@ class TicketsController < BaseController
   before_action :validate_subdomain, except: :index
   before_action :load_ticket, only: [:resolve, :show, :reopen, :close, :assign]
   before_action :redirect_if_invalid_transition, only: [:resolve, :reopen, :close]
-  before_action :assign_admin, only: :show
 
   def index
     @tickets = current_company.tickets
@@ -63,13 +62,6 @@ class TicketsController < BaseController
     def load_ticket
       @ticket =  current_company.tickets.find_by(id: params[:id])
       redirect_to tickets_path, alert: 'Ticket not found.' unless @ticket
-    end
-
-    def assign_admin
-      if @ticket.admin.nil? && admin_signed_in?
-        @ticket.update_column(:admin_id, current_admin.id)
-        @ticket.assign!
-      end
     end
 
     def ticket_assign_params

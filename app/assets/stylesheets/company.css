@@ -79,3 +79,7 @@ label {
 .head {
   margin: 0 auto;
 }
+.article-sign-up-form {
+  max-width: 500px;
+  margin: 60px auto;
+}

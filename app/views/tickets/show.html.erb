@@ -8,20 +8,21 @@
       <% if admin_signed_in? %>
         <div class='mt-neg50 pull-right'>
           <p class='small-size'><b>Status:</b> <%= @ticket.state.capitalize %></p>
-          <% if @ticket.may_resolve? %>
+          <% if @ticket.may_assign? || @ticket.may_resolve? %>
             <div class='mt-10'>
               <%= form_for(@ticket, url: assign_ticket_path) do |f| %>
                 <%= f.label :admin_id, 'Assignee : '  %>
-                <%= f.select(:admin_id, options_for_select(admins)) %>
+                <%= f.select :admin_id, options_for_select(admin_list, @ticket.admin_id), prompt: 'Select Assiginee' %>
                 <%= f.submit 'Assign', class: 'btn btn-primary' %>
               <% end %>
             </div>
+          <% elsif @ticket.may_resolve? %>
             <div>
               <%= link_to 'Resolve', resolve_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Resolve the ticket?.' }, method: :patch %>
               <%= link_to 'Close', close_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
             </div>
           <% elsif @ticket.may_reopen? %>
-            <%= link_to 'Reopen', reopen_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Reopen the ticket?.' }, method: :patch %>
+            <%= link_to 'Reassign', reopen_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Reassign the ticket to yourself?.' }, method: :patch %>
             <%= link_to 'Close', close_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
           <% end %>
         </div>
@@ -34,7 +35,7 @@
     </div>
       <i><%= @ticket.email %>, <%= @ticket.created_at.to_s(:long) %></i>
     <div class='description'>
-      <pre><span class='text-size'><b>Description: </b></span><%= @ticket.description %></pre>
+      <p><span class='text-size'><b>Description: </b></span><%= @ticket.description %></p>
       <div class='attachment'>
         <% @ticket.attachments.each do |attachment| %>
           <%= link_to image_tag(attachment.document.url, size: '200x150'),'', { 'data-toggle': :modal, 'data-target': "##{ attachment.id }" } %>
@@ -59,20 +60,20 @@
     <div class='panel-heading'><h3>Comments :</h3></div>
     <div class='panel-body'>
       <% if @comments.any? %>
-        <table class='table table-striped'>
+        <table class='table table-striped length'>
           <% @comments.each do |comment| %>
             <tr>
               <td>
-                <span> <i><%= comment.commenter_email %></i>,
-                   <i><%= comment.created_at.to_s(:long) %></i></span>
-                <pre><%= comment.text %></pre>
+                <span><b><i><%= comment.commenter_email %></i>,
+                   <i><%= comment.created_at.to_s(:long) %></i></b></span>
+                <p><%= sanitize(comment.text) %></p>
               </td>
             </tr>
           <% end %>
         </table>
       <% end %>
     </div>
-    <% if @ticket.may_resolve? || @ticket.may_assign? %>
+    <% if @ticket.may_resolve? || @ticket.may_assign? || @ticket.may_close? %>
       <%= form_for(@ticket.comments.build, url: ticket_comments_path(@ticket)) do |f| %>
         <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
         <% if admin_signed_in? %>

@@ -1,8 +1,8 @@
 module TicketHelper
-  def admins
+  def admin_list
     current_company.admins.where(enabled: true)
       .map { |admin| [admin.name.capitalize, admin.id] }
-      .unshift([@ticket.admin.name.capitalize, @ticket.admin.id])
+      # .unshift([@ticket.admin.name.capitalize, @ticket.admin.id])
   end
 
   def company_admins

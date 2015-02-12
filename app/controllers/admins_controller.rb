@@ -1,6 +1,6 @@
 class AdminsController < BaseController
 
-  before_action :load_admin, only: [:change_state, :edit, :update]
+  before_action :load_admin, only: [:change_state, :edit, :update, :disable, :enable]
   before_action :redirect_if_company_admin, only: [:edit]
 
 
@@ -30,13 +30,13 @@ class AdminsController < BaseController
   end
 
   def disable
-    @admin.update(:enabled, false)
-    redirect_to admins_path(params[:page]), notice: 'Admin Disabled'
+    @admin.update(enabled: false)
+    redirect_to request.referer, notice: 'Admin Disabled'
   end
 
   def enable
-    @admin.update(:enabled, true)
-    redirect_to ticket_path(@ticket), notice: 'Admin Enabled'
+    @admin.update(enabled: true)
+    redirect_to request.referer, notice: 'Admin Enabled'
   end
 
   private

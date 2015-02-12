@@ -10,14 +10,26 @@
     </div><br />
   <h2 class='heading'>FAQ's</h2>
   <% if @articles.present? %>
-    <ul class='media-list'>
+    <% if params[:q] && params[:q][:title_or_description_cont].present? %>
+        <h3><%= pluralize(@articles.count, 'result') %> found</h3>
+    <% end %>
+    <div class='pagination-info'>
+      <p><%= pagination_info @articles %></p>
+    </div>
+    <table class='table table-striped'>
       <% @articles.each do |article| %>
-          <li>
-            <%= link_to article.title.capitalize, admins_article_path(article) %>
-          </li>
-    </ul>
-  <% end %>
-      <% else %>
-        <h3>Currently No FAQ's</h3>
+        <tr>
+          <td class='size'><%= link_to article.title.capitalize, admins_article_path(article) %></td>
+        </tr>
       <% end %>
+    </table>
+    </ul>
+  <% elsif params[:q] %>
+    <h3> No Result Found </h3>
+  <% else %>
+    <h3>Currently No FAQ's</h3>
+  <% end %>
+  <div class='pagination'>
+    <%= paginate @articles %>
+  </div>
 </div>

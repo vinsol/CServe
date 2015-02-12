@@ -6,6 +6,7 @@ class Article < ActiveRecord::Base
   belongs_to :admin
 
   validates :title, :description, presence: :true
+  validates :title, length: { maximum: 80 }
 
   delegate :name, to: :admin, prefix: true
 

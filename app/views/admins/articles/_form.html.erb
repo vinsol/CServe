@@ -1,10 +1,11 @@
 <%= tinymce_assets %>
-<%= form_for([:admins, @article], html: { class: 'form-horizontal sign-up-form'}) do |f| %>
+<%= form_for([:admins, @article], html: { class: 'form-horizontal article-sign-up-form'}) do |f| %>
   <div class='form-group'>
     <%= f.label :title, 'Title*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
       <%= f.text_field :title, autofocus: true, class: 'form-control', placeholder: 'Title'  %>
-      <%= inline_error(@article, :title) %>
+       <span>(maximum 80 characters)</span>
+      <p><%= inline_error(@article, :title) %></p>
     </div>
   </div>
   <div class='form-group'>

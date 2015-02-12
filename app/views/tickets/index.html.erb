@@ -53,7 +53,7 @@
                 <% if ticket.admin %>
                   <%= link_to 'View', ticket_path(ticket) %>
                 <% else %>
-                  <%= link_to 'View', ticket_path(ticket), data: { confirm: 'This will assign you the ticket, press ok to continue.' } %>
+                  <%= link_to 'View', ticket_path(ticket) %>
                 <% end %>
               </td>
             </tr>

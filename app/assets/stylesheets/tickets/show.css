@@ -49,3 +49,9 @@
   display: inline-block;
   margin: 100px 120px 30px;
 }
+.size {
+  font-size: 20px;
+}
+.mt-neg20 {
+  margin-top: -20px;
+}
