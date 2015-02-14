@@ -1,20 +1,22 @@
 <div class='container'>
-  <%= link_to 'All', tickets_path %> | 
-  <%= link_to 'New', tickets_path(status: :unassigned) %>
+  <ul class='nav nav-tabs pt-29'>
+    <li class=<%= add_active(@search) %>><%= link_to 'All', tickets_path %></li>
+    <li class=<%= add_active(params[:status]) %>><%= link_to 'New', tickets_path(status: :unassigned) %></li>
+  </ul><br />
   <% if @search %>
-    <div class='search' %>
+    <div class='search pull-left' %>
       <%= search_form_for @search do |f| %>
         <%= f.label :email_eq, 'Search by Email : ' %>
         <%= f.email_field :email_eq %>
         <%=  f.submit 'Search', class: 'btn btn-primary' %>
       <% end %>
     </div><br />
-    <div>
+    <div class='pull-right mt-neg15'>
       <%= search_form_for @search do |f| %>
         <%= f.label 'Assignee: ' %>
-        <%= f.select :admin_id_eq, options_for_select(company_admins, params['q'].try(:[], :admin_id_eq) || current_admin.id) %>
+        <%= f.select :admin_id_eq, options_for_select(company_admins, params[:q][:admin_id_eq]) %>
         <%= f.label 'Status: ' %>
-        <%= f.select :state_eq, options_for_select([['All', ''], ['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']], params['q'].try(:[], :state_eq) || '') %>
+        <%= f.select :state_eq, options_for_select([['All', ''], ['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']], params[:q][:state_eq] || '') %>
         <%= f.submit 'Filter', class: 'btn btn-primary' %>
       <% end %>
     </div>

@@ -3,14 +3,13 @@
 <% end %>
 <div class='container'>
   <div class='jumbotron'>
-    <% if admin_signed_in? %>
-      <h3 class='heading'>Ticket Detail</h2>
+      <h3 class='heading'><%= @ticket.subject %></h2>
       <% if admin_signed_in? %>
         <div class='mt-neg50 pull-right'>
           <p class='small-size'><b>Status:</b> <%= @ticket.state.capitalize %></p>
-          <% if @ticket.may_assign? || @ticket.may_resolve? %>
+          <% if @ticket.unassigned? || @ticket.may_resolve? %>
             <div class='mt-10'>
-              <%= form_for(@ticket, url: reassign_ticket_path) do |f| %>
+                <%= form_for(@ticket, url: "#{ set_url(@ticket) }") do |f| %>
                 <%= f.label :admin_id, 'Assignee : '  %>
                 <%= f.select :admin_id, options_for_select(admin_list, @ticket.admin_id), prompt: 'Select Assiginee' %>
                 <%= f.submit 'Assign', class: 'btn btn-primary' %>
@@ -27,18 +26,12 @@
           <% end %>
         </div>
       <% end %>
-    <% else %>
-      <h3 class='heading'>Issue Detail</h2>
-    <% end %>
-    <div class='description'>
-      <p><span class='text-size'><b>Subject: </b></span><%= @ticket.subject %></p>
-    </div>
-      <i><%= @ticket.email %>, <%= @ticket.created_at.to_s(:long) %></i>
+    <i><%= @ticket.email %>, <%= @ticket.created_at.to_s(:long) %></i>
     <div class='description'>
       <p><span class='text-size'><b>Description: </b></span><%= @ticket.description %></p>
       <div class='attachment'>
         <% @ticket.attachments.each do |attachment| %>
-          <%= link_to image_tag(attachment.document.url, size: '200x150'),'', { 'data-toggle': :modal, 'data-target': "##{ attachment.id }" } %>
+          <%= link_to image_tag(attachment.document.url, size: '190x150', class: 'attachments'),'', { 'data-toggle': :modal, 'data-target': "##{ attachment.id }" } %>
             <div class="modal fade" id=<%= attachment.id %> tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">

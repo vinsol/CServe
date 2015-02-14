@@ -55,3 +55,10 @@
 .mt-neg20 {
   margin-top: -20px;
 }
+.attachments {
+  margin: 5px;
+}
+.container .jumbotron {
+  padding-left: 40px;
+  padding-right: 40px;
+}

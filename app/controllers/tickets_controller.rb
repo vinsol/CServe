@@ -12,8 +12,12 @@ class TicketsController < BaseController
     if params[:status] == 'unassigned'
       @tickets = @tickets.unassigned
     else
-      @search = @tickets.where(admin_id: current_admin.id)
-                        .where.not(state: :unassigned)
+      unless params[:q]
+        params[:q] = {}
+        params[:q][:admin_id_eq] = current_admin.id
+        params[:q][:state_eq] = ''
+      end
+      @search = @tickets.where.not(state: :unassigned)
                         .search(params[:q])
       @tickets = @search.result                    
     end
