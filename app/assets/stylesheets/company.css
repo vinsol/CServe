@@ -34,19 +34,12 @@ label {
   font-weight: normal;
   font-size: 17px; 
 }
-.errors{
+.error-msg {
   color: red;
-  padding: 5px;
-}
-.field_with_errors input{
-  border-color: red;
 }
 .btn-len {
   width: 45%;
   padding: 10px;
-}
-.field_with_errors textarea {
-  border-color: red;
 }
 .text-size {
   font-size: 35px;

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  before_action :current_company
+  before_action :authenticate_company!
   before_action :load_ticket
   before_action :ensure_correct_company
 

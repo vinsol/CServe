@@ -1,7 +1,8 @@
 class Admin < ActiveRecord::Base
 
   require 'securerandom'
-  include ActiveModel::Dirty
+
+  attr_readonly :email
 
   validates :name, presence: true
   validates :password_confirmation, presence: true, if: :password
@@ -20,7 +21,6 @@ class Admin < ActiveRecord::Base
   delegate :name, to: :company, prefix: true
 
   before_validation :set_admin_password_attributes, on: :create
-  before_validation :check_email_change, on: :update
 
   after_create :send_password_instructions, if: -> { company.admins.count > 1 }
   before_create :skip_confirmation!, if: -> { company.admins.count > 0 }
@@ -52,10 +52,6 @@ class Admin < ActiveRecord::Base
       random_password            = SecureRandom.hex
       self.password              ||= random_password
       self.password_confirmation ||= random_password
-    end
-
-    def check_email_change
-      false if email_changed?
     end
 
     def set_company_admin_attribute

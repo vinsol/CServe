@@ -27,12 +27,14 @@ class ApplicationController < ActionController::Base
   end
 
   def current_company
-    company = Company.find_by(subdomain: request.subdomain)
-    unless company
+    @company ||= Company.find_by(subdomain: request.subdomain)
+  end
+
+  def authenticate_company!
+    unless current_company
       redirect_to root_url(host: Rails.application.config.action_mailer.default_url_options[:host]),
       alert: 'Company not found.'
     end
-    company
   end
 
 end

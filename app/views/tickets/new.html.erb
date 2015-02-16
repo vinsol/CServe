@@ -9,14 +9,12 @@
       <%= f.label :email, 'Email*', class:'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email'  %>
-        <%= inline_error(@ticket, :email) %>
       </div>
     </div>
     <div class='form-group'>
       <%= f.label :subject, 'Subject*', class: 'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= f.text_field :subject, class: 'form-control', :placeholder => 'Subject' %>
-        <%= inline_error(@ticket, :subject) %>
       </div>
       <span class='ml-200'>(maximum 100 characters)</span>
     </div>
@@ -24,7 +22,6 @@
       <%= f.label :description, 'Description*', class: 'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= f.text_area :description, rows: '5', class: 'form-control', :placeholder => 'Description' %>
-        <%= inline_error(@ticket, :description) %>
       </div>
     </div>
     <%= label_tag :document, 'Attachment', class: 'col-sm-4 control-label' %>
@@ -34,7 +31,6 @@
           <div>
             <div class='col-sm-8 attachment'>
               <%= attachment_field.file_field :document, name: 'ticket[attachments_attributes][][document]', class: 'attachments' %>
-              <%= inline_error(@ticket, 'attachments.document') %>
             </div>
           </div>
         </div>

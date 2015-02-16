@@ -6,7 +6,7 @@ class Admins::ArticlesController < BaseController
   before_action :load_article, only: [:edit, :update, :destroy, :publish, :unpublish, :show]
 
   def new
-    @article = Article.new
+    @article = current_company.articles.build
   end
 
   def index
@@ -33,7 +33,7 @@ class Admins::ArticlesController < BaseController
   end
 
   def destroy
-    if @article.delete
+    if @article.destroy
       redirect_to admins_articles_path, notice: 'Article Sucessfully Deleted'
     else
       redirect_to admins_articles_path, alert: 'Unable to delete Article'
