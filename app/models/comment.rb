@@ -5,7 +5,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :ticket, required: true
 
-  after_create :notify_user, if: 'public?'
+  after_create :notify_user, if: :public?
 
   scope :for_user, -> { where(public: true) }
 

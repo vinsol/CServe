@@ -9,7 +9,6 @@ module TicketHelper
       .map do |admin|
         admin == current_admin ? ['Me', admin.id] : [admin.name.capitalize, admin.id]
       end
-      .unshift(['All', ''])
   end
 
   def add_active(value)

@@ -14,9 +14,9 @@
     <div class='pull-right mt-neg15'>
       <%= search_form_for @search do |f| %>
         <%= f.label 'Assignee: ' %>
-        <%= f.select :admin_id_eq, options_for_select(company_admins, params[:q][:admin_id_eq]) %>
+        <%= f.select :admin_id_eq, company_admins, include_blank: 'All' %>
         <%= f.label 'Status: ' %>
-        <%= f.select :state_eq, options_for_select([['All', ''], ['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']], params[:q][:state_eq] || '') %>
+        <%= f.select :state_eq, [['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']], include_blank: 'All' %>
         <%= f.submit 'Filter', class: 'btn btn-primary' %>
       <% end %>
     </div>

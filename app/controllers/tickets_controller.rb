@@ -5,6 +5,7 @@ class TicketsController < BaseController
   skip_before_action :authenticate_admin!, except: :index
   before_action :validate_subdomain, except: :index
   before_action :load_ticket, only: [:resolve, :show, :reopen, :close, :assign, :reassign]
+  before_action :set_search_params_if_nil, only: :index
   before_action :redirect_if_invalid_transition, only: [:resolve, :reopen, :close]
 
   def index
@@ -12,11 +13,6 @@ class TicketsController < BaseController
     if params[:status] == 'unassigned'
       @tickets = @tickets.unassigned
     else
-      unless params[:q]
-        params[:q] = {}
-        params[:q][:admin_id_eq] = current_admin.id
-        params[:q][:state_eq] = ''
-      end
       @search = @tickets.where.not(state: :unassigned)
                         .search(params[:q])
       @tickets = @search.result                    
@@ -78,6 +74,14 @@ class TicketsController < BaseController
     def redirect_if_invalid_transition
       unless @ticket.public_send("may_#{ params[:action] }?")
         redirect_to tickets_path, alert: 'Cannot process request'
+      end
+    end
+
+    def set_search_params_if_nil
+      unless params[:q]
+        params[:q] = {}
+        params[:q][:admin_id_eq] = current_admin.id
+        params[:q][:state_eq] = ''
       end
     end
 
