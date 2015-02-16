@@ -1,5 +1,5 @@
 class TicketsController < BaseController
-
+  #FIXME_AB: do not use same controller for admin and user interface. Use different controllers. All admin controllers should be moved to admin interface.
   layout 'admins', only: [:index, :show, :new, :create]
 
   skip_before_action :authenticate_admin!, except: :index

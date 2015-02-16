@@ -2,6 +2,7 @@ class Article < ActiveRecord::Base
 
   include AASM
 
+  #FIXME_AB: Please use require true for belongs_to associations
   belongs_to :company
   belongs_to :admin
 
