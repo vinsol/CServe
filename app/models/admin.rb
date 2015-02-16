@@ -2,6 +2,8 @@ class Admin < ActiveRecord::Base
 
   require 'securerandom'
 
+  attr_readonly :email
+
   validates :name, presence: true
   validates :password_confirmation, presence: true, if: :password
 
@@ -9,6 +11,7 @@ class Admin < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :tickets
+  has_many :articles
 
   belongs_to :company
 
@@ -21,6 +24,7 @@ class Admin < ActiveRecord::Base
 
   after_create :send_password_instructions, if: -> { company.admins.count > 1 }
   before_create :skip_confirmation!, if: -> { company.admins.count > 0 }
+  before_create :set_company_admin_attribute, if: -> { company.admins.count.equal?(0) }
 
   def update_with_password(params, *options)
     current_password = params.delete(:current_password)
@@ -48,6 +52,10 @@ class Admin < ActiveRecord::Base
       random_password            = SecureRandom.hex
       self.password              ||= random_password
       self.password_confirmation ||= random_password
+    end
+
+    def set_company_admin_attribute
+      self.company_admin = true
     end
 
 end

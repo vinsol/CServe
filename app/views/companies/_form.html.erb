@@ -5,38 +5,32 @@
       <%= company_form.label :name, 'Company Name*', class:'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= company_form.text_field :name, autofocus: true, class: 'form-control', :placeholder => 'Company Name' %>
-        <%= display(@company.errors[:name]) %>
       </div>
     </div>
     <div class='form-group'>
       <%= company_form.label :subdomain, 'Company Subdomain*', class:'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= company_form.text_field :subdomain, class: 'form-control', :placeholder => 'Company Subdomain' %>
-        <%= display(@company.errors[:subdomain]) %>
       </div>
       <span class='ml-20'>(alphabets, numerics, '_' and '-' are allowed)</span>
     </div>
     <%= company_form.fields_for :admins do |f| %>
-      <%= f.hidden_field :role, value: 'company_admin' %>
       <div class='form-group'>
         <%= f.label :email, 'Admin Email*', class:'col-sm-4 control-label' %>
         <div class='col-sm-8'>
           <%= f.email_field :email, class: 'form-control', placeholder: 'Admin Email'  %>
-          <%= display(@company.errors['admins.email']) %>
         </div>
       </div>
       <div class='form-group'>
         <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
         <div class='col-sm-8'>
           <%= f.text_field :name, class: 'form-control', :placeholder => 'Admin Name' %>
-          <%= display(@company.errors['admins.name']) %>
         </div>
       </div>
       <div class='form-group'>
         <%= f.label :password, 'Password*', class:'col-sm-4 control-label' %>
         <div class='col-sm-8'>
           <%= f.password_field :password, autocomplete: 'off',class: 'form-control ', placeholder: 'Password'  %>
-          <%= display(@company.errors['admins.password']) %>
         </div>
         <span class='ml-200'>(minimum 8 characters)</span>
       </div>
@@ -44,7 +38,6 @@
         <%= f.label :password_confirmation, 'Confirm password*', class:'col-sm-4 control-label' %>
         <div class='col-sm-8'>
           <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: 'Confirm Password'  %>
-          <%= display(@company.errors['admins.password_confirmation']) %>
         </div>
       </div>
     <% end %>

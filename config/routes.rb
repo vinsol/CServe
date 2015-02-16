@@ -1,14 +1,29 @@
 Rails.application.routes.draw do
-
+  
   resources :admins, except: [:destroy, :show] do
-    patch :change_state, on: :member
+    member do
+      patch :enable
+      patch :disable
+    end
   end
+
 
   devise_for :admins, path: :admin,  controllers: {
     registrations: 'admins/registrations',
     sessions: 'admins/sessions',
     passwords: 'admins/passwords'
   }
+
+  namespace :admins do
+    resources :articles do
+      member do
+        patch :publish
+        patch :unpublish
+      end
+    end
+  end
+
+  resources :articles, only: [:index]
 
   controller :companies do
     get 'sign_up' => :new
@@ -21,6 +36,7 @@ Rails.application.routes.draw do
       patch :close
       patch :reopen
       patch :assign
+      patch :reassign
     end
     resources :comments, only: [:create]
   end
@@ -30,7 +46,7 @@ Rails.application.routes.draw do
     delete '/sign_out', to: 'admins/sessions#destroy'
   end
 
-  match '/' => 'tickets#new', constraints: { subdomain: /.+/ }, via: :all
+  match '/' => 'articles#index', constraints: { subdomain: /.+/ }, via: :all
 
   root 'application#index'
 

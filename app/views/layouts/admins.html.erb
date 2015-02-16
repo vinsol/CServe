@@ -49,11 +49,12 @@
               <span class='icon-bar'></span>
           </button>
           <% if admin_signed_in? %>
-            <%= link_to company_name, admins_path, class: 'navbar-brand topnav text-size' %>
-            <%= link_to 'Admins', admins_path, class: 'navbar-brand topnav' %>
-            <%= link_to 'Tickets', tickets_path, class: 'navbar-brand topnav' %>
+            <%= link_to current_company.name, admins_path, class: 'navbar-brand topnav text-size' %>
+            <%= link_to 'Admins', admins_path, class: "navbar-brand topnav link #{ add_active_class(controller_name, 'admins') }" %>
+            <%= link_to 'Tickets', tickets_path, class: "navbar-brand topnav link #{ add_active_class(controller_name, 'tickets') }" %>
+            <%= link_to 'Articles', admins_articles_path, class: "navbar-brand topnav link #{ add_active_class(controller_name, 'articles') }" %>
           <% else %>
-            <%= link_to company_name, new_ticket_path, class: 'navbar-brand topnav text-size' %>
+            <%= link_to current_company.name, articles_path, class: 'navbar-brand topnav text-size' %>
           <% end %>
         </div>
         <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
@@ -72,6 +73,7 @@
             </ul>
           <% else %>
             <ul class='nav navbar-nav navbar-right'>
+              <li><%= link_to 'Submit a request', new_ticket_path %></li>
               <li>
                 <% if controller_name != 'sessions' %>
                   <%= link_to 'Sign in', sign_in_path %>

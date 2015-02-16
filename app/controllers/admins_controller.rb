@@ -1,38 +1,42 @@
-class AdminsController < ApplicationController
+class AdminsController < BaseController
 
-  before_action :authenticate_admin!
-  before_action :load_admin, only: [:change_state, :edit, :update]
+  before_action :load_admin, only: [:change_state, :edit, :update, :disable, :enable]
   before_action :redirect_if_company_admin, only: [:edit]
 
 
   def index
-    @admins = Admin.where(company_id: current_admin.company_id).order(:name).page(params[:page])
+    @admins = current_company.admins.order(:name).page(params[:page])
   end
 
   def new
-    @admin = Admin.new
+    @admin = current_company.admins.build
   end
 
   def create
-    @admin = current_admin.company.admins.build(admin_params)
+    @admin = current_company.admins.build(admin_params)
     if @admin.save
-      redirect_to admins_path, notice: 'New Admin added'
+      redirect_to admins_path, notice: "#{ @admin.name } added"
     else
       render :new
     end
   end
 
   def update
-    if @admin.update(admin_params)
-      redirect_to admins_path, notice: ' Admin Updated Successfully'
+    if @admin.update(update_admin_params)
+      redirect_to admins_path, notice: "#{ @admin.name } Updated Successfully"
     else
       render :edit
     end
   end
 
-  def change_state
-    @admin.toggle!(:active)
-    redirect_to admins_path, notice: 'Admin Updated'
+  def disable
+    @admin.update(enabled: false)
+    redirect_to request.referer, notice: 'Admin Disabled'
+  end
+
+  def enable
+    @admin.update(enabled: true)
+    redirect_to request.referer, notice: 'Admin Enabled'
   end
 
   private
@@ -41,13 +45,17 @@ class AdminsController < ApplicationController
     params.require(:admin).permit(:name, :email)
   end
 
+  def update_admin_params
+    admin_params.permit(:name)
+  end
+
   def load_admin
-    @admin = Admin.find_by(id: params[:id])
-    redirect_to admins_path if @admin.nil? || @admin.subdomain != request.subdomain
+    @admin = current_company.admins.find_by(id: params[:id])
+    redirect_to admins_path, alert: 'No such Admin' if @admin.nil?
   end
 
   def redirect_if_company_admin
-    if @admin.role == 'company_admin' && current_admin.role != 'company_admin'
+    if @admin.company_admin? && !current_admin.company_admin?
       redirect_to admins_path, alert: 'Cannot Edit Company Admin'
     end
   end

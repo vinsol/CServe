@@ -2,9 +2,11 @@ class CompaniesController < ApplicationController
 
   layout 'company', only: [:new, :create]
 
+  before_action :validate_subdomain
+
   def new
     @company = Company.new
-    @admins = @company.admins.build
+    @admin = @company.admins.build
   end
 
   def create
@@ -19,7 +21,7 @@ class CompaniesController < ApplicationController
   protected
 
   def company_params
-    params[:company].permit(:name, :subdomain, admins_attributes: [:name, :email, :password, :password_confirmation, :role, :company_id])
+    params[:company].permit(:name, :subdomain, admins_attributes: [:name, :email, :password, :password_confirmation])
   end
 
 end

@@ -6,12 +6,8 @@ module ApplicationHelper
    end
   end
 
-  def display(error)
-    content_tag(:span, error.join(','), class: 'errors') if error.present?
-  end
-
-  def company_name
-    Company.find_by(subdomain: request.subdomain).name.capitalize
+  def add_active_class(controller_name, selected_item)
+    controller_name == selected_item ? 'nav-active' : ''
   end
 
 end

@@ -7,7 +7,7 @@
 }
 .sign-up-form {
   max-width: 500px;
-  margin: 150px auto;
+  margin: 120px auto;
 }
 .form-control{
   height: 45px;
@@ -34,19 +34,12 @@ label {
   font-weight: normal;
   font-size: 17px; 
 }
-.errors{
+.error-msg {
   color: red;
-  padding: 5px;
-}
-.field_with_errors input{
-  border-color: red;
 }
 .btn-len {
   width: 45%;
   padding: 10px;
-}
-.field_with_errors textarea {
-  border-color: red;
 }
 .text-size {
   font-size: 35px;
@@ -72,4 +65,14 @@ label {
 }
 .ml-20 {
   margin-left: 20px;
+}
+.pd-0 {
+  padding: 0 !important;
+}
+.head {
+  margin: 0 auto;
+}
+.article-sign-up-form {
+  max-width: 500px;
+  margin: 60px auto;
 }

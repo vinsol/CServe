@@ -1,0 +1,35 @@
+<% content_for :stylesheet do %>
+  <%= stylesheet_link_tag 'tickets/show' %>
+<% end %>
+<div class='container'>
+  <div class='search'>
+      <%= search_form_for @search do |f| %>
+        <%= f.search_field :title_or_description_cont, placeholder: 'Search' %>
+        <%= f.submit 'Search', class: 'btn btn-primary' %>
+      <% end %>
+    </div><br />
+  <h2 class='heading'>FAQ's</h2>
+  <% if @articles.present? %>
+    <% if params[:q] && params[:q][:title_or_description_cont].present? %>
+        <h3><%= pluralize(@articles.count, 'result') %> found</h3>
+    <% end %>
+    <div class='pagination-info'>
+      <p><%= pagination_info @articles %></p>
+    </div>
+    <table class='table table-striped'>
+      <% @articles.each do |article| %>
+        <tr>
+          <td class='size'><%= link_to article.title.capitalize, admins_article_path(article) %></td>
+        </tr>
+      <% end %>
+    </table>
+    </ul>
+  <% elsif params[:q] %>
+    <h3> No Result Found </h3>
+  <% else %>
+    <h3>Currently No FAQ's</h3>
+  <% end %>
+  <div class='pagination'>
+    <%= paginate @articles %>
+  </div>
+</div>

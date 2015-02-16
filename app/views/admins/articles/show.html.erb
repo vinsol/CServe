@@ -1,0 +1,27 @@
+<% content_for :stylesheet do %>
+  <%= stylesheet_link_tag 'tickets/show' %>
+<% end %>
+<div class='container'>
+  <div class='jumbotron'>
+    <h3 class='heading'>Article Detail</h2>
+    <% if admin_signed_in? %>
+      <div class='mt-neg50 pull-right'>
+        <p class='small-size'><b>Status:</b> <%= @article.state.capitalize %></p>
+        <% if @article.may_publish? %>
+          <%= link_to 'Publish', publish_admins_article_path(@article), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Publish the article?.' }, method: :patch %>
+        <% else %>
+          <%= link_to 'Unpublish', unpublish_admins_article_path(@article), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Unpublish the article?.' }, method: :patch %>
+        <% end %>
+        <%= link_to 'Edit', edit_admins_article_path(@article), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+    <div class='description'>
+      <p><span class='text-size'><b>Title: </b></span><%= @article.title %></p>
+    </div>
+      <i><%= @article.admin_name %>, <%= @article.created_at.to_s(:long) %></i>
+    <div class='description'>
+      <pre><span class='text-size'><b>Description: </b></span></pre>
+      <p class='mt-neg20'><%= sanitize(@article.description) %><p>
+    </div>
+  </div> 
+</div>

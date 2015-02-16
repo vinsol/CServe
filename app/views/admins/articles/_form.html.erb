@@ -1,0 +1,19 @@
+<%= tinymce_assets %>
+<%= form_for([:admins, @article], html: { class: 'form-horizontal article-sign-up-form'}) do |f| %>
+  <div class='form-group'>
+    <%= f.label :title, 'Title*', class:'col-sm-4 control-label' %>
+    <div class='col-sm-8'>
+      <%= f.text_field :title, autofocus: true, class: 'form-control', placeholder: 'Title'  %>
+       <span>(maximum 80 characters)</span>
+    </div>
+  </div>
+  <div class='form-group'>
+    <%= f.label :description, 'Description*', class:'col-sm-4 control-label' %>
+  </div>
+    <div class='col-sm-12 pd-0'>
+      <%= f.text_area :description, size: '10x9', class: 'form-control tinymce' %>
+    </div>
+  <%= f.submit class: 'btn btn-primary btn-len' %>
+  <%= link_to 'Cancel', admins_articles_path, class: 'btn btn-danger btn-len pull-right' %>
+<% end %>
+<%= tinymce %>

@@ -1,7 +1,26 @@
 <div class='container'>
-  <%= link_to 'All', tickets_path %> | 
-  <%= link_to 'New', tickets_path(status: :unassigned) %>
-
+  <ul class='nav nav-tabs pt-29'>
+    <li class=<%= add_active(@search) %>><%= link_to 'All', tickets_path %></li>
+    <li class=<%= add_active(params[:status]) %>><%= link_to 'New', tickets_path(status: :unassigned) %></li>
+  </ul><br />
+  <% if @search %>
+    <div class='search pull-left' %>
+      <%= search_form_for @search do |f| %>
+        <%= f.label :email_eq, 'Search by Email : ' %>
+        <%= f.email_field :email_eq %>
+        <%=  f.submit 'Search', class: 'btn btn-primary' %>
+      <% end %>
+    </div><br />
+    <div class='pull-right mt-neg15'>
+      <%= search_form_for @search do |f| %>
+        <%= f.label 'Assignee: ' %>
+        <%= f.select :admin_id_eq, company_admins, include_blank: 'All' %>
+        <%= f.label 'Status: ' %>
+        <%= f.select :state_eq, [['Assigned', 'assigned'], ['Resolved', 'resolved'], ['Closed', 'closed']], include_blank: 'All' %>
+        <%= f.submit 'Filter', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  <% end %>
   <% if @tickets.present? %>
     <h2 class='heading'>Tickets List</h2>
       <div>
@@ -24,17 +43,17 @@
           <% @tickets.each do |ticket| %>
             <tr>
               <td><%= ticket.id %></td>
-              <td><%= ticket.subject %></td>
+              <td><%= ticket.subject.truncate(30) %></td>
               <td><%= ticket.state.capitalize %></td>
-              <% if ticket.admin_id %>
+              <% if ticket.admin %>
                 <td><%= ticket.admin_name.capitalize %></td>
               <% else %>
                 <td>Unassigned</td>
               <% end %>
               <td><%= ticket.updated_at.to_s(:long) %></td>
               <td>
-                <% if ticket.admin_id.nil? %>
-                  <%= link_to 'View', ticket_path(ticket), data: { confirm: 'This will assign you the ticket, press ok to continue.' } %>
+                <% if ticket.admin %>
+                  <%= link_to 'View', ticket_path(ticket) %>
                 <% else %>
                   <%= link_to 'View', ticket_path(ticket) %>
                 <% end %>
@@ -47,6 +66,6 @@
         <%= paginate @tickets %>
       </div>
   <% else %>
-    <h3 class='heading'>Currently there are no tickets</h3>
+    <h3 class='heading'>No tickets</h3>
   <% end %>
 </div>

@@ -1,5 +1,5 @@
 <div class='container'>
-  <%= link_to('Create Admin', new_admin_path, class: ' btn btn-primary pull-right pt-30') %>
+  <%= link_to('Create Admin', new_admin_path, class: ' btn btn-primary pull-right pt-29') %>
   <% if @admins.present? %>
     <h2 class='heading'>Admin List</h2>
     <div>
@@ -19,17 +19,21 @@
       <tbody>
         <% @admins.each do |admin| %>
           <tr>
-            <td><%= admin.name %></td>
+            <% if admin.company_admin? %>
+              <td><%= admin.name %> (C)</td>
+            <% else %>
+              <td><%= admin.name %></td>
+            <% end %>
             <td><%= admin.email %></td>
             <td>
-              <% if admin.active %>
+              <% if admin.enabled? %>
                 Enabled
               <% else %>
                 Disabled
               <% end %>
             </td>
             <td>
-              <% unless admin.role == 'company_admin' || admin == current_admin %>
+              <% unless check_for_company_or_current_admin(admin) %>
                 <%= link_to('Edit', edit_admin_path(admin)) %> | 
                 <%= link_to_toggle_status(admin) %>
               <% end %>

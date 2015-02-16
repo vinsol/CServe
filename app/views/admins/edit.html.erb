@@ -7,7 +7,6 @@
     <%= f.label :name, 'Name*', class:'col-sm-4 control-label' %>
     <div class='col-sm-8'>
       <%= f.text_field :name, class: 'form-control', :placeholder => 'Name' %>
-      <%= display(@admin.errors[:name]) %>
     </div>
   </div>
   <%= f.submit 'Update', class: 'btn btn-primary btn-len' %>

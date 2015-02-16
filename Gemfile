@@ -17,10 +17,12 @@ gem 'devise',                       '~> 3.4.1'
 group :development, :test do
   gem 'byebug',                     '~> 3.5.1'
   gem 'quiet_assets',               '~> 1.1.0'
-  gem 'letter_opener'
+  gem 'letter_opener',              '~> 1.3.0'
 end
 
 gem 'paperclip',                    '~> 4.2'
 gem 'kaminari',                     '~> 0.16.1'
 gem 'delayed_job_active_record',    '~> 4.0.3'
 gem 'aasm',                         '~> 4.0.8'
+gem 'ransack',                      '~> 1.6.3'
+gem 'tinymce-rails',                '~> 4.1.6'

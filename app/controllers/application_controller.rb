@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  helper_method :current_company
+
   protected
 
   def after_sign_in_path_for(resource)
@@ -12,13 +14,26 @@ class ApplicationController < ActionController::Base
     sign_in_path
   end
 
-  def check_subdomain?
+  def validate_subdomain
     subdomain = request.subdomain
-    if subdomain == 'www'
-      redirect_to root_url(host: Rails.application.config.action_mailer.default_url_options[:host])
-    elsif subdomain.blank? || Company.find_by(subdomain: subdomain).nil?
-      flash[:alert] = 'Get Registered First'
-      redirect_to root_url(host: Rails.application.config.action_mailer.default_url_options[:host])
+    if subdomain.present?
+      if subdomain == 'www'
+        redirect_to root_url(host: Rails.application.config.action_mailer.default_url_options[:host])
+      elsif Company.find_by(subdomain: subdomain).nil?
+        flash[:alert] = 'Get Registered First'
+        redirect_to root_url(host: Rails.application.config.action_mailer.default_url_options[:host])
+      end
+    end
+  end
+
+  def current_company
+    @company ||= Company.find_by(subdomain: request.subdomain)
+  end
+
+  def authenticate_company!
+    unless current_company
+      redirect_to root_url(host: Rails.application.config.action_mailer.default_url_options[:host]),
+      alert: 'Company not found.'
     end
   end
 

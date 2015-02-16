@@ -2,11 +2,12 @@ class Company < ActiveRecord::Base
 
   validates :name, :subdomain, presence: true
   validates :subdomain, uniqueness: { case_sensitive: false },
-    exclusion: { in: %w(www ssh ftp ), message: "%{value} is reserved." },
+    exclusion: { in: RESERVED_SUBDOMAINS, message: "%{value} is reserved." },
     format: { with: REGEX[:subdomain] }, if: -> { subdomain.present? }
 
   has_many :admins, dependent: :destroy
   has_many :tickets, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
   accepts_nested_attributes_for :admins
 

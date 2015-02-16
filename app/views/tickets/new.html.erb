@@ -9,14 +9,12 @@
       <%= f.label :email, 'Email*', class:'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email'  %>
-        <%= display(@ticket.errors[:email]) %>
       </div>
     </div>
     <div class='form-group'>
       <%= f.label :subject, 'Subject*', class: 'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= f.text_field :subject, class: 'form-control', :placeholder => 'Subject' %>
-        <%= display(@ticket.errors[:subject]) %>
       </div>
       <span class='ml-200'>(maximum 100 characters)</span>
     </div>
@@ -24,7 +22,6 @@
       <%= f.label :description, 'Description*', class: 'col-sm-4 control-label' %>
       <div class='col-sm-8'>
         <%= f.text_area :description, rows: '5', class: 'form-control', :placeholder => 'Description' %>
-        <%= display(@ticket.errors[:description]) %>
       </div>
     </div>
     <%= label_tag :document, 'Attachment', class: 'col-sm-4 control-label' %>
@@ -34,14 +31,14 @@
           <div>
             <div class='col-sm-8 attachment'>
               <%= attachment_field.file_field :document, name: 'ticket[attachments_attributes][][document]', class: 'attachments' %>
-              <%= display(@ticket.errors['attachments.document']) %>
             </div>
           </div>
         </div>
       </div>
     <% end %>
     <input id='add' type='button' value='Add More' class='btn btn-primary pull-right'/>
-    <span class='ml-180'>.jpeg,.png,.jpg,.doc,.docx,.xls,.xlsx</span>
+    <span class='ml-180'>.jpeg,.png,.jpg only</span>
     <%= f.submit 'Submit', class: 'btn btn-primary form-control' %>
   <% end %>
 </div>
+<%= javascript_include_tag 'attachment' %>

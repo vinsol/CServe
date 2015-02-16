@@ -12,11 +12,11 @@ Attachment.prototype.bindEvents = function () {
   var _this = this;
   this.addButton.on('click', function() {
     _this.addAttachmentField(_this);
-  })
+  });
 };
 
 Attachment.prototype.addAttachmentField = function (attachment) {
-  count = attachment.count++
+  var count = attachment.count++;
   var $attachmentDiv = $('<div/>', {
     'class': 'col-sm-8 attachment',
   });
@@ -32,8 +32,6 @@ Attachment.prototype.addAttachmentField = function (attachment) {
     'class': 'close remove',
     'data-dismiss': 'alert'
   }).html('×');
-  console.log($removeButton)
-
   $attachmentDiv.append($attachmentField, $removeButton);
   attachment.div.append($attachmentDiv);
 };
