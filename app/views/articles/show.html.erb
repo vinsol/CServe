@@ -1,0 +1,12 @@
+<% content_for :stylesheet do %>
+  <%= stylesheet_link_tag 'tickets/show' %>
+<% end %>
+<div class='container'>
+  <div class='jumbotron'>
+    <h3 class='heading'><%= @article.title %></h2>
+    <div class='description'>
+      <pre><span class='text-size'><b>Description: </b></span></pre>
+      <p class='mt-neg20'><%= sanitize(@article.description) %><p>
+    </div>
+  </div> 
+</div>

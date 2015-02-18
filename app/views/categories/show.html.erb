@@ -3,18 +3,15 @@
 <% end %>
 <div class='container'>
   <%= render 'search_field' %>
-  <h2 class='heading'>Articles</h2>
+  <h2 class='heading'><%= @category.name.capitalize %></h2>
   <% if @articles.present? %>
-    <% if params[:q] && params[:q][:title_or_description_cont].present? %>
-        <h3><%= pluralize(@articles.count, 'result') %> found</h3>
-    <% end %>
     <div class='pagination-info'>
       <p><%= pagination_info @articles %> articles</p>
     </div>
     <table class='table table-striped'>
       <% @articles.each do |article| %>
         <tr>
-          <td class='size'><%= link_to article.title.capitalize, admins_article_path(article) %></td>
+          <td class='size'><%= link_to article.title.capitalize, article_path(article) %></td>
         </tr>
       <% end %>
     </table>

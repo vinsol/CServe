@@ -3,19 +3,18 @@
 <% end %>
 <div class='container'>
   <%= render 'search_field' %>
-  <h2 class='heading'>Articles</h2>
-  <% if @articles.present? %>
-    <% if params[:q] && params[:q][:title_or_description_cont].present? %>
-        <h3><%= pluralize(@articles.count, 'result') %> found</h3>
-    <% end %>
+  <h2 class='heading'>Knowledge Base</h2>
+  <% if @categories.present? %>
     <div class='pagination-info'>
-      <p><%= pagination_info @articles %> articles</p>
+      <p><%= pagination_info @categories %> categories</p>
     </div>
     <table class='table table-striped'>
-      <% @articles.each do |article| %>
+      <% @categories.each do |category| %>
+      <% unless category.articles.empty? %>
         <tr>
-          <td class='size'><%= link_to article.title.capitalize, admins_article_path(article) %></td>
+          <td class='size'><%= link_to category.name.capitalize, category_path(category) %></td>
         </tr>
+      <% end %>
       <% end %>
     </table>
     </ul>
@@ -25,6 +24,6 @@
     <h3>Currently No Articles</h3>
   <% end %>
   <div class='pagination'>
-    <%= paginate @articles %>
+    <%= paginate @categories %>
   </div>
 </div>

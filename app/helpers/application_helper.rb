@@ -17,4 +17,10 @@ module ApplicationHelper
       data: { confirm: "Are you sure you want to #{ action } #{ object.name }?." })
   end
 
+  def article_search_object
+    current_company.articles
+                   .published
+                   .search(params[:q])
+  end
+
 end

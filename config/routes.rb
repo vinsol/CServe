@@ -29,7 +29,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :articles, only: [:index]
+  resources :articles, only: [:index, :show]
+
+  resources :categories, only: [:index, :show]
 
   controller :companies do
     get 'sign_up' => :new
