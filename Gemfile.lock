@@ -216,8 +216,8 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rails_12factor (~> 0.0.3)
   ransack (~> 1.6.3)
-  sass-rails
-  select2-rails
+  sass-rails (~> 5.0.1)
+  select2-rails (~> 3.5.9.3)
   therubyracer (~> 0.12.1)
   thin (~> 1.6.3)
   tinymce-rails (~> 4.1.6)
