@@ -8,4 +8,10 @@ module ArticleHelper
     end
   end
 
+  def category_list
+    current_company.categories.map do |category|
+      [category.name.capitalize, category.id]
+    end
+  end
+
 end

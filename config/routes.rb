@@ -21,6 +21,12 @@ Rails.application.routes.draw do
         patch :unpublish
       end
     end
+    resources :categories, except: :show do
+      member do
+        patch :enable
+        patch :disable
+      end
+    end
   end
 
   resources :articles, only: [:index]

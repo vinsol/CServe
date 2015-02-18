@@ -2,10 +2,13 @@ class Article < ActiveRecord::Base
 
   include AASM
 
+  has_many :categories, through: :articles_categories
+  has_many :articles_categories
+
   belongs_to :company
   belongs_to :admin
 
-  validates :title, :description, presence: :true
+  validates :title, :description, :category_ids, presence: true
   validates :title, length: { maximum: 80 }
 
   delegate :name, to: :admin, prefix: true

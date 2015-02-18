@@ -1,0 +1,10 @@
+<%= form_for([:admins, @category], html: { class: 'form-horizontal article-sign-up-form'}) do |f| %>
+  <div class='form-group'>
+    <%= f.label :name, 'Name*', class:'col-sm-4 control-label' %>
+    <div class='col-sm-8'>
+      <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Name'  %>
+    </div>
+  </div>
+  <%= f.submit class: 'btn btn-primary btn-len' %>
+  <%= link_to 'Cancel', admins_categories_path, class: 'btn btn-danger btn-len pull-right' %>
+<% end %>

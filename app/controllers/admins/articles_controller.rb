@@ -2,7 +2,6 @@ class Admins::ArticlesController < BaseController
 
   layout 'admins'
 
-  skip_before_action :authenticate_admin!
   before_action :load_article, only: [:edit, :update, :destroy, :publish, :unpublish, :show]
 
   def new
@@ -10,9 +9,17 @@ class Admins::ArticlesController < BaseController
   end
 
   def index
-    @articles = current_company.articles
-                               .order('updated_at DESC')
-                               .page(params[:page])
+    @search = current_company.categories
+                             .search(params[:q])
+    if @search.result.count.eql?(1)
+      @articles = @search.result
+                         .first
+                         .articles
+    else
+      @articles = current_company.articles
+    end
+     @articles = @articles.order('updated_at DESC')
+                          .page(params[:page])
   end
 
   def create
@@ -47,19 +54,10 @@ class Admins::ArticlesController < BaseController
     end
   end
 
-  def published
-    @search = current_company.articles
-                        .published
-                        .search(params[:q])
-    @articles = @search.result
-                       .order('updated_at DESC')
-                       .page(params[:page])
-  end
-
   private
 
     def article_params
-      params.require(:article).permit(:title, :description)
+      params.require(:article).permit(:title, :description, category_ids: [])
     end
 
     def load_article

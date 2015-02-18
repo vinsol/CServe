@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211054414) do
+ActiveRecord::Schema.define(version: 20150216113624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(version: 20150211054414) do
   add_index "articles", ["description"], name: "index_articles_on_description", using: :btree
   add_index "articles", ["title"], name: "index_articles_on_title", using: :btree
 
+  create_table "articles_categories", force: :cascade do |t|
+    t.integer "article_id"
+    t.integer "category_id"
+  end
+
+  add_index "articles_categories", ["article_id"], name: "index_articles_categories_on_article_id", using: :btree
+  add_index "articles_categories", ["category_id"], name: "index_articles_categories_on_category_id", using: :btree
+
   create_table "attachments", force: :cascade do |t|
     t.integer  "ticket_id",                         null: false
     t.string   "type",                  limit: 255
@@ -71,6 +79,16 @@ ActiveRecord::Schema.define(version: 20150211054414) do
   end
 
   add_index "attachments", ["ticket_id"], name: "index_attachments_on_ticket_id", using: :btree
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "company_id"
+    t.boolean  "enabled",    default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "categories", ["company_id"], name: "index_categories_on_company_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "text"

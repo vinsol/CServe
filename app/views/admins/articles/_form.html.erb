@@ -8,12 +8,19 @@
     </div>
   </div>
   <div class='form-group'>
+    <%= f.label :category_ids, 'Category*', class:'col-sm-4 control-label' %>
+    <div class='col-sm-8'>
+      <%= f.select(:category_ids, category_list,{}, { multiple: true, class: 'select' }) %>
+    </div>
+  </div>
+  <div class='form-group'>
     <%= f.label :description, 'Description*', class:'col-sm-4 control-label' %>
   </div>
-    <div class='col-sm-12 pd-0'>
-      <%= f.text_area :description, size: '10x9', class: 'form-control tinymce' %>
-    </div>
+  <div class='col-sm-12 mb-20'>
+    <%= f.text_area :description, size: '10x9', class: 'form-control tinymce' %>
+  </div>
   <%= f.submit class: 'btn btn-primary btn-len' %>
   <%= link_to 'Cancel', admins_articles_path, class: 'btn btn-danger btn-len pull-right' %>
 <% end %>
 <%= tinymce %>
+<%= javascript_include_tag 'article' %>

@@ -1,5 +1,12 @@
 <div class='container'>
   <%= link_to('Create Article', new_admins_article_path, class: ' btn btn-primary pull-right pt-29') %>
+    <div class='search pull-left mt-10' %>
+      <%= search_form_for @search, url: admins_articles_path do |f| %>
+        <%= f.label :id_eq, 'Search by Category : ' %>
+        <%= f.select(:id_eq, category_list, { include_blank: 'All' }, { class: 'select' }) %>
+        <%=  f.submit 'Search', class: 'btn btn-primary' %>
+      <% end %>
+    </div><br />
   <% if @articles.present? %>
     <h2 class='heading'>Articles List</h2>
     <div>
@@ -12,6 +19,7 @@
         <tr>
           <th>#ID</th>
           <th>Title</th>
+          <th>Category</th>
           <th>Status</th>
           <th>Updated At</th>
           <th>Actions</th>
@@ -22,6 +30,18 @@
           <tr>
             <td><%= article.id %></td>
             <td><%= article.title.truncate(30) %></td>
+            <td>
+              <span class='category'>
+                <%= article.categories.map(&:name).join(',').truncate(30) %>
+                <% if article.categories.count > 3 %>
+                  <a href="#">read more</a>
+                <% end %>
+              </span>
+              <span class='category' style='display:none'>
+                <%= article.categories.map(&:name).join(',') %>
+                <a href="#">read less</a>
+              </sapn>
+            </td>
             <td><%= article.state.capitalize %></td>
             <td><%= article.updated_at.to_s(:long) %></td>
             <td><%= link_to 'View', admins_article_path(article) %> | <%= link_to 'Edit', edit_admins_article_path(article) %> | <%= link_to 'Delete', admins_article_path(article), method: :delete, data: { confirm: 'Are you sure yo want to delete the ticket, press ok to continue.' } %></td>
@@ -36,3 +56,4 @@
     <h2 class='heading'>Currently no articles</h2>
   <% end %>
 </div>
+<%= javascript_include_tag 'article' %>

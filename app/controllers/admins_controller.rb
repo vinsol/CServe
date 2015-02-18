@@ -35,6 +35,7 @@ class AdminsController < BaseController
   end
 
   def enable
+    debugger
     @admin.update(enabled: true)
     redirect_to request.referer, notice: 'Admin Enabled'
   end

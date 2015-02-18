@@ -50,9 +50,10 @@
           </button>
           <% if admin_signed_in? %>
             <%= link_to current_company.name, admins_path, class: 'navbar-brand topnav text-size' %>
-            <%= link_to 'Admins', admins_path, class: "navbar-brand topnav link #{ add_active_class(controller_name, 'admins') }" %>
-            <%= link_to 'Tickets', tickets_path, class: "navbar-brand topnav link #{ add_active_class(controller_name, 'tickets') }" %>
-            <%= link_to 'Articles', admins_articles_path, class: "navbar-brand topnav link #{ add_active_class(controller_name, 'articles') }" %>
+            <%= link_to 'Admins', admins_path, class: "navbar-brand topnav link #{ add_active_class('admins') }" %>
+            <%= link_to 'Tickets', tickets_path, class: "navbar-brand topnav link #{ add_active_class('tickets') }" %>
+            <%= link_to 'Articles', admins_articles_path, class: "navbar-brand topnav link #{ add_active_class('articles') }" %>
+            <%= link_to 'Categories', admins_categories_path, class: "navbar-brand topnav link #{ add_active_class('categories') }" %>
           <% else %>
             <%= link_to current_company.name, articles_path, class: 'navbar-brand topnav text-size' %>
           <% end %>
