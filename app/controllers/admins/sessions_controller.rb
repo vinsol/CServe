@@ -1,5 +1,7 @@
 class Admins::SessionsController < Devise::SessionsController
-  layout 'admins', only: [:new]
+  
+  layout 'admins', only: :new
+
   before_action :validate_subdomain
   before_action :check_admin_company_and_status, only: [:create]
 

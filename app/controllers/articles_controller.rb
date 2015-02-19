@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
   end
 
   private
+
     def load_article
       @article =  current_company.articles.find_by(id: params[:id])
       redirect_to request.referer, alert: 'Article not found.' unless @article

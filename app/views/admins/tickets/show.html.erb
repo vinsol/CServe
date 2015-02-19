@@ -3,7 +3,28 @@
 <% end %>
 <div class='container'>
   <div class='jumbotron'>
-    <h3 class='heading'><%= @ticket.subject %></h2>
+      <h3 class='heading'><%= @ticket.subject %></h2>
+      <div class='mt-neg50 pull-right'>
+        <p class='small-size'><b>Status:</b> <%= @ticket.state.capitalize %></p>
+        <% if @ticket.unassigned? || @ticket.may_resolve? %>
+          <div class='mt-10'>
+              <%= form_for(@ticket, url: "#{ set_url(@ticket) }") do |f| %>
+              <%= f.label :admin_id, 'Assignee : '  %>
+              <%= f.select :admin_id, options_for_select(admin_list, @ticket.admin_id), prompt: 'Select Assiginee' %>
+              <%= f.submit 'Assign', class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+        <% end %>
+        <% if @ticket.may_resolve? %>
+          <div>
+            <%= link_to 'Resolve', resolve_admins_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Resolve the ticket?.' }, method: :patch %>
+            <%= link_to 'Close', close_admins_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
+          </div>
+        <% elsif @ticket.may_reopen? %>
+          <%= link_to 'Reassign', reopen_admins_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Reassign the ticket to yourself?.' }, method: :patch %>
+          <%= link_to 'Close', close_admins_ticket_path(@ticket), class: 'btn btn-primary', data: { confirm: 'Are you sure you want to Close the ticket?.' }, method: :patch %>
+        <% end %>
+      </div>
     <i><%= @ticket.email %>, <%= @ticket.created_at.to_s(:long) %></i>
     <div class='description'>
       <p><span class='text-size'><b>Description: </b></span><%= @ticket.description %></p>
@@ -45,13 +66,20 @@
       <% end %>
     </div>
     <% if @ticket.may_resolve? || @ticket.may_assign? || @ticket.may_close? %>
-      <%= form_for(@ticket.comments.build, url: ticket_comments_path(@ticket)) do |f| %>
+      <%= form_for(@ticket.comments.build, url: admins_ticket_comments_path(@ticket)) do |f| %>
         <%= f.text_area :text, rows: '5', class: 'form-control', placeholder: 'Comment here...' %><br />
+        <div class='btn-group' data-toggle='buttons'>
+          <label class='btn btn-success'>
+            <%= f.radio_button(:public, 'false') %><span>Internal</span>
+          </label>
+          <label class='btn btn-success active'>
+            <%= f.radio_button(:public, 'true', checked: true) %><span>Public</span>
+          </label>
+        </div>
         <%= f.submit 'Submit', class: 'btn btn-primary' %>
       <% end %>
     <% else %>
-      <p class='color'>Your ticket's status is <%= @ticket.state %>. So you are not allowed to make any further comment. If you are having any other query, please create a new ticket.</p>
-      <%= link_to 'New Ticket', new_ticket_path, class: 'btn btn-primary' %>
+      <p class='color'>Status of the ticket is <%= @ticket.state %>, so you are not allowed to make any further comment.</p>
     <% end %>
   </div>
 </div>

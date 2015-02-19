@@ -1,18 +1,18 @@
 <div class='container'>
   <ul class='nav nav-tabs pt-29'>
-    <li class=<%= add_active(@search) %>><%= link_to 'All', tickets_path %></li>
-    <li class=<%= add_active(params[:status]) %>><%= link_to 'New', tickets_path(status: :unassigned) %></li>
+    <li class=<%= add_active(@search) %>><%= link_to 'All', admins_tickets_path %></li>
+    <li class=<%= add_active(params[:status]) %>><%= link_to 'New', admins_tickets_path(status: :unassigned) %></li>
   </ul><br />
   <% if @search %>
     <div class='search pull-left' %>
-      <%= search_form_for @search do |f| %>
+      <%= search_form_for @search, url: admins_tickets_path do |f| %>
         <%= f.label :email_eq, 'Search by Email : ' %>
         <%= f.email_field :email_eq %>
         <%=  f.submit 'Search', class: 'btn btn-primary' %>
       <% end %>
     </div><br />
     <div class='pull-right mt-neg15'>
-      <%= search_form_for @search do |f| %>
+      <%= search_form_for @search, url: admins_tickets_path do |f| %>
         <%= f.label 'Assignee: ' %>
         <%= f.select :admin_id_eq, company_admins, include_blank: 'All' %>
         <%= f.label 'Status: ' %>
@@ -52,11 +52,7 @@
               <% end %>
               <td><%= ticket.updated_at.to_s(:long) %></td>
               <td>
-                <% if ticket.admin %>
-                  <%= link_to 'View', ticket_path(ticket) %>
-                <% else %>
-                  <%= link_to 'View', ticket_path(ticket) %>
-                <% end %>
+                <%= link_to 'View', admins_ticket_path(ticket) %>
               </td>
             </tr>
           <% end %>

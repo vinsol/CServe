@@ -27,6 +27,16 @@ Rails.application.routes.draw do
         patch :disable
       end
     end
+    resources :tickets, only: [:index, :show] do
+      member do
+        patch :resolve
+        patch :close
+        patch :reopen
+        patch :assign
+        patch :reassign
+      end
+      resources :comments, only: :create
+    end
   end
 
   resources :articles, only: [:index, :show]
@@ -38,15 +48,8 @@ Rails.application.routes.draw do
     post 'sign_up' => :create
   end
 
-  resources :tickets, only: [:create, :index, :show, :new] do
-    member do
-      patch :resolve
-      patch :close
-      patch :reopen
-      patch :assign
-      patch :reassign
-    end
-    resources :comments, only: [:create]
+  resources :tickets, only: [:create, :show, :new] do
+    resources :comments, only: :create
   end
 
   devise_scope :admin do
@@ -54,7 +57,7 @@ Rails.application.routes.draw do
     delete '/sign_out', to: 'admins/sessions#destroy'
   end
 
-  match '/' => 'articles#index', constraints: { subdomain: /.+/ }, via: :all
+  match '/' => 'categories#index', constraints: { subdomain: /.+/ }, via: :all
 
   root 'application#index'
 

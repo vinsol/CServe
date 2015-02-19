@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
 
   layout 'user'
 
+  before_action :validate_subdomain
   before_action :load_category, only: :show
 
   def index

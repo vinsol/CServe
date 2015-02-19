@@ -16,6 +16,6 @@ module TicketHelper
   end
 
   def set_url(ticket)
-    ticket.unassigned? ? assign_ticket_path : reassign_ticket_path
+    ticket.unassigned? ? assign_admins_ticket_path : reassign_admins_ticket_path
   end
 end
