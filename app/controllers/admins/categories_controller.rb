@@ -23,7 +23,7 @@ class Admins::CategoriesController < BaseController
     end
   end
 
-    def update
+  def update
     if @category.update(category_params)
       redirect_to admins_categories_path, notice: 'Category Updated'
     else
