@@ -4,15 +4,21 @@
     <div class='form-group'>
       <%= company_form.label :name, 'Company Name*', class:'col-sm-4 control-label' %>
       <div class='col-sm-8'>
-        <%= company_form.text_field :name, autofocus: true, class: 'form-control', :placeholder => 'Company Name' %>
+        <%= company_form.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Company Name' %>
       </div>
     </div>
     <div class='form-group'>
       <%= company_form.label :subdomain, 'Company Subdomain*', class:'col-sm-4 control-label' %>
       <div class='col-sm-8'>
-        <%= company_form.text_field :subdomain, class: 'form-control', :placeholder => 'Company Subdomain' %>
+        <%= company_form.text_field :subdomain, class: 'form-control', placeholder: 'Company Subdomain' %>
       </div>
       <span class='ml-20'>(alphabets, numerics, '_' and '-' are allowed)</span>
+    </div>
+    <div class='form-group'>
+      <%= company_form.label :support_email, 'Company Support Email*', class:'col-sm-4 control-label' %>
+      <div class='col-sm-8'>
+        <%= company_form.email_field :support_email, class: 'form-control', placeholder: 'Company Support Email' %>
+      </div>
     </div>
     <%= company_form.fields_for :admins do |f| %>
       <div class='form-group'>
@@ -24,7 +30,7 @@
       <div class='form-group'>
         <%= f.label :name, 'Admin name*', class:'col-sm-4 control-label' %>
         <div class='col-sm-8'>
-          <%= f.text_field :name, class: 'form-control', :placeholder => 'Admin Name' %>
+          <%= f.text_field :name, class: 'form-control', placeholder: 'Admin Name' %>
         </div>
       </div>
       <div class='form-group'>

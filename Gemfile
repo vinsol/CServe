@@ -28,3 +28,4 @@ gem 'ransack',                      '~> 1.6.3'
 gem 'tinymce-rails',                '~> 4.1.6'
 gem 'select2-rails',                '~>3.5.9.3'
 gem 'sass-rails',                   '~>5.0.1'
+gem 'mailman',                      '~>0.7.2',                     require: true

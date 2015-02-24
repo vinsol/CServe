@@ -25,7 +25,7 @@
                   <td style='font-size: 12px; font-family: Arial; font-style: normal;font-variant: normal; padding: 8px; text-align: left;'>
                     <p>Welcome <%= @resource.name %></p>
                     <p>Your Company(<%= @resource.company.name %>) has been successfully registered. You can confirm your account email through the link below:</p>
-                    <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token, host: host_with(@resource.subdomain)) %></p>
+                    <p><%= link_to 'Confirm my account', admin_confirmation_url(confirmation_token: @token, host: host_with(@resource.subdomain)) %></p>
                     <p>Login Link for further refrence: <%= sign_in_url(host: host_with(@resource.subdomain)) %></p><br />
                     <div><p>Regards
                     <p>CServe</p></div>

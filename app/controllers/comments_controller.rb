@@ -5,8 +5,7 @@ class CommentsController < ApplicationController
   before_action :ensure_correct_company
 
   def create
-    @comment = @ticket.comments.build(comment_params.merge(public: true))
-    @comment.set_commenter_email(current_admin, @ticket)
+    @comment = @ticket.comments.build(comment_params.merge(public: true, commenter_email: @ticket.email))
     if @comment.save
       redirect_to ticket_path(@ticket), notice: 'Successfully commented'
     else

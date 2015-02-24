@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216113624) do
+ActiveRecord::Schema.define(version: 20150224060003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,10 +102,12 @@ ActiveRecord::Schema.define(version: 20150216113624) do
   add_index "comments", ["ticket_id"], name: "index_comments_on_ticket_id", using: :btree
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "subdomain",  limit: 255
+    t.string   "name",               limit: 255
+    t.string   "subdomain",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "support_email"
+    t.string   "confirmation_token"
   end
 
   add_index "companies", ["subdomain"], name: "index_companies_on_subdomain", unique: true, using: :btree
@@ -135,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150216113624) do
     t.datetime "updated_at"
     t.integer  "admin_id"
     t.string   "state",                   default: "unassigned"
+    t.string   "unique_id"
   end
 
   add_index "tickets", ["admin_id"], name: "index_tickets_on_admin_id", using: :btree

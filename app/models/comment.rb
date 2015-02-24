@@ -11,10 +11,6 @@ class Comment < ActiveRecord::Base
 
   before_save :replace_new_line
 
-  def set_commenter_email(admin, ticket)
-    self.commenter_email = admin ? admin.email : ticket.email
-  end
-
   private
     def notify_user
       ticket = self.ticket

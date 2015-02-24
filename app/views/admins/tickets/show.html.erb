@@ -58,6 +58,9 @@
               <td>
                 <span><b><i><%= comment.commenter_email %></i>,
                    <i><%= comment.created_at.to_s(:long) %></i></b></span>
+                <% if !comment.public? %>
+                  <span>(Internal)</span>
+                <% end %>
                 <p><%= sanitize(comment.text) %></p>
               </td>
             </tr>

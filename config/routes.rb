@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   controller :companies do
     get 'sign_up' => :new
     post 'sign_up' => :create
+    get :support_eamil_confirmation
   end
 
   resources :tickets, only: [:create, :show, :new] do

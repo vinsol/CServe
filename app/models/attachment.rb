@@ -1,9 +1,7 @@
 class Attachment < ActiveRecord::Base
 
   has_attached_file :document,
-                    style: { thumb: '100x100' },
-                    url: '/system/:class/:attachment/:id/:style/:basename.:extension',
-                    path: 'public/system/:class/:attachment/:id/:style/:basename.:extension'
+                    style: { thumb: '100x100' }
 
   belongs_to :ticket
 

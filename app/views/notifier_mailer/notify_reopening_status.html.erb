@@ -1,3 +1,5 @@
+<p style='color:grey'>Write ABOVE THIS LINE to post a reply #<%= @ticket.unique_id %>#</p>
+
 <p>Hi</p>
 
 <p>Your request #<%= link_to "#{ @ticket.id }", ticket_url(@ticket, host: host_with(@ticket.company_subdomain)) %> has been reopened.</p>

@@ -10,3 +10,5 @@ en:
     set_password_instructions: 'Set Password for your account'
   user:
     feedback_instructions: '[%{company}] (#%{ticket}) %{subject}'
+  company:
+    confirmations_instructions: 'Confirmation Instructions'

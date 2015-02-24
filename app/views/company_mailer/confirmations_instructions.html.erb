@@ -11,7 +11,7 @@
             <table style='width: 100%;'>
               <tbody>
                 <tr>
-                  <td style='font-size: 12px; font-weight: bold; color: #fff; line-height: 1.5em; font-family: Helvetica, Arial, sans-serif; width: 100%; text-align: center; background: #98c332; padding: 8px; margin: 4px;'>Reset Password Instructions</td>
+                  <td style='font-size: 12px; font-weight: bold; color: #fff; line-height: 1.5em; font-family: Helvetica, Arial, sans-serif; width: 100%; text-align: center; background: #98c332; padding: 8px; margin: 4px;'>Confirmation Instructions</td>
                 </tr>
               </tbody>
             </table>
@@ -23,10 +23,15 @@
               <tbody>
                 <tr>
                   <td style='font-size: 12px; font-family: Arial; font-style: normal;font-variant: normal; padding: 8px; text-align: left;'>
-                    <p>Hello <%= @resource.name %>(<%= @resource.company.name %>)</p>
-                    <p>Someone has requested a link to change your password. You can do this through the link below.</p>   
-                    <p><%= link_to 'Change my password', edit_password_url(@resource, reset_password_token: @token, host: host_with(@resource.subdomain)) %></p>
-                    <div><p>Regards
+                    <p>Hello <%= @company.name %></p>
+                    <p>You neeed confirm your Email Id and forward your mails. 
+                      To Forward mails follow the following steps.</p>
+                    <p>1. Go to setting > Forwarding and POP/IMAP
+                       2. Forward a copy of incoming mail to "akshay.chhikara@vinsol.com"
+                       3. Enter code : Code will be available in other mail after Step 2.</p>
+                    <p>Click <%= link_to 'here', support_eamil_confirmation_url(confirmation_token: @token, host: host_with(@company.subdomain)) %> to confirm your contact email</p>
+                    <p>Login Link for further refrence: <%= sign_in_url(host: host_with(@company.subdomain)) %></p>
+                    <div><p>Thanks</p>
                     <p>CServe</p></div>
                   </td>
                 </tr>

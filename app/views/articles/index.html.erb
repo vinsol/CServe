@@ -14,7 +14,7 @@
     <table class='table table-striped'>
       <% @articles.each do |article| %>
         <tr>
-          <td class='size'><%= link_to article.title.capitalize, admins_article_path(article) %></td>
+          <td class='size'><%= link_to article.title.capitalize, article_path(article) %></td>
         </tr>
       <% end %>
     </table>
