@@ -18,6 +18,9 @@ group :development, :test do
   gem 'byebug',                     '~> 3.5.1'
   gem 'quiet_assets',               '~> 1.1.0'
   gem 'letter_opener',              '~> 1.3.0'
+  gem 'capistrano',                 '~>3.4.0'
+  gem 'capistrano-bundler',         '~>1.1.4'
+  gem 'capistrano-rails',           '~>1.1.2'
 end
 
 gem 'paperclip',                    '~> 4.2'
@@ -29,3 +32,4 @@ gem 'tinymce-rails',                '~> 4.1.6'
 gem 'select2-rails',                '~>3.5.9.3'
 gem 'sass-rails',                   '~>5.0.1'
 gem 'mailman',                      '~>0.7.2',                     require: true
+gem 'unicorn',                      '~>4.8.3'
