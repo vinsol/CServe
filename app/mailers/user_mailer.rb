@@ -1,7 +1,6 @@
 class UserMailer < ApplicationMailer
 
   def feedback_instructions(ticket)
-    headers[:ticket] = ticket.id
     ticket.attachments.each do |attachment|
       attachments[attachment.document_file_name] = File.read(attachment.document.path)
     end

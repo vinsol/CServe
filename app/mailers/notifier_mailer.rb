@@ -1,9 +1,6 @@
 class NotifierMailer < ApplicationMailer
 
   def notify_comment(comment, ticket)
-    headers {
-      ticket_unique_id: ticket.id
-    }
     @ticket, @comment = ticket, comment
     mail(to: @ticket.email,
       reply_to: "#{ @ticket.company_support_email }",
@@ -13,9 +10,6 @@ class NotifierMailer < ApplicationMailer
 
   %w(update resolving closing reopening).each do |_method_|
     define_method("notify_#{ _method_ }_status") do |ticket|
-      headers {
-        ticket_unique_id: ticket.id
-      }
       @ticket = ticket
       mail(to: @ticket.email,
         reply_to: "#{ @ticket.company_support_email }",
@@ -25,9 +19,6 @@ class NotifierMailer < ApplicationMailer
   end
 
   def assignment_notification(ticket)
-    headers {
-      ticket_unique_id: ticket.id
-    }
     @ticket = ticket
     mail(to: @ticket.admin_email,
       reply_to: "#{ @ticket.company_support_email }",
